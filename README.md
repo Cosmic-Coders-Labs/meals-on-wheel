@@ -15,7 +15,7 @@ Ensure you have the following installed on your system:
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/saihanhtet/meals-on-wheel.git
+   git clone https://github.com/Cosmic-Coders-Labs/meals-on-wheel.git
    cd meals-on-wheel
    ```
 

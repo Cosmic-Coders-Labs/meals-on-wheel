@@ -7,7 +7,7 @@ Follow these simple steps to set up the frontend development environment:
 1. **Clone the Repository**
    If you haven't already done so, clone the repository and navigate to the project folder:
    ```bash
-   git clone https://github.com/saihanhtet/meals-on-wheel.git
+   git clone https://github.com/Cosmic-Coders-Labs/meals-on-wheel.git
    cd meals-on-wheel
    ```
 
