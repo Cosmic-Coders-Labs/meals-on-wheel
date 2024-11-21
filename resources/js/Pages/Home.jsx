@@ -3,8 +3,7 @@ import React from 'react'
 const Home = () => {
   return (
     <div className="container">
-      <div className='text-cyan-300'>Hello User. Home Page</div>
-      <p className="">helo friend</p>
+     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet quasi reiciendis, nostrum labore, dolor ab accusamus vero ipsum ducimus quam culpa nisi neque obcaecati. In aliquid ipsam expedita perspiciatis facilis.</p>
     </div>
   )
 }
