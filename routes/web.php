@@ -11,3 +11,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return inertia('Home');
 });
+
+Route::get('/member/register', function () {
+    return inertia('features/auth/pages/MemberRegisterPage');
+});
+
+Route::get('/member/login', function () {
+    return inertia('features/auth/pages/MemberLoginPage');
+});
