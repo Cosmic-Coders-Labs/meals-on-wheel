@@ -1,10 +1,14 @@
 import React from 'react'
+import Header from './Components/Header';
+import Footer from './Components/Footer';
 
 const Home = () => {
   return (
-    <div className="container">
-     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet quasi reiciendis, nostrum labore, dolor ab accusamus vero ipsum ducimus quam culpa nisi neque obcaecati. In aliquid ipsam expedita perspiciatis facilis.</p>
-    </div>
+    <main className=' flex flex-col min-h-screen'>
+      <Header />
+      <h1 className=' container mx-auto'>Home</h1>
+      <Footer />
+    </main>
   )
 }
 
