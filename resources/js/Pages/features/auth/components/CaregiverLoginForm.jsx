@@ -2,8 +2,7 @@ import { Link } from "@inertiajs/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
-
-const MemberLoginForm = () => {
+const CaregiverLoginForm = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const {
@@ -12,7 +11,7 @@ const MemberLoginForm = () => {
         formState: { errors },
     } = useForm();
 
-    const handleMemberLogin = (data) => {
+    const handleCaregiverLogin = (data) => {
         console.log(data);
     };
 
@@ -32,7 +31,7 @@ const MemberLoginForm = () => {
                 {/* Form */}
                 <form
                     className="mt-8 space-y-6"
-                    onSubmit={handleSubmit(handleMemberLogin)}
+                    onSubmit={handleSubmit(handleCaregiverLogin)}
                 >
                     <div className="space-y-4">
                         {/* Email Field */}
@@ -187,4 +186,4 @@ const MemberLoginForm = () => {
     );
 };
 
-export default MemberLoginForm;
+export default CaregiverLoginForm;
