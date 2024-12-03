@@ -19,3 +19,7 @@ Route::get('/member/register', function () {
 Route::get('/member/login', function () {
     return inertia('features/auth/pages/MemberLoginPage');
 });
+
+Route::get('/donor/donate', function () {
+    return inertia('features/donate/pages/DonationPage');
+});
