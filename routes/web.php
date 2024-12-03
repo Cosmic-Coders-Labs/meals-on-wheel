@@ -31,3 +31,19 @@ Route::get('/partner/login', function () {
 Route::get('/volunteer/login', function () {
     return inertia('features/auth/pages/VolunteerLoginPage');
 });
+
+Route::get('/member/register', function () {
+    return inertia('features/auth/pages/MemberRegisterPage');
+});
+
+Route::get('/caregiver/register', function () {
+    return inertia('features/auth/pages/CaregiverRegisterPage');
+});
+
+Route::get('/partner/register', function () {
+    return inertia('features/auth/pages/PartnerRegisterPage');
+});
+
+Route::get('/volunteer/register', function () {
+    return inertia('features/auth/pages/VolunteerRegisterPage');
+});

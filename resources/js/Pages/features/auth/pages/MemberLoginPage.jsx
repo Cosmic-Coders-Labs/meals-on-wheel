@@ -2,8 +2,8 @@ import React from "react";
 import Header from "../../../Components/Header";
 import Footer from "../../../Components/Footer";
 import { FaUserCircle } from "react-icons/fa";
-import MemberLoginForm from "../components/MemberLoginForm";
 import LoginBtns from "../components/LoginBtns";
+import LoginForm from "../components/LoginForm";
 
 const MemberLoginPage = () => {
     return (
@@ -19,10 +19,15 @@ const MemberLoginPage = () => {
                 </div>
 
                 {/* login form */}
-                <MemberLoginForm />
+                {/* <MemberLoginForm /> */}
+                <LoginForm
+                    email="memberEmail"
+                    password="memberPassword"
+                    link="/member/register"
+                />
 
                 {/* 3 buttons */}
-                <LoginBtns currentLogin={"member"}/>
+                <LoginBtns currentLogin={"member"} />
             </div>
             <Footer />
         </section>

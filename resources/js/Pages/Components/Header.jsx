@@ -1,6 +1,5 @@
 import { Link } from "@inertiajs/react";
 import React from "react";
-import { FaHandHoldingHeart } from "react-icons/fa";
 import logo from "../../../assets/logo.png"
 
 const Header = () => {
@@ -10,7 +9,7 @@ const Header = () => {
                 {/* left side */}
                 <div className="flex items-center gap-2">
                     <Link href="/" className="flex items-center space-x-2">
-                        <img src={logo} className="size-16" alt="logo" />
+                        <img src={logo} className="size-12" alt="logo" />
                         <span className="text-xl font-bold text-secondary-400">
                             Meals On Wheel
                         </span>

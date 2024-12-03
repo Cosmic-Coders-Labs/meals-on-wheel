@@ -2,8 +2,8 @@ import React from "react";
 import Header from "../../../Components/Header";
 import Footer from "../../../Components/Footer";
 import { FaUserNurse } from "react-icons/fa";
-import CaregiverLoginForm from "../components/CaregiverLoginForm";
 import LoginBtns from "../components/LoginBtns";
+import LoginForm from "../components/LoginForm";
 const CaregiverLoginPage = () => {
     return (
         <section className="flex flex-col min-h-screen">
@@ -18,10 +18,14 @@ const CaregiverLoginPage = () => {
                 </div>
 
                 {/* login form */}
-                <CaregiverLoginForm />
+                <LoginForm
+                    email="caregiverEmail"
+                    password="caregiverPassword"
+                    link="/caregiver/register"
+                />
 
                 {/* 3 buttons */}
-                <LoginBtns currentLogin={"caregiver"}/>
+                <LoginBtns currentLogin={"caregiver"} />
             </div>
             <Footer />
         </section>

@@ -2,7 +2,6 @@ import { Link } from "@inertiajs/react";
 import React from "react";
 import {
     FaFacebook,
-    FaHandHoldingHeart,
     FaInstagram,
     FaTwitter,
 } from "react-icons/fa";

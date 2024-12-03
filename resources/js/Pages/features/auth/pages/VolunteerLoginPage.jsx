@@ -2,8 +2,8 @@ import React from "react";
 import Header from "../../../Components/Header";
 import Footer from "../../../Components/Footer";
 import LoginBtns from "../components/LoginBtns";
-import VolunteerLoginForm from "../components/VolunteerLoginForm";
 import { MdVolunteerActivism } from "react-icons/md";
+import LoginForm from "../components/LoginForm";
 
 const VolunteerLoginPage = () => {
     return (
@@ -19,7 +19,11 @@ const VolunteerLoginPage = () => {
                 </div>
 
                 {/* login form */}
-                <VolunteerLoginForm />
+                <LoginForm
+                    email="volunteerEmail"
+                    password="volunteerPassword"
+                    link="/volunteer/register"
+                />
 
                 {/* 3 buttons */}
                 <LoginBtns currentLogin={"volunteer"} />
