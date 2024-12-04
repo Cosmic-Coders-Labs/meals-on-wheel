@@ -8,64 +8,22 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     use HasFactory;
-
     protected $table = 'members';
-    protected $primaryKey = 'MemberID';
-    protected $fillable = [
-        'Name',
-        'Age',
-        'Address',
-        'Phone',
-        'DietaryRequirements',
-        'RegistrationDate',
-        'CaregiverID'
-    ];
+    protected $primaryKey = 'member_id';
+    protected $fillable = ['eligebility', 'needs', 'allergies', 'user_id'];
 
-    public function caregiver()
+    public static function validationRules()
     {
-        return $this->belongsTo(Caregiver::class, 'CaregiverID');
+        return [
+            'eligebility' => 'required|string',
+            'needs' => 'required|string',
+            'allergies' => 'nullable|string',
+            'user_id' => 'nullable|exists:users,id',
+        ];
     }
 
-    public function deliveries()
+    public function getUser()
     {
-        return $this->hasMany(Delivery::class, 'MemberID');
-    }
-
-    public function feedbacks()
-    {
-        return $this->hasMany(Feedback::class, 'MemberID');
-    }
-
-    /**
-     * Get the member's full name.
-     * Example of an accessor method.
-     */
-    public function getFullNameAttribute()
-    {
-        return $this->Name; // Just an example, assuming Name contains full name
-    }
-
-    /**
-     * Scope to filter members by age range.
-     */
-    public function scopeAgeRange($query, $minAge, $maxAge)
-    {
-        return $query->whereBetween('Age', [$minAge, $maxAge]);
-    }
-
-    /**
-     * Scope to search for members by phone number.
-     */
-    public function scopeSearchByPhone($query, $phone)
-    {
-        return $query->where('Phone', 'like', '%' . $phone . '%');
-    }
-
-    /**
-     * Scope to filter members by registration date.
-     */
-    public function scopeRegisteredAfter($query, $date)
-    {
-        return $query->where('RegistrationDate', '>', $date);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

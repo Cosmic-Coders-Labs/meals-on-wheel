@@ -11,22 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('donors')) {
-            Schema::create('donors', function (Blueprint $table) {
-                $table->id('DonorID');
-                $table->string('Name', 100);
-                $table->string('Email', 100)->unique();
-                $table->decimal('DonationAmount', 10, 2);
-                $table->date('DonationDate');
+        if (!Schema::hasTable('members')) {
+            Schema::create('members', function (Blueprint $table) {
+                $table->id();
                 $table->timestamps();
             });
         }
     }
+
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('donors');
+        Schema::dropIfExists('members');
     }
 };

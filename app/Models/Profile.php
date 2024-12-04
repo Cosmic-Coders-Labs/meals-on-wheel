@@ -5,29 +5,33 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Partner extends Model
+class Profile extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'partner_name',
-        'partner_registered_by',
+        'first_name',
+        'last_name',
+        'age',
+        'gender',
+        'birthday',
+        'contact_number',
         'address',
-        'business_license',
         'user_id',
     ];
-
     public static function validationRules()
     {
         return [
-            'partner_name' => 'required|string',
-            'partner_registered_by' => 'required|string',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'age' => 'required|integer|min:0',
+            'gender' => 'required|string',
+            'birthday' => 'required|date',
+            'contact_number' => 'required|string',
             'address' => 'required|string',
-            'business_license' => 'required|string',
             'user_id' => 'nullable|exists:users,id',
         ];
     }
-
 
     public function user()
     {

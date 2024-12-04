@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Database\Helpers\SchemaDefinitions;
 
+
 return new class extends Migration
 {
     /**
@@ -12,13 +13,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cache', function (Blueprint $table) {
-            SchemaDefinitions::createCache($table);
-        });
-
-        Schema::create('cache_locks', function (Blueprint $table) {
-            SchemaDefinitions::createCacheLocks($table);
-        });
+        if (!Schema::hasTable('caregivers_to_members')) {
+            Schema::create('caregivers_to_members', function (Blueprint $table) {
+                SchemaDefinitions::createCaregiversToMembers($table);
+            });
+        }
     }
 
     /**
@@ -26,7 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cache');
-        Schema::dropIfExists('cache_locks');
+        Schema::dropIfExists('caregivers_to_members');
     }
 };
