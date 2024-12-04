@@ -1,4 +1,4 @@
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
@@ -14,8 +14,10 @@ const VolunteerRegisterForm = () => {
         watch,
     } = useForm();
 
-    const handleCaregiverRegister = (data) => {
+    const handleVolunteerRegister = (data) => {
         console.log(data);
+
+        router.visit("/volunteer/login");
     };
 
     return (
@@ -34,7 +36,7 @@ const VolunteerRegisterForm = () => {
                 {/* Form */}
                 <form
                     className="mt-8 space-y-6"
-                    onSubmit={handleSubmit(handleCaregiverRegister)}
+                    onSubmit={handleSubmit(handleVolunteerRegister)}
                 >
                     <div className="space-y-4 flex flex-col gap-3">
                         {/* Name Field */}

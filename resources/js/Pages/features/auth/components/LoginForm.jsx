@@ -1,4 +1,4 @@
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
@@ -14,6 +14,8 @@ const LoginForm = ({ email, password, link }) => {
 
     const handleMemberLogin = (data) => {
         console.log(data);
+
+        router.visit("/");
     };
 
     return (

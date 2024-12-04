@@ -1,4 +1,4 @@
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
@@ -16,6 +16,8 @@ const MemberRegisterForm = () => {
 
     const handleMemberRegister = (data) => {
         console.log(data);
+
+        router.visit("/member/login");
     };
 
     return (
