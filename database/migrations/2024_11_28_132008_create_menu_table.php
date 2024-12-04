@@ -5,6 +5,8 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Database\Helpers\SchemaDefinitions;
 
+
+
 return new class extends Migration
 {
     /**
@@ -12,13 +14,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cache', function (Blueprint $table) {
-            SchemaDefinitions::createCache($table);
-        });
-
-        Schema::create('cache_locks', function (Blueprint $table) {
-            SchemaDefinitions::createCacheLocks($table);
-        });
+        if (!Schema::hasTable('menu')) {
+            Schema::create('menu', function (Blueprint $table) {
+                SchemaDefinitions::createMenu($table);
+            });
+        }
     }
 
     /**
@@ -26,7 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cache');
-        Schema::dropIfExists('cache_locks');
+        Schema::dropIfExists('menu');
     }
 };
