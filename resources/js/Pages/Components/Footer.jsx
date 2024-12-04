@@ -1,11 +1,16 @@
 import { Link } from "@inertiajs/react";
 import React from "react";
-import { FaFacebook, FaHandHoldingHeart, FaInstagram, FaTwitter } from "react-icons/fa";
+import {
+    FaFacebook,
+    FaHandHoldingHeart,
+    FaInstagram,
+    FaTwitter,
+} from "react-icons/fa";
 
 const Footer = () => {
     return (
         <footer className="bg-secondary-800 text-white mt-auto">
-            <div className="container py-12 mx-auto">
+            <div className="container py-12 mx-auto px-6">
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
                     {/* Logo Section */}
                     <div className=" flex">
@@ -103,7 +108,7 @@ const Footer = () => {
                                 href="#"
                                 className="hover:text-gray-300 transition-colors"
                             >
-                               <FaInstagram className=" size-7" />
+                                <FaInstagram className=" size-7" />
                             </Link>
                             <Link
                                 href="#"
