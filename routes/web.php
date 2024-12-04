@@ -20,6 +20,20 @@ Route::get('/member/login', function () {
     return inertia('features/auth/pages/MemberLoginPage');
 });
 
+
+Route::get('/caregiver/login', function () {
+    return inertia('features/auth/pages/CaregiverLoginPage');
+});
+
+Route::get('/partner/login', function () {
+    return inertia('features/auth/pages/PartnerLoginPage');
+});
+
+Route::get('/volunteer/login', function () {
+    return inertia('features/auth/pages/VolunteerLoginPage');
+});
+
+
 Route::get('/donor/donate', function () {
     return inertia('features/donate/pages/DonationPage');
 });

@@ -1,6 +1,12 @@
 import { Link } from "@inertiajs/react";
 import React from "react";
-import { FaFacebook, FaHandHoldingHeart, FaInstagram, FaTwitter } from "react-icons/fa";
+import {
+    FaFacebook,
+    FaHandHoldingHeart,
+    FaInstagram,
+    FaTwitter,
+} from "react-icons/fa";
+import logo from "../../../assets/logo.png";
 
 const Footer = () => {
     return (
@@ -8,12 +14,18 @@ const Footer = () => {
             <div className="container py-12 mx-auto">
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
                     {/* Logo Section */}
-                    <div className=" flex">
-                        <div className="flex items-center gap-2">
-                            <FaHandHoldingHeart className=" size-7" />
-                            <span className="text-3xl font-bold">
-                                Meals On Wheel
-                            </span>
+                    <div className=" flex items-center justify-center">
+                        <div className="flex items-center gap-2 bg-white px-5 rounded-md h-20">
+                            {/* <FaHandHoldingHeart className=" size-7" /> */}
+                            <img src={logo} alt="logo" className="size-16" />
+                            <div className=" flex flex-col">
+                                <span className="text-2xl text-secondary-400 font-bold">
+                                    Meals On Wheel
+                                </span>
+                                <span className=" text-xs text-zinc-400">
+                                    Merry Meal
+                                </span>
+                            </div>
                         </div>
                     </div>
 
@@ -103,7 +115,7 @@ const Footer = () => {
                                 href="#"
                                 className="hover:text-gray-300 transition-colors"
                             >
-                               <FaInstagram className=" size-7" />
+                                <FaInstagram className=" size-7" />
                             </Link>
                             <Link
                                 href="#"
