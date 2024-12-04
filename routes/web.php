@@ -12,38 +12,33 @@ Route::get('/', function () {
     return inertia('Home');
 });
 
-Route::get('/member/register', function () {
-    return inertia('features/auth/pages/MemberRegisterPage');
-});
+// define the routes for login
+$loginRoutes = [
+    'member' => 'MemberLoginPage',
+    'caregiver' => 'CaregiverLoginPage',
+    'partner' => 'PartnerLoginPage',
+    'volunteer' => 'VolunteerLoginPage',
+];
 
-Route::get('/member/login', function () {
-    return inertia('features/auth/pages/MemberLoginPage');
-});
+foreach ($loginRoutes as $route => $page) {
+    Route::get("/{$route}/login", function () use ($page) {
+        return inertia("features/auth/pages/{$page}");
+    });
+}
 
-Route::get('/caregiver/login', function () {
-    return inertia('features/auth/pages/CaregiverLoginPage');
-});
+$registerRoutes = [
+    'member' => 'MemberRegisterPage',
+    'caregiver' => 'CaregiverRegisterPage',
+    'partner' => 'PartnerRegisterPage',
+    'volunteer' => 'VolunteerRegisterPage',
+];
 
-Route::get('/partner/login', function () {
-    return inertia('features/auth/pages/PartnerLoginPage');
-});
+foreach ($registerRoutes as $route => $page) {
+    Route::get("/{$route}/register", function () use ($page) {
+        return inertia("features/auth/pages/{$page}");
+    });
+}
 
-Route::get('/volunteer/login', function () {
-    return inertia('features/auth/pages/VolunteerLoginPage');
-});
-
-Route::get('/member/register', function () {
-    return inertia('features/auth/pages/MemberRegisterPage');
-});
-
-Route::get('/caregiver/register', function () {
-    return inertia('features/auth/pages/CaregiverRegisterPage');
-});
-
-Route::get('/partner/register', function () {
-    return inertia('features/auth/pages/PartnerRegisterPage');
-});
-
-Route::get('/volunteer/register', function () {
-    return inertia('features/auth/pages/VolunteerRegisterPage');
-});
+// Route::get('/member/register', function () {
+//     return inertia('features/auth/pages/MemberRegisterPage');
+// });

@@ -3,6 +3,7 @@ import RegisterBtns from "../components/RegisterBtns";
 import Header from "../../../Components/Header";
 import Footer from "../../../Components/Footer";
 import { FaUserNurse } from "react-icons/fa";
+import CaregiverRegisterForm from "../components/CaregiverRegisterForm";
 
 const CaregiverRegisterPage = () => {
     return (
@@ -18,7 +19,8 @@ const CaregiverRegisterPage = () => {
                 </div>
 
                 {/* login form */}
-
+                <CaregiverRegisterForm />
+                
                 {/* 3 buttons */}
                 <RegisterBtns currentRegister={"caregiver"} />
             </div>

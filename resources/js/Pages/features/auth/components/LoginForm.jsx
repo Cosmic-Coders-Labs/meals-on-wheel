@@ -88,11 +88,6 @@ const LoginForm = ({ email, password, link }) => {
                                             message:
                                                 "Password must be at least 8 characters",
                                         },
-                                        pattern: {
-                                            value: /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-z])[A-Za-z!@#$%^&*]{8,}$/,
-                                            message:
-                                                "Password must contain at least one capital letter and one special character",
-                                        },
                                     })}
                                     className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary
                                       ${
@@ -127,21 +122,6 @@ const LoginForm = ({ email, password, link }) => {
                                     {errors[password].message}
                                 </div>
                             )}
-                            {/* {errors.password?.type === "required" && (
-                                <div className="text-red-500 text-xs">
-                                    {errors.password.message}
-                                </div>
-                            )}
-                            {errors.password?.type === "minLength" && (
-                                <div className="text-red-500 text-xs">
-                                    {errors.password.message}
-                                </div>
-                            )}
-                            {errors.password?.type === "pattern" && (
-                                <div className="text-red-500 text-xs">
-                                    {errors.password.message}
-                                </div>
-                            )} */}
                         </div>
                     </div>
 
