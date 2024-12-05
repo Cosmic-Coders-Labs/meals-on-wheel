@@ -5,7 +5,7 @@ import logo from "../../../assets/logo.png";
 
 const Header = () => {
     return (
-        <header className=" z-50 w-full border-b border-secondary-200">
+        <header className=" z-50 w-full border-b border-secondary-200 px-12">
             <div className="container flex py-5 items-center mx-auto">
                 {/* left side */}
                 <div className="flex items-center gap-2">
