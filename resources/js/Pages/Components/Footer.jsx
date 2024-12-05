@@ -6,12 +6,11 @@ import {
     FaInstagram,
     FaTwitter,
 } from "react-icons/fa";
-import logo from "../../../assets/logo.png";
 
 const Footer = () => {
     return (
         <footer className="bg-secondary-800 text-white mt-auto">
-            <div className="container py-12 mx-auto">
+            <div className="container py-12 mx-auto px-6">
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
                     {/* Logo Section */}
                     <div className=" flex items-center justify-center">
