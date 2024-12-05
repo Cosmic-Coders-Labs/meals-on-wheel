@@ -37,3 +37,7 @@ Route::get('/volunteer/login', function () {
 Route::get('/donor/donate', function () {
     return inertia('features/donate/pages/DonationPage');
 });
+
+Route::get('/food-safety', function () {
+    return inertia('features/foodSafety/pages/FoodSafetyPage');
+});
