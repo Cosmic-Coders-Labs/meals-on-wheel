@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
+import hero from "../../../assets/hero.jpg";
 
 const HeroSection = () => {
     return (
         <section className="bg-primary-50 py-20 px-10 min-h-[550px]">
             <div className="container mx-auto grid grid-cols-1 md:grid-cols-5 gap-6 items-center">
                 {/* Left Column (Text Section) */}
-                <div className="md:col-span-3 text-center md:text-left px-14 mt-10">
+                <div className="md:col-span-3 text-center md:text-left px-10 mt-10">
                     <h1 className="text-5xl font-extrabold text-primary-800">
                         Delivering Meals,
                     </h1>
@@ -36,11 +37,11 @@ const HeroSection = () => {
                 </div>
 
                 {/* Right Column (Image Section) */}
-                <div className="md:col-span-2">
+                <div className="md:col-span-2 flex justify-center">
                     <img
-                        src="../../../assets/deli1.jpg"
+                        src={hero}
                         alt="Delivering Meals Image"
-                        className="w-full rounded-lg shadow-md max-w-md mx-auto"
+                        className="w-[800px] h-[420px] rounded-lg shadow-md"
                     />
                 </div>
             </div>

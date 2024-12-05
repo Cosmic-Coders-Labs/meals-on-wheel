@@ -10,7 +10,7 @@ const Header = () => {
                 {/* left side */}
                 <div className="flex items-center gap-2">
                     <Link href="/" className="flex items-center space-x-2">
-                        <img src="../../../assets/logo.png" alt="logo" />
+                        <img src={logo} alt="logo" className=" size-12" />
                         <span className="text-xl font-bold text-secondary-500">
                             Meals On Wheel
                         </span>

@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
+import man1 from "../../../assets/man1.jpg";
+import woman1 from "../../../assets/woman1.jpg";
+import woman2 from "../../../assets/woman2.jpg";
 
 const OurDonors = () => {
     return (
@@ -13,7 +16,7 @@ const OurDonors = () => {
                     {/* Circle image */}
                     <div className="bg-primary-200 p-1 rounded-full w-28 h-28 mx-auto absolute top-0 left-1/2 transform -translate-x-1/2">
                         <img
-                            src="https://via.placeholder.com/150"
+                            src={man1}
                             alt="Donor 1"
                             className="w-full h-full rounded-full object-cover"
                         />
@@ -42,7 +45,7 @@ const OurDonors = () => {
                     {/* Circle image */}
                     <div className="bg-primary-200 p-1 rounded-full w-28 h-28 mx-auto absolute top-0 left-1/2 transform -translate-x-1/2">
                         <img
-                            src="https://via.placeholder.com/150"
+                            src={woman1}
                             alt="Donor 2"
                             className="w-full h-full rounded-full object-cover"
                         />
@@ -71,7 +74,7 @@ const OurDonors = () => {
                     {/* Circle image */}
                     <div className="bg-primary-200 p-1 rounded-full w-28 h-28 mx-auto absolute top-0 left-1/2 transform -translate-x-1/2">
                         <img
-                            src="https://via.placeholder.com/150"
+                            src={woman2}
                             alt="Donor 3"
                             className="w-full h-full rounded-full object-cover"
                         />
@@ -87,9 +90,9 @@ const OurDonors = () => {
                                 “
                             </span>
                             <p className="text-secondary-600 font-semibold text-start italic pl-8">
-                                I am very proud to support MerryMeal's mission of
-                                bringing hope and nourishment to those individuals and
-                                families in need.
+                                I am very proud to support MerryMeal's mission
+                                of bringing hope and nourishment to those
+                                individuals and families in need.
                             </p>
                         </div>
                     </div>

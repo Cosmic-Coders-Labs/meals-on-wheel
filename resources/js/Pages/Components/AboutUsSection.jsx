@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "@inertiajs/react";
+import about from "../../../assets/about.jpg";
 
 const AboutUs = () => {
     return (
@@ -23,7 +24,7 @@ const AboutUs = () => {
                         warmth and hope to the lives of those we serve.
                     </p>
                     <Link href="/about">
-                        <button className="bg-primary-700 text-white text-lg px-7 py-2 rounded-full hover:bg-primary-800 transition duration-300">
+                        <button className="bg-accent-700 text-white text-lg px-7 py-2 rounded-full hover:bg-primary-800 transition duration-300">
                             Learn More
                         </button>
                     </Link>
@@ -32,9 +33,9 @@ const AboutUs = () => {
                 {/* Right Side - Image Section */}
                 <div className="flex justify-center md:w-1/2">
                     <img
-                        src="/images/about-us.jpg"
+                        src={about}
                         alt="About Us"
-                        className="w-full max-w-md rounded-lg shadow-lg"
+                        className="w-[700px] h-[450px] rounded-lg shadow-md"
                     />
                 </div>
             </div>
