@@ -1,5 +1,6 @@
 import { Link } from "@inertiajs/react";
 import React from "react";
+import logo from "../../../assets/logo.png";
 import {
     FaFacebook,
     FaHandHoldingHeart,
