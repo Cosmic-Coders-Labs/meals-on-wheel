@@ -1,4 +1,6 @@
 import React from "react";
+import mission from "../../../../../assets/mission.jpeg";
+import history from "../../../../../assets/history.jpg";
 
 const LearnMore = () => {
     return (
@@ -51,7 +53,7 @@ const LearnMore = () => {
                     {/* Image Section */}
                     <div className="flex justify-center">
                         <img
-                            src="https://via.placeholder.com/500"
+                            src={mission}
                             alt="Mission Illustration"
                             className="rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300"
                         />
@@ -63,9 +65,9 @@ const LearnMore = () => {
                     {/* Image Section */}
                     <div className="flex justify-center">
                         <img
-                            src="https://via.placeholder.com/500"
+                            src={history}
                             alt="History Illustration"
-                            className="rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300"
+                            className="w-full rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300"
                         />
                     </div>
                     {/* Text Section */}

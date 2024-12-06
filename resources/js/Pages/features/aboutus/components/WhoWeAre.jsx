@@ -1,8 +1,9 @@
 import React from "react";
+import about from "../../../../../assets/about.jpg";
 
 const WhoWeAre = () => {
     return (
-        <section className="bg-gradient-to-r from-primary-50 via-primary-100 to-primary-200 py-24 px-8 md:px-24">
+        <section className="bg-gradient-to-r from-primary-50 via-primary-100 to-primary-200 py-24 px-6 md:px-24">
             <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                 {/* Text Section */}
                 <div className="md:pr-12 px-6 md:px-12 text-center md:text-left">
@@ -33,11 +34,11 @@ const WhoWeAre = () => {
                 </div>
 
                 {/* Image Section */}
-                <div className="flex justify-center md:justify-end mt-8 md:mt-0">
+                <div className="flex justify-center mx-auto md:justify-end mt-8 md:mt-0">
                     <img
-                        src="https://via.placeholder.com/500"
+                        src={about}
                         alt="About Us Image"
-                        className="rounded-lg shadow-lg transform scale-105 hover:scale-110 transition-all duration-300"
+                        className=" w-[800px] h-[400px] rounded-lg shadow-lg transform scale-105 hover:scale-110 transition-all duration-300"
                     />
                 </div>
             </div>
