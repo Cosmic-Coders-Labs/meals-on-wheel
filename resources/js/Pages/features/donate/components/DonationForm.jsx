@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 
 const DonationForm = () => {
@@ -23,7 +24,7 @@ const DonationForm = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-secondary-50 p-8 rounded-lg shadow-lg border border-secondary-50">
+    <div className="max-w-3xl my-10 mx-auto bg-secondary-50 p-8 rounded-lg shadow-lg border border-secondary-50">
       {/* Header Section */}
       <div className="text-center mb-8">
         {/* Donation Icon */}
@@ -204,7 +205,7 @@ const DonationForm = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="mt-8 bg-primary-600 text-white py-3 px-6 text-lg rounded-md hover:bg-accent-600 transition"
+          className="mt-8 bg-primary-600 text-white py-2 px-4 text-lg rounded-md hover:scale-105 active:scale-95 transition"
         >
           Submit
         </button>
