@@ -34,4 +34,5 @@ const MemberRegisterPage = () => {
     </section>
 );
 
-export default MemberRegisterPage
+};
+export default MemberRegisterPage;
