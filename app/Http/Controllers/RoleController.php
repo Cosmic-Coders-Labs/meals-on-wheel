@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Roles;
+use App\Models\Role;
 
 class RoleController extends BaseController
 {
-    protected $model = Roles::class;
+    protected $model = Role::class;
 }

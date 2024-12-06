@@ -7,3 +7,4 @@ class UserController extends BaseController
 {
     protected $model = User::class;
 }
+

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Volunteer extends Model
 {
     use HasFactory;
+    protected $table = 'volunteers';
     protected $primaryKey = 'volunteer_id';
     protected $fillable = [
         'volunteer_name',
@@ -15,18 +16,8 @@ class Volunteer extends Model
         'user_id'
     ];
 
-    public static function validationRules()
+    public function users()
     {
-        return [
-            'volunteer_name' => 'required|string',
-            'volunteer_role' => 'required|string',
-            'user_id' => 'nullable|exists:users,id',
-        ];
-    }
-
-
-    public function getUser()
-    {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

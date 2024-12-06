@@ -17,17 +17,6 @@ class Partner extends Model
         'user_id',
     ];
 
-    public static function validationRules()
-    {
-        return [
-            'partner_name' => 'required|string',
-            'partner_registered_by' => 'required|string',
-            'address' => 'required|string',
-            'business_license' => 'required|string',
-            'user_id' => 'nullable|exists:users,id',
-        ];
-    }
-
 
     public function user()
     {

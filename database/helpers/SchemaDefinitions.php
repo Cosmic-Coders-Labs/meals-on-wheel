@@ -2,9 +2,7 @@
 
 namespace Database\Helpers;
 
-
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 class SchemaDefinitions
 {
@@ -13,14 +11,15 @@ class SchemaDefinitions
         $table->id();
         $table->string('email')->unique();
         $table->string('password');
-        $table->string('status');
-        $table->decimal('latitude');
-        $table->decimal('longtitude');
+        $table->string('status')->default('pending');
+        $table->decimal('latitude', 10, 7)->default(0);
+        $table->decimal('longitude', 10, 7)->default(0);
         $table->string('reason_of_rejection')->nullable();
         $table->timestamp('email_verified_at')->nullable();
         $table->rememberToken();
         $table->timestamps();
     }
+
 
     public static function createPasswordResetTokens(Blueprint $table)
     {
@@ -94,6 +93,7 @@ class SchemaDefinitions
         $table->id();
         $table->string('name')->unique();
         $table->longText('description');
+        $table->timestamps();
     }
     public static function createUserWithRoles(Blueprint $table)
     {
@@ -102,6 +102,7 @@ class SchemaDefinitions
         $table->unsignedBigInteger('role_id');
         $table->foreign('role_id')->references('id')->on('roles')->cascadeOnDelete();
         $table->primary(['user_id', 'role_id']);
+        $table->timestamps();
     }
 
     public static function createCaregivers(Blueprint $table)
@@ -114,12 +115,13 @@ class SchemaDefinitions
     public static function createMember(Blueprint $table)
     {
         $table->id('member_id');
-        $table->string('eligebility');
+        $table->string('eligebility')->default('Not Specified');
         $table->string('needs');
         $table->string('allergies')->nullable();
         $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
         $table->timestamps();
     }
+
 
     public static function createCaregiversToMembers(Blueprint $table)
     {
@@ -150,18 +152,16 @@ class SchemaDefinitions
         $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
         $table->timestamps();
     }
-
     public static function createProfile(Blueprint $table)
     {
         $table->id('profile_id');
-        $table->string('first_name');
-        $table->string('last_name');
-        $table->integer('age');
-        $table->string('gender');
-        $table->date('birthday');
-        $table->string('contact_number');
-        $table->string('address');
-        // updated to userid
+        $table->string('first_name')->nullable();
+        $table->string('last_name')->nullable();
+        $table->integer('age')->nullable();
+        $table->string('gender')->nullable();
+        $table->date('birthday')->nullable();
+        $table->string('contact_number')->nullable();
+        $table->string('address')->nullable();
         $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
         $table->timestamps();
     }
@@ -194,16 +194,29 @@ class SchemaDefinitions
         // Foreign key referencing 'id' column in 'users' table with column name 'purposed_by'
         $table->unsignedBigInteger('purposed_by')->nullable();
         $table->foreign('purposed_by')->references('id')->on('users')->cascadeOnDelete();
+        $table->timestamps();
+    }
+
+    public static function createDonor(Blueprint $table)
+    {
+        $table->id('donor_id');
+        $table->string('donor_name')->nullable();
+        $table->string('contact_number')->nullable();
+        $table->string('email')->nullable();
+        $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
+        $table->timestamps();
     }
 
     public static function createDonations(Blueprint $table)
     {
-        $table->id('donation_id');
-        $table->string('donator_id');
-        $table->string('email');
-        $table->string('currency');
-        $table->decimal('amount');
-        $table->string('message');
-        $table->string('status');
+        $table->id();
+        $table->unsignedBigInteger('donor_id')->nullable();
+        $table->foreign('donor_id')->references('donor_id')->on('donors')->cascadeOnDelete();
+        $table->string('currency');  // Currency of the donation
+        $table->decimal('amount', 8, 2);  // Amount of the donation
+        $table->string('message')->nullable();  // Optional message with the donation
+        $table->string('status');  // Status of the donation (e.g., 'completed', 'pending')
+        $table->timestamps();
     }
+
 }

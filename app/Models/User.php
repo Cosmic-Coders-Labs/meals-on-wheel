@@ -3,39 +3,29 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     protected $table = 'users';
-    protected $primaryKey = 'user_id';
     protected $fillable = [
         'email',
         'password',
         'status',
         'latitude',
-        'longtitude'
+        'longitude'
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
-
-    public static function validationRules()
-    {
-        return [
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6',
-            'status' => 'required|string',
-            'latitude' => 'required|numeric',
-            'longtitude' => 'required|numeric',
-        ];
-    }
 
 
     protected function casts(): array
@@ -46,23 +36,57 @@ class User extends Authenticatable
         ];
     }
 
-    public function getMember()
+    // Define relationships
+    public function caregiver()
     {
-        return $this->hasOne(Member::class, 'user_id');
+        return $this->hasOne(Caregiver::class);
     }
 
-    public function getCaregiver()
+    public function member()
     {
-        return $this->hasOne(Caregiver::class, 'user_id');
+        return $this->hasOne(Member::class);
     }
 
-    public function getVolunteer()
+    public function partner()
     {
-        return $this->hasOne(Volunteer::class, 'user_id');
+        return $this->hasOne(Partner::class);
     }
 
-    public function getPartner()
+    public function volunteer()
     {
-        return $this->hasOne(Partner::class, 'user_id');
+        return $this->hasOne(Volunteer::class);
     }
+
+    public function donor()
+    {
+        return $this->hasOne(Donor::class);
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'user_with_roles', 'user_id', 'role_id');
+    }
+
+    public function hasRole($role)
+    {
+        return $this->roles()->where('name', $role)->exists();
+    }
+
+    public function assignRole($roleName)
+    {
+        $role = Role::where('name', $roleName)->first();
+
+        if ($role) {
+            $this->roles()->attach($role->id);
+        } else {
+            throw new \Exception("Role '{$roleName}' does not exist.");
+        }
+    }
+
+
 }

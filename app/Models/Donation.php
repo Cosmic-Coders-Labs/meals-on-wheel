@@ -8,9 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Donation extends Model
 {
     use HasFactory;
+
+    protected $table = 'donations';
     protected $primaryKey = 'donation_id';
+
     protected $fillable = [
-        'donator_id',
+        'donor_id',
         'email',
         'currency',
         'amount',
@@ -18,15 +21,8 @@ class Donation extends Model
         'status',
     ];
 
-    public static function validationRules()
+    public function donor()
     {
-        return [
-            'donator_id' => 'required|string',
-            'email' => 'required|email',
-            'currency' => 'required|string',
-            'amount' => 'required|numeric|min:0.01',
-            'message' => 'nullable|string',
-            'status' => 'required|string',
-        ];
+        return $this->belongsTo(Donor::class, 'donor_id', 'donor_id');
     }
 }

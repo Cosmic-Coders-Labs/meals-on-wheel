@@ -12,17 +12,8 @@ class Member extends Model
     protected $primaryKey = 'member_id';
     protected $fillable = ['eligebility', 'needs', 'allergies', 'user_id'];
 
-    public static function validationRules()
-    {
-        return [
-            'eligebility' => 'required|string',
-            'needs' => 'required|string',
-            'allergies' => 'nullable|string',
-            'user_id' => 'nullable|exists:users,id',
-        ];
-    }
 
-    public function getUser()
+    public function users()
     {
         return $this->belongsTo(User::class, 'user_id');
     }

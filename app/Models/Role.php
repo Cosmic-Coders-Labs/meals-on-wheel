@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Roles extends Model
+class Role extends Model
 {
     use HasFactory;
     protected $table = 'roles';
@@ -19,14 +19,13 @@ class Roles extends Model
         ];
     }
 
-
-    public function getUser()
+    public function users()
     {
-        return $this->belongsToMany(User::class, 'user_with_roles', 'role_id');
+        return $this->belongsToMany(User::class, 'user_with_roles', 'role_id', 'user_id');
     }
 
     public function findByName(string $name)
     {
-        return $this->where('name', $name);
+        return $this->where('name', $name)->first();
     }
 }

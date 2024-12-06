@@ -19,12 +19,12 @@ class Caregiver extends Model
     }
 
 
-    public function getMembers()
+    public function members()
     {
         return $this->belongsToMany(Member::class, 'caregivers_to_members', 'caregiver_id', 'member_id');
     }
 
-    public function getUser()
+    public function users()
     {
         return $this->belongsTo(User::class, 'user_id');
     }

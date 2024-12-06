@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import InputField from "./InputField"; // Assume the reusable component is in a separate file
+import InputField from "./InputField";
 
 const rolesFields = {
     Member: [
@@ -43,7 +43,7 @@ const MultiStepRegistrationForm = () => {
     };
 
     const handleFinish = (data) => {
-        const completeData = { ...formData, ...data }; // Merge all step data
+        const completeData = { ...formData, latitude: location.latitude, longitude: location.longitude, ...data }; // Merge all step data
         console.log("Final Data:", completeData);
         // Submit the data or perform further actions
     };
