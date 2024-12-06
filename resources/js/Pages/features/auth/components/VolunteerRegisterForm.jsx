@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 
-const MemberRegisterForm = () => {
+const VolunteerRegisterForm = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -11,13 +11,13 @@ const MemberRegisterForm = () => {
         register,
         handleSubmit,
         formState: { errors },
-        watch
+        watch,
     } = useForm();
 
-    const handleMemberRegister = (data) => {
+    const handleVolunteerRegister = (data) => {
         console.log(data);
 
-        router.visit("/member/login");
+        router.visit("/volunteer/login");
     };
 
     return (
@@ -36,35 +36,35 @@ const MemberRegisterForm = () => {
                 {/* Form */}
                 <form
                     className="mt-8 space-y-6"
-                    onSubmit={handleSubmit(handleMemberRegister)}
+                    onSubmit={handleSubmit(handleVolunteerRegister)}
                 >
-                    <div className="space-y-4">
+                    <div className="space-y-4 flex flex-col gap-3">
                         {/* Name Field */}
                         <div>
                             <label
-                                htmlFor="memberName"
+                                htmlFor="volunteerName"
                                 className="block text-sm font-medium text-gray-700"
                             >
                                 Full Name
                             </label>
                             <div className="mt-1">
                                 <input
-                                    id="memberName"
-                                    {...register("memberName", {
+                                    id="volunteerName"
+                                    {...register("volunteerName", {
                                         required: "Full name is required",
                                     })}
                                     type="text"
                                     autoComplete="name"
                                     className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary ${
-                                        errors.memberName
+                                        errors.volunteerName
                                             ? "border-red-500"
                                             : ""
                                     }`}
                                     placeholder="John Doe"
                                 />
-                                {errors.memberName && (
+                                {errors.volunteerName && (
                                     <p className="text-red-500 text-xs mt-1">
-                                        {errors.memberName.message}
+                                        {errors.volunteerName.message}
                                     </p>
                                 )}
                             </div>
@@ -73,15 +73,15 @@ const MemberRegisterForm = () => {
                         {/* Age Field */}
                         <div>
                             <label
-                                htmlFor="memberAge"
+                                htmlFor="volunteerAge"
                                 className="block text-sm font-medium text-gray-700"
                             >
                                 Age
                             </label>
                             <div className="mt-1">
                                 <input
-                                    id="memberAge"
-                                    {...register("memberAge", {
+                                    id="volunteerAge"
+                                    {...register("volunteerAge", {
                                         required: "Age is required",
                                         min: {
                                             value: 18,
@@ -95,61 +95,87 @@ const MemberRegisterForm = () => {
                                     })}
                                     type="number"
                                     className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary ${
-                                        errors.memberAge ? "border-red-500" : ""
+                                        errors.volunteerAge
+                                            ? "border-red-500"
+                                            : ""
                                     }`}
                                     placeholder="60"
                                 />
-                                {errors.memberAge && (
+                                {errors.volunteerAge && (
                                     <p className="text-red-500 text-xs mt-1">
-                                        {errors.memberAge.message}
+                                        {errors.volunteerAge.message}
                                     </p>
                                 )}
                             </div>
                         </div>
 
-                        {/* Address Field */}
+                        {/* Gender Field */}
                         <div>
                             <label
-                                htmlFor="memberAddress"
+                                htmlFor="volunteerGender"
                                 className="block text-sm font-medium text-gray-700"
                             >
-                                Address
+                                Gender
                             </label>
-                            <div className="mt-1">
-                                <input
-                                    id="memberAddress"
-                                    {...register("memberAddress", {
-                                        required: "Address is required",
-                                    })}
-                                    type="text"
-                                    autoComplete="street-address"
-                                    className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary ${
-                                        errors.memberAddress
-                                            ? "border-red-500"
-                                            : ""
-                                    }`}
-                                    placeholder="Your living address"
-                                />
-                                {errors.memberAddress && (
-                                    <p className="text-red-500 text-xs mt-1">
-                                        {errors.memberAddress.message}
-                                    </p>
-                                )}
+                            <div className="mt-1 flex gap-5">
+                                <label className="flex items-center">
+                                    <input
+                                        type="radio"
+                                        name="volunteerGender"
+                                        value="male"
+                                        className="mr-2"
+                                        {...register("volunteerGender", {
+                                            required: "Gender is required",
+                                        })}
+                                    />
+                                    <span>Male</span>
+                                </label>
+
+                                <label className="flex items-center">
+                                    <input
+                                        type="radio"
+                                        name="volunteerGender"
+                                        value="female"
+                                        className="mr-2"
+                                        {...register("volunteerGender", {
+                                            required: "Gender is required",
+                                        })}
+                                    />
+                                    <span>Female</span>
+                                </label>
+
+                                <label className="flex items-center">
+                                    <input
+                                        type="radio"
+                                        name="volunteerGender"
+                                        value="other"
+                                        className="mr-2"
+                                        {...register("volunteerGender", {
+                                            required: "Gender is required",
+                                        })}
+                                    />
+                                    <span>Other</span>
+                                </label>
                             </div>
+                            {errors.volunteerGender && (
+                                <p className="text-red-500 text-xs mt-1">
+                                    {errors.volunteerGender.message}
+                                </p>
+                            )}
                         </div>
 
                         {/* Phone Field */}
                         <div>
                             <label
-                                htmlFor="memberPhone"
+                                htmlFor="volunteerPhone"
                                 className="block text-sm font-medium text-gray-700"
                             >
                                 Phone Number
                             </label>
                             <div className="mt-1">
                                 <input
-                                    id="memberPhone"
-                                    {...register("memberPhone", {
+                                    id="volunteerPhone"
+                                    {...register("volunteerPhone", {
                                         required: "Phone number is required",
                                         pattern: {
                                             value: /^[0-9]{10,}$/,
@@ -160,75 +186,79 @@ const MemberRegisterForm = () => {
                                     type="tel"
                                     autoComplete="tel"
                                     className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary ${
-                                        errors.memberPhone
+                                        errors.volunteerPhone
                                             ? "border-red-500"
                                             : ""
                                     }`}
                                     placeholder="09765546127"
                                 />
-                                {errors.memberPhone && (
+                                {errors.volunteerPhone && (
                                     <p className="text-red-500 text-xs mt-1">
-                                        {errors.memberPhone.message}
+                                        {errors.volunteerPhone.message}
                                     </p>
                                 )}
                             </div>
                         </div>
 
-                        {/* Reason for assistance Field */}
+                        {/* Availability Field */}
                         <div>
                             <label
-                                htmlFor="memberReason"
+                                htmlFor="availability"
                                 className="block text-sm font-medium text-gray-700"
                             >
-                                Reason for Assistance (low income, disabled,
-                                etc.)
+                                Availability
+                                <span className="block">
+                                    (list the days and times you are available)
+                                </span>
                             </label>
                             <div className="mt-1">
                                 <textarea
-                                    id="memberReason"
-                                    {...register("memberReason", {
+                                    id="availability"
+                                    {...register("availability", {
                                         required:
-                                            "Reason for assistance is required",
+                                            "Need to fill the availability",
                                     })}
                                     className={`appearance-none block w-full h-32 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary ${
-                                        errors.memberReason
+                                        errors.availability
                                             ? "border-red-500"
                                             : ""
                                     }`}
                                 ></textarea>
-                                {errors.memberReason && (
+                                {errors.availability && (
                                     <p className="text-red-500 text-xs mt-1">
-                                        {errors.memberReason.message}
+                                        {errors.availability.message}
                                     </p>
                                 )}
                             </div>
                         </div>
 
-                        {/* Proof of Eligibility Field */}
+                        {/* Prefer Role Field */}
                         <div>
                             <label
-                                htmlFor="memberProof"
+                                htmlFor="volunteerPreferRole"
                                 className="block text-sm font-medium text-gray-700"
                             >
-                                Proof of Eligibility (government ID, health
-                                certificate etc.)
+                                Prefer Role
+                                <span className="block">
+                                    (list the roles you are interested in)
+                                </span>
                             </label>
                             <div className="mt-1">
                                 <textarea
-                                    id="memberProof"
-                                    {...register("memberProof", {
+                                    id="volunteerPreferRole"
+                                    {...register("volunteerPreferRole", {
                                         required:
-                                            "Proof of eligibility is required",
+                                            "Need to fill the prefer role",
                                     })}
                                     className={`appearance-none block w-full h-32 px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary ${
-                                        errors.memberProof
+                                        errors.volunteerPreferRole
                                             ? "border-red-500"
                                             : ""
                                     }`}
                                 ></textarea>
-                                {errors.memberProof && (
+                                {errors.volunteerPreferRole && (
                                     <p className="text-red-500 text-xs mt-1">
-                                        {errors.memberProof.message}
+                                        {errors.volunteerPreferRole.message}
                                     </p>
                                 )}
                             </div>
@@ -237,16 +267,16 @@ const MemberRegisterForm = () => {
                         {/* Email Field */}
                         <div>
                             <label
-                                htmlFor="memberEmail"
+                                htmlFor="volunteerEmail"
                                 className="block text-sm font-medium text-gray-700"
                             >
                                 Email address
                             </label>
                             <div className="mt-1">
                                 <input
-                                    id="memberEmail"
+                                    id="volunteerEmail"
                                     type="email"
-                                    {...register("memberEmail", {
+                                    {...register("volunteerEmail", {
                                         required: "Email is required",
                                         pattern: {
                                             value: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
@@ -255,15 +285,15 @@ const MemberRegisterForm = () => {
                                         },
                                     })}
                                     className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary ${
-                                        errors.memberEmail
+                                        errors.volunteerEmail
                                             ? "border-red-500"
                                             : ""
                                     }`}
                                     placeholder="youremail@example.com"
                                 />
-                                {errors.memberEmail && (
+                                {errors.volunteerEmail && (
                                     <p className="text-red-500 text-xs mt-1">
-                                        {errors.memberEmail.message}
+                                        {errors.volunteerEmail.message}
                                     </p>
                                 )}
                             </div>
@@ -272,15 +302,15 @@ const MemberRegisterForm = () => {
                         {/* Password Field */}
                         <div>
                             <label
-                                htmlFor="memberPassword"
+                                htmlFor="volunteerPassword"
                                 className="block text-sm font-medium text-gray-700"
                             >
                                 Password
                             </label>
                             <div className="mt-1 relative">
                                 <input
-                                    id="password"
-                                    {...register("memberPassword", {
+                                    id="volunteerPassword"
+                                    {...register("volunteerPassword", {
                                         required: "Password is required",
                                         minLength: {
                                             value: 8,
@@ -289,9 +319,8 @@ const MemberRegisterForm = () => {
                                         },
                                     })}
                                     type={showPassword ? "text" : "password"}
-                                    autoComplete="new-password"
                                     className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary ${
-                                        errors.memberPassword
+                                        errors.volunteerPassword
                                             ? "border-red-500"
                                             : ""
                                     }`}
@@ -317,9 +346,9 @@ const MemberRegisterForm = () => {
                                     )}
                                 </button>
                             </div>
-                            {errors.memberPassword && (
+                            {errors.volunteerPassword && (
                                 <p className="text-red-500 text-xs mt-1">
-                                    {errors.memberPassword.message}
+                                    {errors.volunteerPassword.message}
                                 </p>
                             )}
                         </div>
@@ -327,19 +356,22 @@ const MemberRegisterForm = () => {
                         {/* Confirm Password Field */}
                         <div>
                             <label
-                                htmlFor="memberConfirmPassword"
+                                htmlFor="volunteerConfirmPassword"
                                 className="block text-sm font-medium text-gray-700"
                             >
                                 Confirm Password
                             </label>
                             <div className="mt-1 relative">
                                 <input
-                                    id="memberConfirmPassword"
-                                    {...register("memberConfirmPassword", {
+                                    id="volunteerConfirmPassword"
+                                    {...register("volunteerConfirmPassword", {
                                         required:
                                             "Please confirm your password",
                                         validate: (val) => {
-                                            if (watch("memberPassword") != val) {
+                                            if (
+                                                watch("volunteerPassword") !=
+                                                val
+                                            ) {
                                                 return "Your passwords do not match";
                                             }
                                         },
@@ -350,7 +382,7 @@ const MemberRegisterForm = () => {
                                             : "password"
                                     }
                                     className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary ${
-                                        errors.memberConfirmPassword
+                                        errors.volunteerConfirmPassword
                                             ? "border-red-500"
                                             : ""
                                     }`}
@@ -378,9 +410,9 @@ const MemberRegisterForm = () => {
                                     )}
                                 </button>
                             </div>
-                            {errors.memberConfirmPassword && (
+                            {errors.volunteerConfirmPassword && (
                                 <p className="text-red-500 text-xs mt-1">
-                                    {errors.memberConfirmPassword.message}
+                                    {errors.volunteerConfirmPassword.message}
                                 </p>
                             )}
                         </div>
@@ -413,7 +445,7 @@ const MemberRegisterForm = () => {
                             Already have an account?
                         </span>
                         <a
-                            href="/member/login"
+                            href="/volunteer/login"
                             className="font-medium text-primary underline hover:text-primary/90"
                         >
                             Login here
@@ -425,4 +457,4 @@ const MemberRegisterForm = () => {
     );
 };
 
-export default MemberRegisterForm;
+export default VolunteerRegisterForm;

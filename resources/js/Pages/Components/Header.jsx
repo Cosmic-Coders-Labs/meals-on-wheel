@@ -1,8 +1,8 @@
 import { Link } from "@inertiajs/react";
-
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "../../../assets/logo.png";
+
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);

@@ -1,9 +1,9 @@
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
 
-const MemberLoginForm = () => {
+const LoginForm = ({ email, password, link }) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const {
@@ -14,6 +14,8 @@ const MemberLoginForm = () => {
 
     const handleMemberLogin = (data) => {
         console.log(data);
+
+        router.visit("/");
     };
 
     return (
@@ -38,18 +40,17 @@ const MemberLoginForm = () => {
                         {/* Email Field */}
                         <div>
                             <label
-                                htmlFor="email"
+                                htmlFor={email}
                                 className="block text-sm font-medium text-gray-700"
                             >
                                 Email address
                             </label>
                             <div className="mt-1">
                                 <input
-                                    id="email"
-                                    name="email"
+                                    id={email}
+                                    name={email}
                                     type="email"
-                                    autoComplete="email"
-                                    {...register("email", {
+                                    {...register(email, {
                                         required: "Email is required",
                                         pattern: {
                                             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -57,17 +58,12 @@ const MemberLoginForm = () => {
                                         },
                                     })}
                                     className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary
-                                      ${errors.email ? "border-red-500" : ""}`}
+                                      ${errors[email] ? "border-red-500" : ""}`}
                                     placeholder="john@example.com"
                                 />
-                                {errors.email?.type === "required" && (
+                                {errors[email] && ( // Dynamically display error for this field
                                     <p className="text-red-500 text-xs">
-                                        {errors.email.message}
-                                    </p>
-                                )}
-                                {errors.email?.type === "pattern" && (
-                                    <p className="text-red-500 text-xs">
-                                        {errors.email.message}
+                                        {errors[email].message}
                                     </p>
                                 )}
                             </div>
@@ -76,34 +72,28 @@ const MemberLoginForm = () => {
                         {/* Password Field */}
                         <div>
                             <label
-                                htmlFor="password"
+                                htmlFor={password}
                                 className="block text-sm font-medium text-gray-700"
                             >
                                 Password
                             </label>
                             <div className="mt-1 relative">
                                 <input
-                                    id="password"
-                                    name="password"
+                                    id={password}
+                                    name={password}
                                     type={showPassword ? "text" : "password"}
-                                    autoComplete="current-password"
                                     // required
-                                    {...register("password", {
+                                    {...register(password, {
                                         required: "Password is required",
                                         minLength: {
                                             value: 8,
                                             message:
                                                 "Password must be at least 8 characters",
                                         },
-                                        pattern: {
-                                            value: /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-z])[A-Za-z!@#$%^&*]{8,}$/,
-                                            message:
-                                                "Password must contain at least one capital letter and one special character",
-                                        },
                                     })}
                                     className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary
                                       ${
-                                          errors.password
+                                          errors[password]
                                               ? "border-red-500"
                                               : ""
                                       }`}
@@ -129,19 +119,9 @@ const MemberLoginForm = () => {
                                     )}
                                 </button>
                             </div>
-                            {errors.password?.type === "required" && (
-                                <div className="text-red-500 text-xs">
-                                    {errors.password.message}
-                                </div>
-                            )}
-                            {errors.password?.type === "minLength" && (
-                                <div className="text-red-500 text-xs">
-                                    {errors.password.message}
-                                </div>
-                            )}
-                            {errors.password?.type === "pattern" && (
-                                <div className="text-red-500 text-xs">
-                                    {errors.password.message}
+                            {errors[password] && ( // Dynamically display error for this field
+                                <div className="text-red-500 text-sm mt-1">
+                                    {errors[password].message}
                                 </div>
                             )}
                         </div>
@@ -175,7 +155,7 @@ const MemberLoginForm = () => {
                             Don't have an account?
                         </span>{" "}
                         <a
-                            href="/member/register"
+                            href={link}
                             className="font-medium text-primary underline hover:text-primary/90"
                         >
                             Register here
@@ -187,4 +167,4 @@ const MemberLoginForm = () => {
     );
 };
 
-export default MemberLoginForm;
+export default LoginForm;
