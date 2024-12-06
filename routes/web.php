@@ -12,6 +12,10 @@ Route::get('/', function () {
     return inertia('Home');
 });
 
+Route::get('/about', function () {
+    return Inertia('features/aboutus/pages/AboutUsPage');
+});
+
 Route::get('/member/register', function () {
     return inertia('features/auth/pages/MemberRegisterPage');
 });
