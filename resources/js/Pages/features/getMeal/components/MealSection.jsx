@@ -13,13 +13,6 @@ const MealSection = () => {
     return (
         <section>
             <div className=" grid grid-cols-2 gap-10 my-10">
-                {/* <MealCard />
-                <MealCard2 />
-                <MealCard />
-                <MealCard2 />
-                <MealCard />
-                <MealCard2 /> */}
-
                 {weeklyMeals
                     .filter(
                         (el) =>

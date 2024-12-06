@@ -27,8 +27,8 @@ const MealCard = ({
                         className="w-full h-full object-cover rounded-s"
                     />
                 </div>
-                <div className="p-4 flex-1 bg-stone-100 rounded-e flex flex-col">
-                    <h2 className="text-xl font-semibold mb-2">{mealName}</h2>
+                <div className="p-4 flex-1 bg-stone-100 rounded-e flex flex-col font-noto">
+                    <h2 className="text-xl font-semibold mb-2 font-playfair">{mealName}</h2>
 
                     <p className="text-gray-600 mb-3 text-sm">{description}</p>
 
@@ -73,7 +73,7 @@ const MealCard = ({
                     </p>
 
                     <Link href="#" className=" flex justify-end mt-auto">
-                        <button className="bg-secondary-500 text-white px-3 py-1.5 text-sm rounded">
+                        <button className="bg-secondary-500 text-white font-playfair px-3 py-1.5 text-sm rounded">
                             View Details
                         </button>
                     </Link>

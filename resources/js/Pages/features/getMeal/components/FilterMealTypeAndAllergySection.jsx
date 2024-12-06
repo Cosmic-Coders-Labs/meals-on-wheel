@@ -10,16 +10,6 @@ const FilterMealTypeAndAllergySection = () => {
             <div className=" flex items-center">
                 <p>Meal Type:</p>
                 <div className="ms-5 flex gap-5 items-center justify-center">
-                    {/* <button className=" border py-1 px-2 rounded-md bg-secondary-500 text-white">
-                        All
-                    </button>
-                    <button className="border py-1 px-2 rounded-md">
-                        Hot Meal
-                    </button>
-                    <button className="border py-1 px-2 rounded-md">
-                        Cold Meal
-                    </button> */}
-
                     {mealTypes.map((mealType) => (
                         <MealTypeButton key={mealType.id} mealType={mealType} />
                     ))}
