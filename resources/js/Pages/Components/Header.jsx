@@ -1,4 +1,5 @@
 import { Link } from "@inertiajs/react";
+
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import logo from "../../../assets/logo.png";
@@ -44,7 +45,7 @@ const Header = () => {
                         About Us
                     </Link>
                     <Link
-                        href="/donate"
+                        href="donor/donate"
                         className="relative inline-block active:scale-95 before:absolute before:left-0 before:bottom-0 before:h-[2px] before:w-0 before:bg-secondary-400 before:transition-all before:duration-500 hover:before:w-full hover:text-secondary-400"
                     >
                         Donate
