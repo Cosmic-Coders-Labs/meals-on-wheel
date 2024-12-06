@@ -3,7 +3,7 @@ import Header from "../../../Components/Header";
 import Footer from "../../../Components/Footer";
 import { FaUserTie } from "react-icons/fa";
 import LoginBtns from "../components/LoginBtns";
-import PartnerLoginForm from "../components/PartnerLoginForm";
+import LoginForm from "../components/LoginForm";
 
 const PartnerLoginPage = () => {
     return (
@@ -19,7 +19,11 @@ const PartnerLoginPage = () => {
                 </div>
 
                 {/* login form */}
-                <PartnerLoginForm />
+                <LoginForm
+                    email="partnerEmail"
+                    password="partnerPassword"
+                    link="/partner/register"
+                />
 
                 {/* 3 buttons */}
                 <LoginBtns currentLogin={"partner"} />

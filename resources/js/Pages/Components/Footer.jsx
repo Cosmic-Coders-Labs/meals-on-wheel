@@ -1,8 +1,8 @@
 import { Link } from "@inertiajs/react";
 import React from "react";
+import logo from "../../../assets/logo.png";
 import {
     FaFacebook,
-    FaHandHoldingHeart,
     FaInstagram,
     FaTwitter,
 } from "react-icons/fa";
@@ -11,18 +11,17 @@ import logo from "../../../assets/logo.png";
 const Footer = () => {
     return (
         <footer className="bg-secondary-800 text-white mt-auto">
-            <div className="container py-12 mx-auto">
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+            <div className="container py-12 px-4 mx-auto">
+                <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
                     {/* Logo Section */}
-                    <div className=" flex items-center justify-center">
-                        <div className="flex items-center gap-2 bg-white px-5 rounded-md h-20">
-                            {/* <FaHandHoldingHeart className=" size-7" /> */}
-                            <img src={logo} alt="logo" className="size-16" />
-                            <div className=" flex flex-col">
-                                <span className="text-2xl text-secondary-400 font-bold">
+                    <div className="flex flex-col items-center lg:items-start">
+                        <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-md">
+                            <img src={logo} alt="logo" className="h-10" />
+                            <div className="flex flex-col">
+                                <span className="text-xl text-secondary-400 font-bold">
                                     Meals On Wheel
                                 </span>
-                                <span className=" text-xs text-zinc-400">
+                                <span className="text-sm text-zinc-400">
                                     Merry Meal
                                 </span>
                             </div>
@@ -30,8 +29,9 @@ const Footer = () => {
                     </div>
 
                     {/* Quick Links */}
-                    <div className=" ms-16">
-                        <nav className="flex flex-col gap-5">
+                    <div>
+                        <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+                        <nav className="flex flex-col gap-3">
                             <Link
                                 href="/"
                                 className="hover:text-gray-300 transition-colors"
@@ -60,8 +60,9 @@ const Footer = () => {
                     </div>
 
                     {/* Services */}
-                    <div className="">
-                        <nav className="flex flex-col gap-5">
+                    <div>
+                        <h3 className="text-lg font-semibold mb-4">Services</h3>
+                        <nav className="flex flex-col gap-3">
                             <Link
                                 href="/become-volunteer"
                                 className="hover:text-gray-300 transition-colors"
@@ -90,45 +91,45 @@ const Footer = () => {
                     </div>
 
                     {/* Connect With Us */}
-                    <div className="space-y-4">
-                        <h3 className="text-lg font-semibold">
-                            Connect With Us:
-                        </h3>
-                        <div className="flex items-center gap-3">
-                            <input
-                                type="email"
-                                placeholder="Enter your email"
-                                className="bg-white text-black p-2 rounded-md"
-                            />
-                            <button className="bg-primary-600 text-white px-4 py-2 rounded-md">
-                                Join
-                            </button>
-                        </div>
-                        <div className="flex space-x-4 mt-4">
-                            <Link
-                                href="#"
-                                className="hover:text-gray-300 transition-colors"
-                            >
-                                <FaFacebook className=" size-7" />
-                            </Link>
-                            <Link
-                                href="#"
-                                className="hover:text-gray-300 transition-colors"
-                            >
-                                <FaInstagram className=" size-7" />
-                            </Link>
-                            <Link
-                                href="#"
-                                className="hover:text-gray-300 transition-colors"
-                            >
-                                <FaTwitter className=" size-7" />
-                            </Link>
+                    <div>
+                        <h3 className="text-lg font-semibold mb-4">Connect With Us</h3>
+                        <div className="space-y-4">
+                            <div className="flex items-center">
+                                <input
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    className="flex-1 bg-white text-black px-4 py-2 rounded-l-md"
+                                />
+                                <button className="bg-primary-600 text-white px-4 py-2 rounded-r-md">
+                                    Join
+                                </button>
+                            </div>
+                            <div className="flex justify-center lg:justify-start space-x-4">
+                                <Link
+                                    href="#"
+                                    className="hover:text-gray-300 transition-colors"
+                                >
+                                    <FaFacebook size={20} />
+                                </Link>
+                                <Link
+                                    href="#"
+                                    className="hover:text-gray-300 transition-colors"
+                                >
+                                    <FaInstagram size={20} />
+                                </Link>
+                                <Link
+                                    href="#"
+                                    className="hover:text-gray-300 transition-colors"
+                                >
+                                    <FaTwitter size={20} />
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             {/* Copyright */}
-            <div className=" py-2 bg-secondary-900 text-center text-sm">
+            <div className="bg-secondary-900 py-3 text-center text-sm">
                 <p>© 2024 Meals on Wheels. All rights reserved.</p>
             </div>
         </footer>

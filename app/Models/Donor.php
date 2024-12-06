@@ -9,37 +9,26 @@ class Donor extends Model
 {
     use HasFactory;
 
-    // Define the table name (optional, if it matches the plural form of the model name)
+    // The table associated with the model
     protected $table = 'donors';
 
-    // Define the primary key if it's not the default 'id'
-    protected $primaryKey = 'DonorID';
+    // The attributes that are mass assignable
+    protected $fillable = [
+        'donor_name',
+        'contact_number',
+        'email',
+        'user_id',
+    ];
 
-    // Specify which attributes should be mass-assignable
-    protected $fillable = ['Name', 'Email', 'DonationAmount', 'DonationDate'];
-
-    /**
-     * Custom function to get the formatted donation amount.
-     * This is useful if you want to display the amount with a currency symbol.
-     */
-    public function getFormattedDonationAmountAttribute()
+    // Define the relationship with the User model (if needed)
+    public function user()
     {
-        return '$' . number_format($this->DonationAmount, 2); // Format amount as currency
+        return $this->belongsTo(User::class);
     }
 
-    /**
-     * Scope to filter donors by donation amount, e.g., to find large donors.
-     */
-    public function scopeDonatedMoreThan($query, $amount)
+    // Define the relationship with the Donation model
+    public function donations()
     {
-        return $query->where('DonationAmount', '>', $amount); // Get donors who donated more than a specific amount
-    }
-
-    /**
-     * Scope to filter donors by a specific donation date.
-     */
-    public function scopeDonatedOnDate($query, $date)
-    {
-        return $query->where('DonationDate', $date); // Get donors who donated on a specific date
+        return $this->hasMany(Donation::class, 'donor_id', 'donor_id');
     }
 }
