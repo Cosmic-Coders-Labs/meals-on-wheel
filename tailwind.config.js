@@ -14,6 +14,9 @@ export default {
         extend: {
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
+                playfair: ["Playfair Display", ...defaultTheme.fontFamily.sans],
+                noto: ["Noto Sans", ...defaultTheme.fontFamily.sans],
+                inter: ["Inter", ...defaultTheme.fontFamily.sans],
             },
             colors: {
                 primary: {
