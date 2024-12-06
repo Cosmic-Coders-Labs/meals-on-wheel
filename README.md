@@ -1,5 +1,5 @@
 ## Setting Up the Database and Running Migrations
-
+## Eaint tested for creating branch, pull, push, add things. Bruh..
 Follow these steps to set up the database and apply migrations for this project.
 
 ### Prerequisites
