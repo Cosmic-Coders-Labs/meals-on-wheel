@@ -114,13 +114,13 @@ class AuthController extends Controller
 
             // Generate an API token
             $token = $user->createToken('main')->plainTextToken;
-            // Return the Created Json Response - HTTP 201: Created
+
             return response()->json([
                 'status' => true,
                 'message' => 'User registered successfully with associated entity',
                 'user' => $user,
-                'token' => $token,
-            ], 201);
+            ], 201)->cookie('auth_token', $token, 120, '/', null, true, true); // Secure HttpOnly cookie
+
         } catch (\Exception $e) {
             // Return the Error Json Response - HTTP 500: Internal Server Error
             return response()->json([

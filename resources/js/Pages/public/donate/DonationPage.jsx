@@ -1,15 +1,15 @@
 import React from 'react'
-import Header from '../../../Components/Header'
+import Header from '../../../Components/Header';
 import Footer from '../../../Components/Footer';
-import FoodSafetySection from '../components/foodSafetySection';
+import DonationForm from './components/DonationForm';
 
-const FoodSafetyPage = () => {
+const DonationPage = () => {
   return (
       <section className="flex flex-col min-h-screen">
           <Header />
-          <FoodSafetySection />
+          <DonationForm />
           <Footer />
       </section>
   );
 }
-export default FoodSafetyPage
+export default DonationPage

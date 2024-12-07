@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react";
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
-import logo from "../../../assets/logo.png";
+import logo from "../../assets/logo.png";
 
 
 const Header = () => {
@@ -65,14 +65,14 @@ const Header = () => {
                     } w-full md:w-auto flex md:flex flex-col md:flex-row items-center gap-4 mt-4 md:mt-0`}
                 >
                     <Link
-                        href="/member/register"
+                        href="/register"
                         className="relative inline-block py-1 px-3 border border-transparent bg-secondary-600 text-white rounded-md active:scale-95 hover:scale-105 w-full"
                     >
                         Register
                     </Link>
                     <span className="hidden md:inline-block text-secondary-400">/</span>
                     <Link
-                        href="/member/login"
+                        href="/login"
                         className="relative inline-block py-1 px-3 border border-secondary-600 text-secondary-600 rounded-md active:scale-95 hover:bg-secondary-600 hover:text-white hover:scale-105 w-full"
                     >
                         Login

@@ -26,6 +26,13 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::apiResource('/users', UserController::class);
+
+    Route::get('/dashboard', function () {
+        return response()->json([
+            'name' => auth()->user()->name,
+            'email' => auth()->user()->email,
+        ]);
+    });
 });
 
 // Add named routes for login and register
@@ -42,3 +49,4 @@ Route::apiResource('donations', DonationController::class);
 Route::apiResource('profiles', ProfileController::class);
 Route::apiResource('volunteers', VolunteerController::class);
 Route::apiResource('partners', PartnerController::class);
+

@@ -1,9 +1,8 @@
 import React from "react";
-import Header from "../../../Components/Header";
-import Footer from "../../../Components/Footer";
+import Header from "../../Components/Header";
+import Footer from "../../Components/Footer";
 import { FaUserCircle } from "react-icons/fa";
-import LoginBtns from "../components/LoginBtns";
-import LoginForm from "../components/LoginForm";
+import LoginForm from "./components/LoginForm";
 
 const MemberLoginPage = () => {
     return (
@@ -14,7 +13,7 @@ const MemberLoginPage = () => {
                 <div className=" flex flex-col items-center justify-center mt-10">
                     <FaUserCircle className=" size-14 text-secondary-500" />
                     <h1 className=" text-3xl font-bold text-secondary-500">
-                        Member Login
+                        Sign In
                     </h1>
                 </div>
 
@@ -23,11 +22,11 @@ const MemberLoginPage = () => {
                 <LoginForm
                     email="memberEmail"
                     password="memberPassword"
-                    link="/member/register"
+                    link="/register"
                 />
 
                 {/* 3 buttons */}
-                <LoginBtns currentLogin={"member"} />
+                {/* <LoginBtns currentLogin={"member"} /> */}
             </div>
             <Footer />
         </section>

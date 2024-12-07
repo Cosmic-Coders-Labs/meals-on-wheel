@@ -1,26 +1,52 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import InputField from "./InputField";
+import axios from "axios";
+import Alert from "../../../Components/alert";
 
 const rolesFields = {
-    Member: [
-        { id: "eligibility", label: "Eligibility", type: "text", placeholder: "Eligibility" },
+    member: [
+        {
+            id: "gender",
+            label: "Gender",
+            type: "select",
+            options: ["male", "female", "other"],
+            placeholder: "Select Gender",
+        },
+        { id: "birthday", label: "Birthday", type: "date", placeholder: "YYYY-MM-DD" },
+        { id: "contact_number", label: "Contact Number", type: "text", placeholder: "Enter your contact number" },
+        { id: "address", label: "Address", type: "text", placeholder: "Enter your address" },
         { id: "needs", label: "Needs", type: "text", placeholder: "Needs" },
         { id: "allergies", label: "Allergies", type: "text", placeholder: "Allergies (Optional)" },
     ],
-    Caregiver: [],
-    Volunteer: [
-        { id: "volunteer_name", label: "Volunteer Name", type: "text", placeholder: "Name" },
-        { id: "volunteer_role", label: "Volunteer Role", type: "text", placeholder: "Role" },
+    caregiver: [
+        { id: "contact_number", label: "Contact Number", type: "text", placeholder: "Enter your contact number" },
+        { id: "address", label: "Address", type: "text", placeholder: "Enter your address" },
     ],
-    Partner: [
+    volunteer: [
+        { id: "volunteer_role", label: "Volunteer Role", type: "text", placeholder: "Role" },
+        {
+            id: "gender",
+            label: "Gender",
+            type: "select",
+            options: ["male", "female", "other"],
+            placeholder: "Select Gender",
+        },
+        { id: "birthday", label: "Birthday", type: "date", placeholder: "YYYY-MM-DD" },
+        { id: "contact_number", label: "Contact Number", type: "text", placeholder: "Enter your contact number" },
+        { id: "address", label: "Address", type: "text", placeholder: "Enter your address" },
+    ],
+    partner: [
         { id: "partner_name", label: "Partner Name", type: "text", placeholder: "Partner Name" },
+        { id: "partner_registered_by", label: "Registrar Name", type: "text", placeholder: "Enter your registrar name" },
         { id: "address", label: "Address", type: "text", placeholder: "Address" },
+        { id: "contact_number", label: "Contact Number", type: "text", placeholder: "Enter your contact number" },
         { id: "business_license", label: "Business License", type: "text", placeholder: "License Number" },
     ],
 };
 
 const MultiStepRegistrationForm = () => {
+    const [alert, setAlert] = useState(null);
     const [showPassword, setShowPassword] = useState(false);
     const [location, setLocation] = useState({ latitude: null, longitude: null }); // State for location
     const [step, setStep] = useState(1); // Step tracker
@@ -42,10 +68,33 @@ const MultiStepRegistrationForm = () => {
         setStep(step - 1); // Go to previous step
     };
 
-    const handleFinish = (data) => {
-        const completeData = { ...formData, latitude: location.latitude, longitude: location.longitude, ...data }; // Merge all step data
-        console.log("Final Data:", completeData);
-        // Submit the data or perform further actions
+    const handleFinish = async (data) => {
+        // Merge all step data
+        const completeData = { ...formData, latitude: location.latitude, longitude: location.longitude, ...data }; //
+        // Merge all form data
+        console.log(completeData);
+        try {
+            // API endpoint URL (replace with your Laravel backend endpoint)
+            const apiUrl = "http://127.0.0.1:8000/api/register";
+            // Axios POST request
+            const response = await axios.post(apiUrl, completeData, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (response.data.status) {
+                const token = response.data.token;
+                localStorage.setItem("authToken", token);
+                console.log("Registration successful:", response.data);
+                setAlert({ type: "success", message: response.data.message });
+            }
+
+        } catch (error) {
+            // Handle error response
+            console.error("Error:", error.response?.data || error.message);
+            setAlert({ type: "error", message: "Registration failed. Please try again." });
+        }
     };
 
     const fetchLocation = async () => {
@@ -69,7 +118,7 @@ const MultiStepRegistrationForm = () => {
                         resolve({ latitude, longitude });
                     },
                     (error) => {
-                        reject(`Unable to retrieve location: ${ error.message }`);
+                        reject(`Unable to retrieve location: ${error.message}`);
                     }
                 );
             }
@@ -79,12 +128,20 @@ const MultiStepRegistrationForm = () => {
     return (
         <div className="flex items-center justify-center my-10">
             <div className="w-full max-w-md space-y-8 p-8 bg-white border rounded-xl shadow-lg">
+                {alert && (
+                    <Alert
+                        type={alert.type}
+                        message={alert.message}
+                        duration={4000}
+                        onClose={() => setAlert(null)}
+                    />
+                )}
                 {step === 1 && (
                     <form onSubmit={handleSubmit(handleNext)} className="space-y-6">
                         <h2 className="text-1xl font-bold">Enter User Credentials</h2>
                         {/* Username field */}
                         <InputField
-                            id="fullName"
+                            id="name"
                             label="Full Name"
                             placeholder="John Doe"
                             register={register}
@@ -161,7 +218,7 @@ const MultiStepRegistrationForm = () => {
                             ))}
                         </select>
                         {errors.role && <p className="text-red-500 text-xs">{errors.role.message}</p>}
-                        <button type="submit" className="w-full py-2 px-4 bg-blue-600 text-white rounded-md">
+                        <button type="submit" className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-md font-medium text-white bg-secondary-600 active:scale-95">
                             Next
                         </button>
                     </form>
@@ -169,7 +226,7 @@ const MultiStepRegistrationForm = () => {
 
                 {step === 2 && (
                     <form onSubmit={handleSubmit(handleFinish)} className="space-y-6">
-                        <h2 className="text-1xl font-bold">Enter Your Infomation</h2>
+                        <h2 className="text-1xl font-bold">Enter Your Information</h2>
                         {rolesFields[selectedRole]?.map((field) => (
                             <InputField
                                 key={field.id}
@@ -180,18 +237,20 @@ const MultiStepRegistrationForm = () => {
                                 register={register}
                                 validation={{ required: `${field.label} is required` }}
                                 errorMessage={errors[field.id]?.message}
+                                options={field.options} // Pass options for dropdowns
                             />
                         ))}
                         <div className="flex justify-between">
                             <button type="button" onClick={handleBack} className="py-2 px-4 bg-gray-300 rounded-md">
                                 Back
                             </button>
-                            <button type="submit" className="py-2 px-4 bg-green-600 text-white rounded-md">
+                            <button type="submit" className="flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-sm text-md font-medium text-white bg-secondary-600 active:scale-95">
                                 Finish
                             </button>
                         </div>
                     </form>
                 )}
+
             </div>
         </div>
     );

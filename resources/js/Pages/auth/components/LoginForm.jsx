@@ -2,9 +2,12 @@ import { Link, router } from "@inertiajs/react";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiOutlineEye, HiOutlineEyeOff } from "react-icons/hi";
+import axios from '../../../axiosInstance';
+import Alert from "../../../Components/alert";
 
 const LoginForm = ({ email, password, link }) => {
     const [showPassword, setShowPassword] = useState(false);
+    const [alert, setAlert] = useState(null);
 
     const {
         register,
@@ -12,14 +15,41 @@ const LoginForm = ({ email, password, link }) => {
         formState: { errors },
     } = useForm();
 
-    const handleMemberLogin = (data) => {
-        console.log(data);
+    const handleMemberLogin = async (data) => {
+        try {
+            const response = await axios.post('/login', {
+                email: data[email],
+                password: data[password],
+            });
+        
 
-        router.visit("/");
+            if (response.data.status) {
+                setAlert({ type: "success", message: "Login successful!" });
+
+                // Save token securely
+                localStorage.setItem('auth_token', response.data.token);
+                localStorage.setItem('user', JSON.stringify(response.data.user));
+
+                // Redirect to homepage or dashboard
+                setTimeout(() => {
+                    router.visit("/dashboard");
+                }, 2000);
+            }
+        } catch (error) {
+            setAlert({ type: "error", message: "Invalid credentials. Please try again." });
+        }
     };
 
     return (
         <div className="flex items-center justify-center my-10">
+            {alert && (
+                <Alert
+                    type={alert.type}
+                    message={alert.message}
+                    onClose={() => setAlert(null)}
+                />
+            )}
+
             <div className="w-full max-w-md space-y-8 p-8 bg-white border rounded-xl shadow-lg">
                 {/* Header */}
                 <div className="text-center">
@@ -57,11 +87,11 @@ const LoginForm = ({ email, password, link }) => {
                                             message: "Invalid email address",
                                         },
                                     })}
-                                    className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary
-                                      ${errors[email] ? "border-red-500" : ""}`}
+                                    className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary ${errors[email] ? "border-red-500" : ""
+                                        }`}
                                     placeholder="john@example.com"
                                 />
-                                {errors[email] && ( // Dynamically display error for this field
+                                {errors[email] && (
                                     <p className="text-red-500 text-xs">
                                         {errors[email].message}
                                     </p>
@@ -82,29 +112,23 @@ const LoginForm = ({ email, password, link }) => {
                                     id={password}
                                     name={password}
                                     type={showPassword ? "text" : "password"}
-                                    // required
                                     {...register(password, {
                                         required: "Password is required",
                                         minLength: {
                                             value: 8,
-                                            message:
-                                                "Password must be at least 8 characters",
+                                            message: "Password must be at least 8 characters",
                                         },
                                     })}
-                                    className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary
-                                      ${
-                                          errors[password]
-                                              ? "border-red-500"
-                                              : ""
-                                      }`}
+                                    className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary ${errors[password]
+                                        ? "border-red-500"
+                                        : ""
+                                        }`}
                                     placeholder="••••••••"
                                 />
                                 <button
                                     type="button"
                                     className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-500"
-                                    onClick={() =>
-                                        setShowPassword(!showPassword)
-                                    }
+                                    onClick={() => setShowPassword(!showPassword)}
                                 >
                                     {showPassword ? (
                                         <HiOutlineEyeOff
@@ -119,10 +143,10 @@ const LoginForm = ({ email, password, link }) => {
                                     )}
                                 </button>
                             </div>
-                            {errors[password] && ( // Dynamically display error for this field
-                                <div className="text-red-500 text-sm mt-1">
+                            {errors[password] && (
+                                <p className="text-red-500 text-xs mt-1">
                                     {errors[password].message}
-                                </div>
+                                </p>
                             )}
                         </div>
                     </div>
