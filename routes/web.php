@@ -1,45 +1,49 @@
 <?php
 
+use App\Http\Controllers\DemoController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
+use Inertia\Inertia;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// view -> it is for the blade php pages
-// inertia -> it is for the react routes pages
-
-
-// Public Routes (Accessible without authentication)
 Route::get('/', function () {
-    return inertia('Home');
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+    ]);
 });
 
-Route::get('/about', function () {
-    return inertia('public/aboutus/AboutUsPage');
-});
+Route::get('/about-us', function () {
+    return Inertia::render('AboutUs', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+    ]);
+})->name('aboutus');
 
-Route::get('/donor/donate', function () {
-    return inertia('public/donate/pages/DonationPage');
-});
+Route::get('/donation', function () {
+    return Inertia::render('Donation', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+    ]);
+})->name('donation');
+
 
 Route::get('/food-safety', function () {
-    return inertia('public/foodSafety/pages/FoodSafetyPage');
+    return Inertia::render('FoodSafety', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+    ]);
+})->name('foodsafety');
+
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Login & Registration Pages
-Route::get('/login', function () {
-    return inertia('auth/LoginPage');
-})->name('login'); 
 
-Route::get('/register', function () {
-    return inertia('auth/RegisterPage');
-})->name('register');;
-
-// Protected Routes
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/dashboard', function () {
-        return inertia('protected/Dashboard');
-    })->name('dashboard');
-});
+require __DIR__ . '/auth.php';

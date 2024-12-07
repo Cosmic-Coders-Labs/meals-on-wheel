@@ -82,7 +82,7 @@ const Footer = () => {
                                 Donate And Help
                             </Link>
                             <Link
-                                href="/food-safety"
+                                href={route('foodsafety')}
                                 className="hover:text-gray-300 transition-colors"
                             >
                                 Food Safety Certification
