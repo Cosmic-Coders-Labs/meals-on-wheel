@@ -47,6 +47,10 @@ Route::get('/partner-dashboard', function () {
     return Inertia::render('PartnerDashboard');
 })->middleware(['auth', 'verified'])->name('partner-dashboard');
 
+Route::get('/volunteer-dashboard', function () {
+    return Inertia::render('VolunteerDashboard');
+})->middleware(['auth', 'verified'])->name('Volunteer-dashboard');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
