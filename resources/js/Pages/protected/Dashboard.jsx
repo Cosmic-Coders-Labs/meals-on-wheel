@@ -1,10 +1,12 @@
 import React from "react";
+import Sidebar from "./Components/Sidebar"
+import Adcontent from "./Components/Adcontent"
 
 const Dashboard = () => {
     return (
-        <div>
-            <h1>Welcome to the Dashboard</h1>
-            {/* Add your dashboard content here */}
+        <div className="flex min-h-screen bg-blue-500"> 
+            <Sidebar/>
+            <Adcontent/>
         </div>
     );
 };

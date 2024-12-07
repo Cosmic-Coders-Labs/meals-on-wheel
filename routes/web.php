@@ -37,9 +37,14 @@ Route::get('/register', function () {
     return inertia('auth/RegisterPage');
 })->name('register');;
 
-// Protected Routes
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/dashboard', function () {
+
+Route::get('/dashboard', function () {
         return inertia('protected/Dashboard');
-    })->name('dashboard');
-});
+    
+})->name('dashboard');
+
+    
+Route::get('/userboard', function () {
+        return inertia('protected/Userboard');
+
+})->name('userboard');
