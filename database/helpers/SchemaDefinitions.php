@@ -176,11 +176,11 @@ class SchemaDefinitions
         $table->longText('image');
         $table->longText('reason_for_rejection')->nullable();
         $table->string('status');
-        $table->decimal('price')->default(0);
+        $table->decimal('price');
         $table->enum('dietary_type', ['vegetarian', 'vegan', 'gluten-free', 'none']);
         $table->decimal('calories');
-        // userId is not a foreign key to avoid removing records created here if the user is deleted.
         $table->unsignedBigInteger('user_id');
+        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         $table->timestamps();
     }
 
@@ -242,21 +242,27 @@ class SchemaDefinitions
         $table->timestamps();
     }
 
+
     public static function createTasks(Blueprint $table)
     {
         $table->id('task_id');
-
+        $table->string('name')->nullable();
         $table->foreignId('order_id')->nullable()->constrained('orders', 'order_id')->nullOnDelete();
-        $table->foreignId('volunteer_id')->nullable()->constrained('volunteers', 'volunteer_id')->nullOnDelete();
-
         $table->enum('status', ['available', 'assigned', 'completed'])->default('available');
         $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
-        $table->timestamp('assigned_at')->nullable();
-        $table->timestamp('completed_at')->nullable();
         $table->timestamps();
     }
 
-
+    public static function createVolunteerAssignments(Blueprint $table)
+    {
+        $table->id('assignment_id');
+        $table->foreignId('task_id')->nullable()->constrained('tasks', 'task_id')->nullOnDelete();
+        $table->foreignId('volunteer_id')->nullable()->constrained('volunteers', 'volunteer_id')->nullOnDelete();
+        $table->timestamp('assigned_at')->nullable();
+        $table->timestamp('completed_at')->nullable();
+        $table->enum('status', ['assigned', 'completed', 'canceled'])->default('assigned');
+        $table->timestamps();
+    }
     public static function updateMealsOrder(Blueprint $table)
     {
         $table->id();

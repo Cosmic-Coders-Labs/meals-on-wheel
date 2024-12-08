@@ -1,19 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 
-const ReusableTable = ({ headers, data, page, setPage, showPagination, reverse }) => {
+const UserTable = ({ headers, data, page, setPage, showPagination }) => {
     const [filteredData, setFilteredData] = useState(data); // Start with all data
     const [searchQuery, setSearchQuery] = useState(''); // Single search box for all columns
+    const [roleFilter, setRoleFilter] = useState(''); // Role filter state
 
+    // Function to filter data based on search query and selected role
     useEffect(() => {
-        // Filter data whenever searchQuery changes
         const filtered = data.filter((row) => {
-            return row.some((cell) =>
+            // Check if the row matches the search query
+            const matchesSearch = row.some((cell) =>
                 cell.toString().toLowerCase().includes(searchQuery.toLowerCase())
             );
+
+            // Check if the row matches the selected role (assuming role is in one of the columns)
+            const matchesRole = roleFilter ? row.some((cell) => cell.toString().toLowerCase().includes(roleFilter.toLowerCase())) : true;
+
+            return matchesSearch && matchesRole;
         });
+
         setFilteredData(filtered);
-    }, [data, searchQuery]);
+    }, [data, searchQuery, roleFilter]);
 
     const rowsPerPage = 10;
     const start = page * rowsPerPage;
@@ -26,19 +34,31 @@ const ReusableTable = ({ headers, data, page, setPage, showPagination, reverse }
         }
     };
 
-    // Conditionally reverse the filtered data if 'reverse' is true
-    const rowsToDisplay = reverse ? [...filteredData.slice(start, end)].reverse() : filteredData.slice(start, end);
-
     return (
         <div className='w-full'>
-            <div className="mb-4 flex justify-start w-full">
+            <div className="mb-4 flex justify-start items-center w-full">
                 <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="p-2 border border-gray-300 rounded w-full"
+                    className="p-2 border border-gray-300 rounded w-full md:w-3/4"
                     placeholder="Search..."
                 />
+
+                {/* Filter by role dropdown */}
+                <select
+                    value={roleFilter}
+                    onChange={(e) => setRoleFilter(e.target.value)}
+                    className="ml-4 p-2 border border-gray-300 rounded w-full md:w-1/4"
+                >
+                    <option value="">Filter by Role</option>
+                    {/* Assuming roles are available in the data, you can adjust the options accordingly */}
+                    <option value="admin">Admin</option>
+                    <option value="member">Member</option>
+                    <option value="caregiver">Caregiver</option>
+                    <option value="partner">Partner</option>
+                    <option value="volunteer">Volunteer</option>
+                </select>
             </div>
 
             <table className="min-w-full table-auto">
@@ -52,7 +72,7 @@ const ReusableTable = ({ headers, data, page, setPage, showPagination, reverse }
                     </tr>
                 </thead>
                 <tbody>
-                    {rowsToDisplay.map((row, index) => (
+                    {filteredData.slice(start, end).map((row, index) => (
                         <tr key={index} className="border-b">
                             {row.map((cell, cellIndex) => (
                                 <td key={cellIndex} className="px-4 py-2">{cell}</td>
@@ -97,4 +117,4 @@ const ReusableTable = ({ headers, data, page, setPage, showPagination, reverse }
     );
 };
 
-export default ReusableTable;
+export default UserTable;

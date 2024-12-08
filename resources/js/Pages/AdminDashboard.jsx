@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AdminDashboard from "@/Components/Admin/dashboard/dashboard";
+import AdminPage from "@/Components/Admin/dashboard/dashboard";
 import Sidebar from "@/Components/Sidebar/Sidebar";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
@@ -7,9 +7,10 @@ import { Head } from "@inertiajs/react";
 // Import other components for different pages
 import UserPage from "@/Components/Admin/user/UserPage";
 import MealsPage from "@/Components/Admin/meals/Meals";
+import VolunteerAssignmentsPage from "@/Components/Admin/volunteer/volunteer";
 
 
-export default function Dashboard() {
+export default function AdminDashboard() {
     const [isSidebarClosed, setIsSidebarClosed] = useState(false);
     const [activePage, setActivePage] = useState("Dashboard"); // State to track the active page
 
@@ -21,13 +22,13 @@ export default function Dashboard() {
     const renderActivePage = () => {
         switch (activePage) {
             case "Dashboard":
-                return <AdminDashboard />;
+                return <AdminPage />;
             case "User":
                 return <UserPage />;
             case "Meals":
                 return <MealsPage />;
-            // case "Volunteer":
-            //     return <VolunteerPage />;
+            case "Volunteer":
+                return <VolunteerAssignmentsPage />;
             // case "Partner":
             //     return <PartnerPage />;
             // case "Delivery":

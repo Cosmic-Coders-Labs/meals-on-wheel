@@ -1,9 +1,22 @@
+import { capitalize } from "@/Utils/utils";
 import React, { useState, useEffect, useRef } from "react";
 
-const Dropdown = ({ options = [], disabled = false, onSelect = () => { } }) => {
+const Dropdown = ({
+    options = [],
+    disabled = false,
+    defaultValue = "", // New prop for default value
+    onSelect = () => { },
+}) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(options[0] || "");
+    const [selectedOption, setSelectedOption] = useState(defaultValue || options[0] || "");
     const dropdownRef = useRef(null);
+
+    // Update selectedOption if defaultValue changes after initial render
+    useEffect(() => {
+        if (defaultValue && defaultValue !== selectedOption) {
+            setSelectedOption(defaultValue);
+        }
+    }, [defaultValue, selectedOption]);
 
     // Close the dropdown if clicked outside
     useEffect(() => {
@@ -42,7 +55,7 @@ const Dropdown = ({ options = [], disabled = false, onSelect = () => { } }) => {
                 tabIndex={0}
                 onClick={toggleDropdown}
             >
-                {selectedOption || "Select"}
+                {selectedOption || "Select"} {/* Show selected or placeholder */}
                 <svg
                     className={`absolute w-4 h-4 right-3 transform transition-transform ${isOpen ? "rotate-180" : "rotate-0"
                         } ${disabled ? "fill-gray-800" : "fill-gray-900"}`}
@@ -67,7 +80,7 @@ const Dropdown = ({ options = [], disabled = false, onSelect = () => { } }) => {
                             className="px-3 py-2 text-sm text-gray-900 cursor-pointer hover:bg-gray-100"
                             onClick={() => handleOptionClick(option)}
                         >
-                            {option}
+                            {capitalize(option)}
                         </li>
                     ))}
                 </ul>

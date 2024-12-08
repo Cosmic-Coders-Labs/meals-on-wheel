@@ -8,17 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Meal extends Model
 {
     use HasFactory;
+    protected $table = 'meals';
     protected $primaryKey = 'meal_id';
     protected $fillable = [
         'name',
         'ingredients',
         'image',
-        'preparation_time',
+        'reason_for_rejection',
         'status',
+        'price',
         'dietary_type',
         'calories',
         'user_id',
-        'price'
     ];
 
     public static function validationRules()
@@ -27,12 +28,15 @@ class Meal extends Model
             'name' => 'required|string',
             'ingredients' => 'required|string',
             'image' => 'required|string',
+            'reason_for_rejection' => 'nullable|string',
             'status' => 'required|string',
+            'price' => 'required|numeric',
             'dietary_type' => 'required|in:vegetarian,vegan,gluten-free,none',
             'calories' => 'required|numeric',
             'user_id' => 'required|exists:users,id',
         ];
     }
+
 
     public function menu()
     {

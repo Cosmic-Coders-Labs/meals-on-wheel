@@ -4,20 +4,20 @@ import Overview from '../overview/overview';
 import Dropdown from '@/Components/Dropdown';
 import ReusableTable from '@/Components/Table';
 import { fetchMembers, fetchOrders, fetchUsers, fetchProfiles, fetchMeals } from '@/Utils/utils';
-const AdminDashboard = () => {
+
+const AdminPage = () => {
     const [orders, setOrders] = useState([]);
-    const [members, setMembers] = useState([]);
-    const [meals, setMeals] = useState([]);
-    const [users, setUsers] = useState([]);
+    const [profiles, setProfiles] = useState([]); // Store profiles data
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // Utility function to get the user's name from profiles using user_id
     const get_name = (id) => {
-        // get the users name from the
-    }
+        const profile = profiles.find(profile => profile.user_id === id);
+        return profile?.first_name + " " + profile?.last_name || 'Unknown User'; // Return 'Unknown User' if no match
+    };
 
     useEffect(() => {
-        // Fetch orders
         const getOrders = async () => {
             try {
                 const data = await fetchOrders();
@@ -27,45 +27,22 @@ const AdminDashboard = () => {
             }
             setLoading(false);
         };
-        // Fetch members
-        const getMembers = async () => {
-            try {
-                const data = await fetchMembers();
-                setMembers(data);
-            } catch (error) {
-                setError("Failed to fetch members.");
-            }
-            setLoading(false);
-        };
-        // Fetch profiles
+
         const getProfiles = async () => {
             try {
                 const data = await fetchProfiles();
-                setProfiles(data);
+                setProfiles(data); // Save profiles data to state
             } catch (error) {
-                setError("Failed to fetch profile.");
-            }
-            setLoading(false);
-        };
-        const getMeals = async () => {
-            try {
-                const data = await fetchMeals();
-                setMeals(data);
-            } catch (error) {
-                setError("Failed to fetch profile.");
+                setError("Failed to fetch profiles.");
             }
             setLoading(false);
         };
 
-        getProfiles();
-        getMembers();
         getOrders();
-        getMeals();
+        getProfiles();
     }, []);
 
-
-
-    const tableHeaders = ['No.', 'Date', 'Member', 'Order Number', 'Status', 'Actions'];
+    const tableHeaders = ['No.', 'Date', 'Member', 'Status', 'Actions'];
     const options = ['View', 'Track', 'Cancel', 'Reorder'];
 
     const tableData = orders
@@ -75,17 +52,15 @@ const AdminDashboard = () => {
         .map(order => [
             order.order_id,
             order.order_date,
-            order.member?.member_id ? order.member.name : 'N/A', // Use optional chaining to handle null/undefined
-        order.orderNumber,
-        order.status,
+            get_name(order.member?.user_id),
+            order.status,
             <Dropdown options={options} disabled={false} />
-    ]);
-
+        ]);
 
     return (
         <div className="flex-1 w-full">
             <Overview />
-            <RecentOrders tableHeaders={tableHeaders} tableData={tableData} />
+            <RecentOrders tableHeaders={tableHeaders} tableData={tableData} reverse={true} />
             <br />
         </div>
     );
@@ -103,11 +78,11 @@ const RecentOrders = ({ tableHeaders, tableData }) => {
                 data={tableData}
                 page={page}
                 setPage={setPage}
-                showPagination={false} // Toggle this to show or hide pagination
+                showPagination={false}
+                reverse={true}
             />
-
         </div>
     );
 };
 
-export default AdminDashboard;
+export default AdminPage;

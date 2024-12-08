@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class UserController extends BaseController
 {
@@ -104,5 +105,31 @@ class UserController extends BaseController
 
         // Return the formatted user as JSON
         return response()->json($formattedUser, 200);
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:active,inactive',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->status = $request->status;
+        $user->save();
+
+        return response()->json(['message' => 'User status updated successfully.']);
+    }
+
+    public function getMe(Request $request)
+    {
+        if (!$request->user()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        $user = $request->user();
+        return response()->json([
+            'id' => $user->id,
+            'email' => $user->email,
+        ]);
     }
 }

@@ -7,43 +7,53 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
+    // Display a listing of the tasks
     public function index()
     {
-        $tasks = Task::with(['order', 'volunteer'])->get();
+        $tasks = Task::all();
         return response()->json($tasks);
     }
 
+    // Store a newly created task
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'order_id' => 'required|exists:orders,order_id',
-            'volunteer_id' => 'nullable|exists:volunteers,volunteer_id',
-            'status' => 'in:available,assigned,completed',
-            'priority' => 'in:low,medium,high',
+        $request->validate([
+            'name' => 'nullable|string',
+            'order_id' => 'nullable|exists:orders,id',
+            'status' => 'required|in:available,assigned,completed',
+            'priority' => 'required|in:low,medium,high',
         ]);
 
-        $task = Task::create($validated);
+        $task = Task::create($request->all());
         return response()->json($task, 201);
     }
 
-    public function update(Request $request, $id)
+    // Display the specified task
+    public function show($id)
     {
         $task = Task::findOrFail($id);
-        $validated = $request->validate([
-            'status' => 'in:available,assigned,completed',
-            'priority' => 'in:low,medium,high',
-            'assigned_at' => 'nullable|date',
-            'completed_at' => 'nullable|date',
-        ]);
-
-        $task->update($validated);
         return response()->json($task);
     }
 
+    // Update the specified task
+    public function update(Request $request, $id)
+    {
+        $task = Task::findOrFail($id);
+
+        $request->validate([
+            'status' => 'required|in:available,assigned,completed',
+            'priority' => 'required|in:low,medium,high',
+        ]);
+
+        $task->update($request->all());
+        return response()->json($task);
+    }
+
+    // Remove the specified task
     public function destroy($id)
     {
         $task = Task::findOrFail($id);
         $task->delete();
-        return response()->json(['message' => 'Task deleted successfully']);
+        return response()->json(null, 204);
     }
 }

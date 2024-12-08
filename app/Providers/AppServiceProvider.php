@@ -32,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Route::middleware('web')
         ->namespace($this->app->getNamespace())
             ->group(base_path('routes/web.php'));
+
+        Route::aliasMiddleware('role', \App\Http\Middleware\CheckRole::class);
     }
 }

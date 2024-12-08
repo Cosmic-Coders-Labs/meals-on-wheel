@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,25 +7,25 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     use HasFactory;
-
+    protected $primarykey = 'task_id';
     protected $table = 'tasks';
 
     protected $fillable = [
+        'name',
         'order_id',
-        'volunteer_id',
         'status',
         'priority',
-        'assigned_at',
-        'completed_at',
     ];
 
-    public function order()
+    // Define the relationship with the VolunteerAssignments model
+    public function volunteerAssignments()
     {
-        return $this->belongsTo(Order::class, 'order_id');
+        return $this->hasMany(VolunteerAssignment::class);
     }
 
-    public function volunteer()
+    // Define the relationship with the Order model
+    public function order()
     {
-        return $this->belongsTo(Volunteer::class, 'volunteer_id');
+        return $this->belongsTo(Order::class);
     }
 }

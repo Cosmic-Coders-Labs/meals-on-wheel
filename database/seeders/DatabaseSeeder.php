@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             OrderSeeder::class,
             TaskSeeder::class,
             MealsOrderSeeder::class,
+            VolunteerAssignmentSeeder::class,
         ]);
     }
 }

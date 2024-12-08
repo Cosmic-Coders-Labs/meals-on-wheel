@@ -2,26 +2,10 @@
 import MultiStepRegistrationForm from '@/Components/MultiStepsForm';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 
 
 export default function Register() {
-    const [alert, setAlert] = useState(null);
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
-    });
-
-    const submit = (e) => {
-        e.preventDefault();
-
-        post(route('register'), {
-            onFinish: () => reset('password', 'password_confirmation'),
-        });
-    };
 
     return (
         <GuestLayout>

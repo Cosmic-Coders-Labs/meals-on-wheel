@@ -32,24 +32,32 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-        // Role-based redirection logic
+        // Get the authenticated user
         $user = Auth::user();
-        // Check the user's role and redirect accordingly
-        if ($user->roles->contains('name', 'admin')) {
-            return redirect()->route('dashboard');
+
+        // Check if the user has roles and redirect accordingly
+        if ($user) {
+            // Check for admin role first
+            if ($user->roles->pluck('name')->contains('admin')) {
+                return redirect()->route('dashboard');
+            }
+
+            // Check for member role if no admin role
+            if ($user->roles->pluck('name')->contains('member')) {
+                return redirect()->route('member-dashboard');
+            }
+
+            // Check for partner role if no admin or member role
+            if ($user->roles->pluck('name')->contains('partner')) {
+                return redirect()->route('partner-dashboard');
+            }
+
+            // Default redirection if no specific role matches
+            return redirect()->route('home');
         }
 
-        if ($user->roles->contains('name', 'member')) {
-            return redirect()->route('member-dashboard');
-        }
-
-        if ($user->roles->contains('name', 'partner')) {
-            return redirect()->route('partner-dashboard');
-        }
-
-        // Default redirection if no specific role matches
-        return redirect()->route('home');
-        // return redirect()->intended(route('dashboard', absolute: false));
+        // Fallback if no user is authenticated
+        return redirect()->route('login');
     }
 
     /**
