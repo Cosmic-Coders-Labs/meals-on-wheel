@@ -1,11 +1,7 @@
 import { Link } from "@inertiajs/react";
 import React from "react";
 
-import {
-    FaFacebook,
-    FaInstagram,
-    FaTwitter,
-} from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import logo from "../../../assets/logo.png";
 
 const Footer = () => {
@@ -30,7 +26,9 @@ const Footer = () => {
 
                     {/* Quick Links */}
                     <div>
-                        <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+                        <h3 className="text-lg font-semibold mb-4">
+                            Quick Links
+                        </h3>
                         <nav className="flex flex-col gap-3">
                             <Link
                                 href="/"
@@ -39,7 +37,7 @@ const Footer = () => {
                                 Home
                             </Link>
                             <Link
-                                href="/about-us"
+                                href="/about"
                                 className="hover:text-gray-300 transition-colors"
                             >
                                 About Us
@@ -92,7 +90,9 @@ const Footer = () => {
 
                     {/* Connect With Us */}
                     <div>
-                        <h3 className="text-lg font-semibold mb-4">Connect With Us</h3>
+                        <h3 className="text-lg font-semibold mb-4">
+                            Connect With Us
+                        </h3>
                         <div className="space-y-4">
                             <div className="flex items-center">
                                 <input

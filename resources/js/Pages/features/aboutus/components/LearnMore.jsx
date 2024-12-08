@@ -51,11 +51,11 @@ const LearnMore = () => {
                         </p>
                     </div>
                     {/* Image Section */}
-                    <div className="flex justify-center">
+                    <div className="flex justify-center md:justify-end mt-8 md:mt-0">
                         <img
                             src={mission}
                             alt="Mission Illustration"
-                            className="rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300"
+                            className="w-full md:w-[600px] h-auto rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300"
                         />
                     </div>
                 </div>
@@ -63,11 +63,11 @@ const LearnMore = () => {
                 {/* Second Row - History Section */}
                 <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-12">
                     {/* Image Section */}
-                    <div className="flex justify-center">
+                    <div className="flex justify-center md:justify-end">
                         <img
                             src={history}
                             alt="History Illustration"
-                            className="w-full rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300"
+                            className="w-full md:w-[600px] h-auto rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-300"
                         />
                     </div>
                     {/* Text Section */}

@@ -15,7 +15,7 @@ const OurPartners = () => {
                     <img
                         src={logos}
                         alt="Our Partners Logos"
-                        className="w-[800px] h-[500px] max-w-4xl rounded-lg"
+                        className="w-full sm:w-[600px] md:w-[800px] lg:w-[1000px] h-auto max-w-4xl rounded-lg"
                     />
                 </div>
 
