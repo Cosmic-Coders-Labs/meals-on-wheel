@@ -5,10 +5,10 @@ import { GiMeal } from "react-icons/gi";
 import { HiBriefcase } from "react-icons/hi";
 import { MdVolunteerActivism, MdOutlineDeliveryDining } from "react-icons/md";
 import logo from "../../../assets/logo.png";
-import { Head, router } from "@inertiajs/react";
+import { router } from "@inertiajs/react";
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 
-const Sidebar = ({ onSidebarToggle }) => {
+const Sidebar = ({ onSidebarToggle, setActivePage }) => {
     const [isSidebarClosed, setIsSidebarClosed] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
 
@@ -21,15 +21,19 @@ const Sidebar = ({ onSidebarToggle }) => {
         setShowMenu(!showMenu);
     };
 
-    const handleLogout = () => {
-        if (window.confirm("Are you sure you want to log out?")) {
-            router.post(route("logout"));
-        }
-    };
+    const menuItems = [
+        { icon: <RxDashboard />, label: "Dashboard" },
+        { icon: <FaUser />, label: "User" },
+        { icon: <GiMeal />, label: "Meals" },
+        { icon: <MdVolunteerActivism />, label: "Volunteer" },
+        { icon: <HiBriefcase />, label: "Partner" },
+        { icon: <MdOutlineDeliveryDining />, label: "Delivery" },
+    ];
 
     return (
         <nav
-            className={`fixed top-0 left-0 h-screen transition-all duration-300 ${isSidebarClosed ? "w-20" : "w-60"} bg-white text-black shadow-lg flex flex-col`}
+            className={`fixed top-0 left-0 h-screen transition-all duration-300 ${isSidebarClosed ? "w-20" : "w-60"
+                } bg-white text-black shadow-lg flex flex-col`}
         >
             {/* Header Section */}
             <header className="flex items-center justify-between p-4 border-b border-gray-300">
@@ -58,17 +62,11 @@ const Sidebar = ({ onSidebarToggle }) => {
             {/* Sidebar Menu */}
             <div className="px-4 pt-4 flex-grow">
                 <ul className="space-y-2">
-                    {[
-                        { icon: <RxDashboard />, label: "Dashboard" },
-                        { icon: <FaUser />, label: "User" },
-                        { icon: <GiMeal />, label: "Meals" },
-                        { icon: <MdVolunteerActivism />, label: "Volunteer" },
-                        { icon: <HiBriefcase />, label: "Partner" },
-                        { icon: <MdOutlineDeliveryDining />, label: "Delivery" },
-                    ].map((item, index) => (
+                    {menuItems.map((item, index) => (
                         <li
                             key={index}
                             className="flex items-center p-2 cursor-pointer hover:bg-gray-300 rounded-lg"
+                            onClick={() => setActivePage(item.label)} // Set the active page
                         >
                             {item.icon}
                             {!isSidebarClosed && <span className="ml-4">{item.label}</span>}
@@ -94,7 +92,7 @@ const Sidebar = ({ onSidebarToggle }) => {
                                 <li className="p-2 cursor-pointer hover:bg-gray-100">Settings</li>
                                 <li
                                     className="p-2 cursor-pointer hover:bg-gray-100 text-red-500"
-                                    onClick={handleLogout}
+                                    onClick={() => router.post(route("logout"))}
                                 >
                                     Logout
                                 </li>
@@ -106,5 +104,6 @@ const Sidebar = ({ onSidebarToggle }) => {
         </nav>
     );
 };
+
 
 export default Sidebar;

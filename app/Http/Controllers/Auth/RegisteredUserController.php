@@ -129,6 +129,24 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
         Auth::login($user);
-        return redirect(route('dashboard', absolute: false));
+
+        // Role-based redirection logic
+        $user = Auth::user(); // Get the currently authenticated user
+        // Check the user's role and redirect accordingly
+        if ($user->roles->contains('name', 'admin')) {
+            return redirect()->route('dashboard');
+        }
+
+        if ($user->roles->contains('name', 'member')) {
+            return redirect()->route('member-dashboard');
+        }
+
+        if ($user->roles->contains('name', 'partner')) {
+            return redirect()->route('partner-dashboard');
+        }
+
+        // Default redirection if no specific role matches
+        return redirect()->route('home');
+        // return redirect()->intended(route('dashboard', absolute: false));
     }
 }

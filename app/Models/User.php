@@ -57,6 +57,12 @@ class User extends Authenticatable
         return $this->hasOne(Volunteer::class);
     }
 
+
+    public function caregivers()
+    {
+        return $this->belongsToMany(User::class, 'caregivers_to_members', 'member_id', 'caregiver_id');
+    }
+
     public function donor()
     {
         return $this->hasOne(Donor::class);

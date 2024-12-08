@@ -11,7 +11,7 @@ class SchemaDefinitions
         $table->id();
         $table->string('email')->unique();
         $table->string('password');
-        $table->string('status')->default('pending');
+        $table->enum('status', ['active', 'inactive'])->default('inactive');
         $table->decimal('latitude', 10, 7)->default(0);
         $table->decimal('longitude', 10, 7)->default(0);
         $table->string('reason_of_rejection')->nullable();
@@ -125,21 +125,22 @@ class SchemaDefinitions
 
     public static function createCaregiversToMembers(Blueprint $table)
     {
+        $table->id();
         $table->unsignedBigInteger('caregiver_id');
         $table->foreign('caregiver_id')->references('caregiver_id')->on('caregivers')->cascadeOnDelete();
         $table->unsignedBigInteger('member_id');
         $table->foreign('member_id')->references('member_id')->on('members')->cascadeOnDelete();
-        $table->primary(['caregiver_id', 'member_id']);
         $table->timestamps();
     }
 
     public static function createPartners(Blueprint $table)
     {
         $table->id('partner_id');
-        $table->string('partner_name');
-        $table->string('partner_registered_by');
-        $table->string('address');
-        $table->string('business_license');
+        $table->string('partner_name')->nullable();
+        $table->string('partner_registered_by')->nullable();
+        $table->string('address')->nullable();
+        $table->string('business_license')->nullable();
+        $table->string('business_type')->nullable();
         $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
         $table->timestamps();
     }
@@ -175,6 +176,7 @@ class SchemaDefinitions
         $table->longText('image');
         $table->longText('reason_for_rejection')->nullable();
         $table->string('status');
+        $table->decimal('price')->default(0);
         $table->enum('dietary_type', ['vegetarian', 'vegan', 'gluten-free', 'none']);
         $table->decimal('calories');
         // userId is not a foreign key to avoid removing records created here if the user is deleted.
@@ -185,8 +187,9 @@ class SchemaDefinitions
     public static function createMenu(Blueprint $table)
     {
         $table->id('menu_id');
-        $table->bigInteger('week_start_date')->nullable();
-        $table->bigInteger('week_end_date')->nullable();
+        $table->string('menu_name');
+        $table->dateTime('available_from')->nullable();
+        $table->dateTime('available_until')->nullable();
 
         // Foreign key referencing 'id' column in 'meals' table
         $table->unsignedBigInteger('meal_id')->nullable();
@@ -197,11 +200,14 @@ class SchemaDefinitions
         $table->timestamps();
     }
 
+
     public static function createDonor(Blueprint $table)
     {
         $table->id('donor_id');
         $table->string('donor_name')->nullable();
         $table->string('contact_number')->nullable();
+        $table->string('card_number')->nullable();
+        $table->string('secret_number')->nullable();
         $table->string('email')->nullable();
         $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
         $table->timestamps();
@@ -218,5 +224,49 @@ class SchemaDefinitions
         $table->string('status');  // Status of the donation (e.g., 'completed', 'pending')
         $table->timestamps();
     }
+
+    public static function createOrders(Blueprint $table)
+    {
+        $table->id('order_id');
+
+        $table->foreignId('meal_id')->nullable()->constrained('meals', 'meal_id')->nullOnDelete();
+        $table->foreignId('member_id')->nullable()->constrained('members', 'member_id')->nullOnDelete();
+        $table->foreignId('caregiver_id')->nullable()->constrained('caregivers', 'caregiver_id')->nullOnDelete();
+
+        $table->enum('status', ['pending', 'in-progress', 'delivered', 'cancelled'])->default('pending');
+        $table->decimal('total_price', 8, 2)->nullable();
+        $table->timestamp('order_date')->nullable();
+        $table->timestamp('delivery_date')->nullable();
+        $table->text('special_instructions')->nullable();
+        $table->text('rejection_reason')->nullable();
+        $table->timestamps();
+    }
+
+    public static function createTasks(Blueprint $table)
+    {
+        $table->id('task_id');
+
+        $table->foreignId('order_id')->nullable()->constrained('orders', 'order_id')->nullOnDelete();
+        $table->foreignId('volunteer_id')->nullable()->constrained('volunteers', 'volunteer_id')->nullOnDelete();
+
+        $table->enum('status', ['available', 'assigned', 'completed'])->default('available');
+        $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
+        $table->timestamp('assigned_at')->nullable();
+        $table->timestamp('completed_at')->nullable();
+        $table->timestamps();
+    }
+
+
+    public static function updateMealsOrder(Blueprint $table)
+    {
+        $table->id();
+
+        $table->foreignId('order_id')->nullable()->constrained('orders', 'order_id')->nullOnDelete();
+        $table->foreignId('partner_id')->nullable()->constrained('partners', 'partner_id')->nullOnDelete();
+
+        $table->enum('preparation_status', ['pending', 'in-progress', 'ready'])->default('pending');
+        $table->timestamps();
+    }
+
 
 }

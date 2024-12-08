@@ -18,6 +18,12 @@ class BaseController extends Controller
         return response()->json(json_decode($data), 200);
     }
 
+    public function count()
+    {
+        $data = $this->model::count();
+        return response()->json(json_decode($data), 200);
+    }
+
     /**
      * Store a new resource.
      *
@@ -79,4 +85,6 @@ class BaseController extends Controller
         $record->delete();
         return response()->json(null, 204);  // No content
     }
+
+
 }

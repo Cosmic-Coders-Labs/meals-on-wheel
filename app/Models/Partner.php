@@ -14,6 +14,7 @@ class Partner extends Model
         'partner_registered_by',
         'address',
         'business_license',
+        'business_type',
         'user_id',
     ];
 

@@ -14,7 +14,6 @@ class Donation extends Model
 
     protected $fillable = [
         'donor_id',
-        'email',
         'currency',
         'amount',
         'message',

@@ -18,6 +18,7 @@ class Meal extends Model
         'dietary_type',
         'calories',
         'user_id',
+        'price'
     ];
 
     public static function validationRules()

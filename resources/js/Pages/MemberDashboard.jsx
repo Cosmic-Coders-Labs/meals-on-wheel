@@ -16,7 +16,7 @@ export default function MemberDashboard() {
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Dashboard
+                    Member Dashboard
                 </h2>
             }
         >

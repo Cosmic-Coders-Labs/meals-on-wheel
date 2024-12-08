@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Donor extends Model
 {
     use HasFactory;
-
+    protected $primaryKey = 'donor_id';
     // The table associated with the model
     protected $table = 'donors';
 
@@ -17,6 +17,8 @@ class Donor extends Model
         'donor_name',
         'contact_number',
         'email',
+        'card_number',
+        'secret_number',
         'user_id',
     ];
 

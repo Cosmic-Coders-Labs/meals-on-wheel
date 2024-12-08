@@ -66,7 +66,6 @@ const MultiStepRegistrationForm = () => {
             }));
         } catch (error) {
             console.error("Error fetching location:", error);
-            setAlert({ type: "error", message: "Unable to retrieve location. Please try again." });
         }
     };
 

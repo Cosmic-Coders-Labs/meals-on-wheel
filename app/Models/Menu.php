@@ -8,23 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Menu extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'menu_id';
+    protected $table = 'menu';
 
     protected $fillable = [
-        'week_start_date',
-        'week_end_date',
+        'menu_name',
+        'available_from',
+        'available_until',
         'meal_id',
         'purposed_by',
     ];
 
-    public static function validationRules()
-    {
-        return [
-            'week_start_date' => 'nullable|integer',
-            'week_end_date' => 'nullable|integer',
-            'meal_id' => 'required|exists:meals,meal_id',
-            'purposed_by' => 'nullable|exists:users,id',
-        ];
-    }
 
 
     public function meal()
