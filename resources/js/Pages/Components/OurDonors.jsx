@@ -10,7 +10,7 @@ const OurDonors = () => {
             <h2 className="text-4xl font-bold text-secondary-700 mb-8 ms-20">
                 # Our Donors & Their Feedbacks
             </h2>
-            <div className="flex justify-evenly">
+            <div className="flex flex-col md:flex-row justify-evenly gap-12 md:gap-6">
                 {/* First Donor */}
                 <div className="relative mt-5">
                     {/* Circle image */}

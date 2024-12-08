@@ -12,16 +12,16 @@ const WhatWeDeliver = () => {
             {/* First Row: Image Left, Text Right */}
             <div className="flex flex-col md:flex-row items-center justify-center mx-auto mb-16 max-w-screen-lg">
                 {/* Image Section */}
-                <div className="w-full md:w-3/3 mb-6 md:mb-0">
+                <div className="w-full md:w-1/2 mb-6 md:mb-0">
                     <img
                         src={hot}
                         alt="Hot Noon Meals"
-                        className="w-[800px] h-[450px] rounded-xl shadow-lg border-[2px] border-primary-700"
+                        className="w-full h-[250px] sm:h-[300px] md:h-[450px] rounded-xl shadow-lg border-[2px] border-primary-700 object-cover"
                     />
                 </div>
 
                 {/* Text Section */}
-                <div className="w-full ps-20 text-center md:text-left">
+                <div className="w-full text-center md:text-left px-6 md:px-20">
                     <h3 className="text-primary-700 font-bold text-3xl mb-4">
                         <span className="text-3xl font-extrabold">` </span>
                         Hot Noon Meals
@@ -38,7 +38,7 @@ const WhatWeDeliver = () => {
             {/* Second Row: Image Right, Text Left */}
             <div className="flex flex-col md:flex-row items-center justify-center mx-auto max-w-screen-lg">
                 {/* Text Section */}
-                <div className="w-full pe-10 text-center md:text-left mb-6 md:mb-0">
+                <div className="w-full text-center md:text-left px-6 md:px-10 mb-6 md:mb-0">
                     <h3 className="text-secondary-700 font-bold text-3xl mb-4">
                         <span className="text-3xl font-extrabold">` </span>
                         Frozen Meals
@@ -52,11 +52,11 @@ const WhatWeDeliver = () => {
                 </div>
 
                 {/* Image Section */}
-                <div className="w-full md:w-3/3">
+                <div className="w-full md:w-1/2">
                     <img
                         src={frozen}
                         alt="Frozen Meals"
-                        className="w-[900px] h-[450px] rounded-xl shadow-lg border-[2px] border-secondary-700"
+                        className="w-full h-[250px] sm:h-[300px] md:h-[450px] rounded-xl shadow-lg border-[2px] border-secondary-700 object-cover"
                     />
                 </div>
             </div>

@@ -2,23 +2,36 @@ import React from "react";
 
 const KeyStatistics = () => {
     return (
-        <div className="bg-primary-600 py-8">
-            <div className="flex justify-evenly gap-12 md:gap-16">
-                <div className="text-center">
-                    <p className="text-5xl font-bold text-primary-300">
+        <div className="bg-primary-600 py-6 sm:py-8 lg:py-12">
+            <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-16 text-center">
+                {/* Meals Delivered */}
+                <div>
+                    <p className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-300">
                         10,000+
                     </p>
-                    <p className="text-xl font-semibold">Meals Delivered</p>
+                    <p className="text-lg sm:text-xl font-semibold text-white">
+                        Meals Delivered
+                    </p>
                 </div>
-                <div className="text-center">
-                    <p className="text-5xl font-bold text-primary-300">
+
+                {/* Members Served */}
+                <div>
+                    <p className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-300">
                         2,000+
                     </p>
-                    <p className="text-xl font-semibold">Members Served</p>
+                    <p className="text-lg sm:text-xl font-semibold text-white">
+                        Members Served
+                    </p>
                 </div>
-                <div className="text-center">
-                    <p className="text-5xl font-bold text-primary-300">500+</p>
-                    <p className="text-xl font-semibold">Volunteers</p>
+
+                {/* Volunteers */}
+                <div>
+                    <p className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary-300">
+                        500+
+                    </p>
+                    <p className="text-lg sm:text-xl font-semibold text-white">
+                        Volunteers
+                    </p>
                 </div>
             </div>
         </div>
