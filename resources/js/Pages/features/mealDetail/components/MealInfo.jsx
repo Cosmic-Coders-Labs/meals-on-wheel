@@ -17,7 +17,7 @@ const MealInfo = ({
                 <div>
                     <img
                         src={image}
-                        className=" rounded-lg shadow-lg border-[2px] border-secondary-700"
+                        className=" rounded-lg shadow-lg w-full h-[500px] border-[2px] border-secondary-700"
                         alt="Grilled Chicken Salad"
                     />
                 </div>
