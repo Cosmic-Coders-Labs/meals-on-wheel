@@ -1,6 +1,5 @@
 import React from "react";
 import MealCard from "./MealCard";
-import MealCard2 from "./MealCard2";
 import useWeeklyMealStore from "../../../store/useWeeklyMealStore";
 import useMealTypeStore from "../../../store/useMealTypeStore";
 

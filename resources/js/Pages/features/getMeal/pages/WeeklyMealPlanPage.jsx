@@ -11,7 +11,7 @@ const WeeklyMealPlanPage = () => {
         <section className="flex flex-col min-h-screen">
             <Header />
 
-            <Container>
+            <Container className={"container"}>
                 <GetMealTitle />
                 <FilterMealTypeAndAllergySection />
                 <MealSection />

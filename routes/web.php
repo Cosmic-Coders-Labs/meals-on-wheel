@@ -41,3 +41,7 @@ Route::get('/donor/donate', function () {
 Route::get('/weekly-meal-plan', function () {
     return inertia('features/getMeal/pages/WeeklyMealPlanPage');
 });
+
+Route::get('/meal-detail/{mealSlug}', function () {
+    return inertia('features/mealDetail/pages/MealDetailPage');
+});

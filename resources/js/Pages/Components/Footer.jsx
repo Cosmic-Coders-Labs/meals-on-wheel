@@ -19,7 +19,7 @@ const Footer = () => {
                             {/* <FaHandHoldingHeart className=" size-7" /> */}
                             <img src={logo} alt="logo" className="size-16" />
                             <div className=" flex flex-col">
-                                <span className="text-2xl text-secondary-400 font-bold">
+                                <span className="text-2xl text-nowrap text-secondary-400 font-bold">
                                     Meals On Wheel
                                 </span>
                                 <span className=" text-xs text-zinc-400">
