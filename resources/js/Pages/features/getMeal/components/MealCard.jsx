@@ -25,10 +25,10 @@ const MealCard = ({
                     <img
                         src={image}
                         alt={mealName}
-                        className="w-full h-full object-cover rounded-s"
+                        className="w-full h-full object-cover rounded-t-lg md:rounded-s-lg"
                     />
                 </div>
-                <div className="p-4 flex-1 bg-stone-100 rounded-e flex flex-col font-noto">
+                <div className="p-4 flex-1 bg-stone-100 rounded-b-lg md:rounded-e-lg flex flex-col font-noto">
                     <h2 className="text-xl font-semibold mb-2 font-playfair">
                         {mealName}
                     </h2>

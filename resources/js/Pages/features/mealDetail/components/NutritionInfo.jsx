@@ -4,8 +4,8 @@ import Container from "../../../Components/Container";
 const NutritionInfo = ({ currentMeal: { calories, protein, carbohydrate, fat }}) => {
     return (
         <section className="mb-10">
-            <Container className={"container"}>
-                <h1 className="text-2xl font-bold mb-8 font-playfair">
+            <Container className={"container px-10 md:px-0 xl:px-10"}>
+                <h1 className=" text-xl md:text-2xl font-bold mb-8 font-playfair">
                     Nutritional Information
                 </h1>
                 <div className="flex justify-center rounded-lg overflow-hidden font-noto">

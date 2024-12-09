@@ -13,7 +13,11 @@ const MealInfo = ({
 }) => {
     return (
         <section className=" mb-10">
-            <Container className={"container grid grid-cols-2 gap-10"}>
+            <Container
+                className={
+                    "container grid grid-cols-1 md:grid-cols-2 gap-10 px-10 md:px-0 xl:px-10"
+                }
+            >
                 <div>
                     <img
                         src={image}
@@ -23,24 +27,26 @@ const MealInfo = ({
                 </div>
                 <div className=" flex flex-col gap-10">
                     <div className=" flex flex-col gap-5">
-                        <p className="text-xl font-bold">Calories:</p>
-                        <p className="text-white">
+                        <p className=" text-base md:text-xl font-bold">
+                            Calories:
+                        </p>
+                        <p className="text-white text-sm md:text-base">
                             <span className="bg-emerald-500 px-3 py-1  rounded-3xl">
                                 {calories} kcal
                             </span>
                         </p>
                     </div>
                     <div className=" flex flex-col gap-5">
-                        <p className="text-xl font-bold">Type:</p>
-                        <p className="text-white">
+                        <p className="text-base md:text-xl font-bold">Type:</p>
+                        <p className="text-white text-sm md:text-base">
                             <span className="bg-emerald-500 px-3 py-1  rounded-3xl">
                                 {deliveryType}
                             </span>
                         </p>
                     </div>
-                    <div className=" flex flex-col gap-5">
-                        <p className="text-xl font-bold">Tag:</p>
-                        <div className=" flex gap-3 items-center">
+                    <div className=" flex flex-col gap-5 text-nowrap">
+                        <p className="text-base md:text-xl font-bold">Tag:</p>
+                        <div className=" flex gap-3 items-center text-sm md:text-base">
                             <p
                                 className={` px-3 py-1 text-white rounded-3xl ${
                                     glutenFree ? "bg-slate-500" : "bg-red-500"
@@ -67,14 +73,16 @@ const MealInfo = ({
                         </div>
                     </div>
                     <div className=" flex flex-col gap-5">
-                        <p className="text-xl font-bold">Availability:</p>
-                        <p className="text-white">
+                        <p className="text-base md:text-xl font-bold">
+                            Availability:
+                        </p>
+                        <p className="text-white text-sm md:text-base">
                             <span className="bg-emerald-500 px-3 py-1  rounded-3xl">
                                 Available This Week
                             </span>
                         </p>
                     </div>
-                    <button className="mt-auto py-2 px-3 rounded-lg bg-secondary-700 text-white">
+                    <button className="text-sm md:text-base mt-auto py-2 px-3 rounded-lg bg-secondary-700 text-white">
                         Order Meal
                     </button>
                 </div>

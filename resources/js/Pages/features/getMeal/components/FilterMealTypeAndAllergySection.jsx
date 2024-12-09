@@ -6,7 +6,7 @@ const FilterMealTypeAndAllergySection = () => {
     const { mealTypes } = useMealTypeStore();
 
     return (
-        <section className="flex justify-between mt-10">
+        <section className="flex flex-col md:flex-row justify-between mt-10 px-3 sm:px-0 xl:px-10 min-[1300px]:px-0 gap-5">
             <div className=" flex items-center">
                 <p>Meal Type:</p>
                 <div className="ms-5 flex gap-5 items-center justify-center">

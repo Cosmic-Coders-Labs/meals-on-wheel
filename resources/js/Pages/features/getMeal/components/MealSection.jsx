@@ -10,8 +10,8 @@ const MealSection = () => {
     const currentMealType = mealTypes.find((el) => el.isActive === true);
 
     return (
-        <section>
-            <div className=" grid grid-cols-2 gap-10 my-10">
+        <section className="px-8 sm:px-0 xl:px-10 min-[1300px]:px-0">
+            <div className=" grid grid-cols-1 lg:grid-cols-2 gap-10 my-10">
                 {weeklyMeals
                     .filter(
                         (el) =>
