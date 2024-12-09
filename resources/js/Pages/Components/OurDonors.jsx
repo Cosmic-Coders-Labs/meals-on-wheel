@@ -7,10 +7,10 @@ import woman2 from "../../../assets/woman2.jpg";
 const OurDonors = () => {
     return (
         <section className="bg-secondary-100 py-16 px-8">
-            <h2 className="text-4xl font-bold text-secondary-700 mb-8 ms-20">
+            <h2 className="text-xl md:text-4xl font-bold text-secondary-700 mb-8">
                 # Our Donors & Their Feedbacks
             </h2>
-            <div className="flex flex-col md:flex-row justify-evenly gap-12 md:gap-6">
+            <div className="grid grid-flow-row lg:grid-flow-col grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {/* First Donor */}
                 <div className="relative mt-5">
                     {/* Circle image */}
