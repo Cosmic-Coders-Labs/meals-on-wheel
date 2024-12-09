@@ -3,7 +3,7 @@ import Container from "../../../Components/Container";
 
 const AllergyInfo = ({ currentMeal: { dairyFree, nutsFree, glutenFree } }) => {
     return (
-        <section className=" flex flex-col justify-center bg-accent-500 mt-10 mb-20 py-4">
+        <section className=" flex flex-col justify-center bg-secondary-400 mt-10 mb-20 py-4">
             <Container className={"container"}>
                 <h1 className=" text-2xl font-bold mb-8 font-playfair">
                     Allergens & Dietary Information
