@@ -1,22 +1,16 @@
 import { Link } from "@inertiajs/react";
 import React from "react";
 import logo from "../../../assets/logo.png";
-import {
-    FaFacebook,
-    FaHandHoldingHeart,
-    FaInstagram,
-    FaTwitter,
-} from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
     return (
         <footer className="bg-secondary-800 text-white mt-auto">
             <div className="container py-12 mx-auto px-6">
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+                <div className="grid grid-cols-2 gap-5 lg:gap-8 md:grid-cols-3 lg:grid-cols-4">
                     {/* Logo Section */}
-                    <div className=" flex items-center justify-center">
+                    <div className=" flex items-center justify-center md:justify-start lg:justify-center mb-5 lg:mb-0 col-span-2 md:col-span-3 lg:col-span-1">
                         <div className="flex items-center gap-2 bg-white px-5 rounded-md h-20">
-                            {/* <FaHandHoldingHeart className=" size-7" /> */}
                             <img src={logo} alt="logo" className="size-16" />
                             <div className=" flex flex-col">
                                 <span className="text-2xl text-nowrap text-secondary-400 font-bold">
@@ -30,7 +24,7 @@ const Footer = () => {
                     </div>
 
                     {/* Quick Links */}
-                    <div className=" ms-16">
+                    <div className=" lg:ms-16">
                         <nav className="flex flex-col gap-5">
                             <Link
                                 href="/"
@@ -129,9 +123,148 @@ const Footer = () => {
             </div>
             {/* Copyright */}
             <div className=" py-2 bg-secondary-900 text-center text-sm">
-                <p>© 2024 Meals on Wheels. All rights reserved.</p>
+                <p>
+                    © {new Date().getFullYear()} Meals on Wheels. All rights
+                    reserved.
+                </p>
             </div>
         </footer>
+
+        // <footer className="bg-secondary-800 text-white mt-auto">
+        //     <div className="container mx-auto px-4 py-8 md:py-12">
+        //         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        //             {/* Logo Section */}
+        //             <div className="flex items-center justify-center md:justify-start">
+        //                 <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-md">
+        //                     <img
+        //                         src={logo}
+        //                         alt="logo"
+        //                         width={64}
+        //                         height={64}
+        //                     />
+        //                     <div className="flex flex-col">
+        //                         <span className="text-xl md:text-2xl text-gray-800 font-bold whitespace-nowrap">
+        //                             Meals On Wheel
+        //                         </span>
+        //                         <span className="text-xs text-gray-500">
+        //                             Merry Meal
+        //                         </span>
+        //                     </div>
+        //                 </div>
+        //             </div>
+
+        //             {/* Quick Links */}
+        //             <div className="md:ml-8">
+        //                 <h3 className="text-lg font-semibold mb-4">
+        //                     Quick Links
+        //                 </h3>
+        //                 <nav className="flex flex-col gap-3">
+        //                     <Link
+        //                         href="/"
+        //                         className="hover:text-gray-300 transition-colors"
+        //                     >
+        //                         Home
+        //                     </Link>
+        //                     <Link
+        //                         href="/about-us"
+        //                         className="hover:text-gray-300 transition-colors"
+        //                     >
+        //                         About Us
+        //                     </Link>
+        //                     <Link
+        //                         href="/donate"
+        //                         className="hover:text-gray-300 transition-colors"
+        //                     >
+        //                         Donate
+        //                     </Link>
+        //                     <Link
+        //                         href="/get-meal"
+        //                         className="hover:text-gray-300 transition-colors"
+        //                     >
+        //                         Get Meal
+        //                     </Link>
+        //                 </nav>
+        //             </div>
+
+        //             {/* Services */}
+        //             <div>
+        //                 <h3 className="text-lg font-semibold mb-4">Services</h3>
+        //                 <nav className="flex flex-col gap-3">
+        //                     <Link
+        //                         href="/become-volunteer"
+        //                         className="hover:text-gray-300 transition-colors"
+        //                     >
+        //                         Become Volunteer
+        //                     </Link>
+        //                     <Link
+        //                         href="/become-partner"
+        //                         className="hover:text-gray-300 transition-colors"
+        //                     >
+        //                         Become Partner
+        //                     </Link>
+        //                     <Link
+        //                         href="/donate-help"
+        //                         className="hover:text-gray-300 transition-colors"
+        //                     >
+        //                         Donate And Help
+        //                     </Link>
+        //                     <Link
+        //                         href="/food-safety"
+        //                         className="hover:text-gray-300 transition-colors"
+        //                     >
+        //                         Food Safety Certification
+        //                     </Link>
+        //                 </nav>
+        //             </div>
+
+        //             {/* Connect With Us */}
+        //             <div>
+        //                 <h3 className="text-lg font-semibold mb-4">
+        //                     Connect With Us
+        //                 </h3>
+        //                 <div className="space-y-4">
+        //                     <div className="flex flex-col sm:flex-row gap-3">
+        //                         <input
+        //                             type="email"
+        //                             placeholder="Enter your email"
+        //                             className="bg-white text-black p-2 rounded-md flex-grow"
+        //                         />
+        //                         <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+        //                             Join
+        //                         </button>
+        //                     </div>
+        //                     <div className="flex space-x-4 mt-4">
+        //                         <Link
+        //                             href="#"
+        //                             className="hover:text-gray-300 transition-colors"
+        //                         >
+        //                             <FaFacebook className="w-6 h-6" />
+        //                         </Link>
+        //                         <Link
+        //                             href="#"
+        //                             className="hover:text-gray-300 transition-colors"
+        //                         >
+        //                             <FaInstagram className="w-6 h-6" />
+        //                         </Link>
+        //                         <Link
+        //                             href="#"
+        //                             className="hover:text-gray-300 transition-colors"
+        //                         >
+        //                             <FaTwitter className="w-6 h-6" />
+        //                         </Link>
+        //                     </div>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     </div>
+        //     {/* Copyright */}
+        //     <div className="py-4 bg-gray-900 text-center text-sm">
+        //         <p>
+        //             © {new Date().getFullYear()} Meals on Wheels. All rights
+        //             reserved.
+        //         </p>
+        //     </div>
+        // </footer>
     );
 };
 
