@@ -1,22 +1,16 @@
 import { Link } from "@inertiajs/react";
 import React from "react";
 import logo from "../../../assets/logo.png";
-import {
-    FaFacebook,
-    FaHandHoldingHeart,
-    FaInstagram,
-    FaTwitter,
-} from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
     return (
         <footer className="bg-secondary-800 text-white mt-auto">
             <div className="container py-12 mx-auto px-6">
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+                <div className="grid grid-cols-2 gap-5 lg:gap-8 md:grid-cols-3 lg:grid-cols-4">
                     {/* Logo Section */}
-                    <div className=" flex items-center justify-center">
+                    <div className=" flex items-center justify-center md:justify-start lg:justify-center mb-5 lg:mb-0 col-span-2 md:col-span-3 lg:col-span-1">
                         <div className="flex items-center gap-2 bg-white px-5 rounded-md h-20">
-                            {/* <FaHandHoldingHeart className=" size-7" /> */}
                             <img src={logo} alt="logo" className="size-16" />
                             <div className=" flex flex-col">
                                 <span className="text-2xl text-nowrap text-secondary-400 font-bold">
@@ -30,7 +24,7 @@ const Footer = () => {
                     </div>
 
                     {/* Quick Links */}
-                    <div className=" ms-16">
+                    <div className=" lg:ms-16">
                         <nav className="flex flex-col gap-5">
                             <Link
                                 href="/"
@@ -129,7 +123,10 @@ const Footer = () => {
             </div>
             {/* Copyright */}
             <div className=" py-2 bg-secondary-900 text-center text-sm">
-                <p>© 2024 Meals on Wheels. All rights reserved.</p>
+                <p>
+                    © {new Date().getFullYear()} Meals on Wheels. All rights
+                    reserved.
+                </p>
             </div>
         </footer>
     );
