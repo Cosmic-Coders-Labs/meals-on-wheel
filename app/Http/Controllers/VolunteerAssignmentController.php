@@ -13,7 +13,7 @@ class VolunteerAssignmentController extends Controller
     public function index()
     {
         $assignments = VolunteerAssignment::with(['task', 'volunteer'])->get();
-        return response()->json($assignments);
+        return response()->json(json_decode($assignments), 200);
     }
 
     // Store a new volunteer assignment
@@ -82,7 +82,7 @@ class VolunteerAssignmentController extends Controller
         $request->validate([
             'status' => 'required|in:assigned,completed,canceled',
         ]);
-        
+
 
         $assignment = VolunteerAssignment::findOrFail($id);
         $assignment->status = $request->status;
@@ -90,4 +90,18 @@ class VolunteerAssignmentController extends Controller
 
         return response()->json(['message' => 'Volunteer Assignment status updated successfully.']);
     }
+
+    public function getAssignedTasksByVolunteer($volunteer_id)
+    {
+        $assignments = VolunteerAssignment::with(['task', 'volunteer'])
+            ->where('volunteer_id', $volunteer_id)
+            ->get();
+
+        if ($assignments->isEmpty()) {
+            return response()->json(['message' => 'No tasks assigned to this volunteer.'], 404);
+        }
+
+        return response()->json(json_decode($assignments), 200);
+    }
+
 }

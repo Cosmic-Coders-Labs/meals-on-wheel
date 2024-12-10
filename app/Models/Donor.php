@@ -22,15 +22,14 @@ class Donor extends Model
         'user_id',
     ];
 
-    // Define the relationship with the User model (if needed)
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
     // Define the relationship with the Donation model
     public function donations()
     {
         return $this->hasMany(Donation::class, 'donor_id', 'donor_id');
+    }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

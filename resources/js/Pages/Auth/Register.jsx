@@ -1,5 +1,5 @@
 
-import MultiStepRegistrationForm from '@/Components/MultiStepsForm';
+import MultiStepRegistrationForm from '@/Components/Forms/MultiStepsForm';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FaUserCircle } from 'react-icons/fa';

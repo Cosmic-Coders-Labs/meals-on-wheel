@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     use HasFactory;
-
+    protected $primaryKey = 'profile_id';
     protected $table = 'profile';
 
     protected $fillable = [
@@ -19,7 +19,6 @@ class Profile extends Model
         'birthday',
         'contact_number',
         'address',
-        'user_id',
     ];
     public static function validationRules()
     {
@@ -31,12 +30,11 @@ class Profile extends Model
             'birthday' => 'required|date',
             'contact_number' => 'required|string',
             'address' => 'required|string',
-            'user_id' => 'nullable|exists:users,id',
         ];
     }
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

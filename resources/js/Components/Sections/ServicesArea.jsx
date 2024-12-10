@@ -13,7 +13,7 @@ const ServicesArea = () => {
                         1# Support our mission to provide meals and hope to
                         those in need.
                     </p>
-                    <Link to="/donate">
+                    <Link href={route('donation')}>
                         <button className="bg-primary-700 text-white text-lg px-7 py-2 rounded-full hover:bg-primary-800 transition duration-300">
                             Donate Now
                         </button>
@@ -24,7 +24,7 @@ const ServicesArea = () => {
                         2# Become part of our dedicated team of volunteers and
                         make a difference.
                     </p>
-                    <Link href="/volunteer/register">
+                    <Link href={route('register')}>
                         <button className="bg-secondary-700 text-white text-lg px-7 py-2 rounded-full hover:bg-secondary-800 transition duration-300">
                             Join Us
                         </button>
@@ -35,7 +35,7 @@ const ServicesArea = () => {
                         3# Request a nutritious meal types tailored to your needs
                         today.
                     </p>
-                    <Link href="/get-meal">
+                    <Link href={route('getmeal')}>
                         <button className="bg-primary-600 text-white text-lg px-7 py-2 rounded-full hover:bg-primary-700 transition duration-300">
                             Get Meal
                         </button>

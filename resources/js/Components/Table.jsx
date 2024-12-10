@@ -30,7 +30,7 @@ const ReusableTable = ({ headers, data, page, setPage, showPagination, reverse }
     const rowsToDisplay = reverse ? [...filteredData.slice(start, end)].reverse() : filteredData.slice(start, end);
 
     return (
-        <div className='w-full'>
+        <div className="w-full">
             <div className="mb-4 flex justify-start w-full">
                 <input
                     type="text"
@@ -41,26 +41,29 @@ const ReusableTable = ({ headers, data, page, setPage, showPagination, reverse }
                 />
             </div>
 
-            <table className="min-w-full table-auto">
-                <thead>
-                    <tr className="bg-gray-100">
-                        {headers.map((header, index) => (
-                            <th key={index} className="px-4 py-2 text-left text-gray-600">
-                                {header}
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {rowsToDisplay.map((row, index) => (
-                        <tr key={index} className="border-b">
-                            {row.map((cell, cellIndex) => (
-                                <td key={cellIndex} className="px-4 py-2">{cell}</td>
+            {/* Table Container with Horizontal Scrolling on Small Screens */}
+            <div className="w-full overflow-x-auto sm:overflow-x-visible">
+                <table className="min-w-full table-auto">
+                    <thead>
+                        <tr className="bg-gray-100">
+                            {headers.map((header, index) => (
+                                <th key={index} className="px-4 py-2 text-left text-gray-600">
+                                    {header}
+                                </th>
                             ))}
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {rowsToDisplay.map((row, index) => (
+                            <tr key={index} className="border-b">
+                                {row.map((cell, cellIndex) => (
+                                    <td key={cellIndex} className="px-4 py-2">{cell}</td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
 
             {/* Pagination Controls */}
             {showPagination && (
@@ -73,7 +76,7 @@ const ReusableTable = ({ headers, data, page, setPage, showPagination, reverse }
                         <FiChevronLeft />
                     </button>
                     <div className="flex space-x-1">
-                        {[...Array(totalPages).keys()].map(num => (
+                        {[...Array(totalPages).keys()].map((num) => (
                             <button
                                 key={num}
                                 onClick={() => handlePageChange(num)}

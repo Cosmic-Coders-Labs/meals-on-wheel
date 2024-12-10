@@ -1,3 +1,4 @@
+import MealSection from '@/Components/Meals/MealSection';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head } from '@inertiajs/react';
 
@@ -5,7 +6,7 @@ import React from "react";
 
 const GetMealTitle = () => {
     return (
-        <div className=" flex flex-col justify-center items-center gap-5 mt-10">
+        <div className="bg-gray-100 flex flex-col justify-center items-center gap-5 pt-10">
             <h1 className=" text-3xl font-playfair font-bold">
                 Weekly Meal Plan
             </h1>
@@ -21,7 +22,6 @@ export default function GetMeal({ auth }) {
         <GuestLayout>
             <Head title="Get Meal" />
             <GetMealTitle />
-            <FilterMealTypeAndAllergySection />
             <MealSection />
         </GuestLayout>
     );

@@ -4,6 +4,7 @@ import ReusableTable from "@/Components/Table";
 import DashboardHeader from "@/Components/DashboardHeader";
 import { fetchMeals, addMeal, editMeal, rejectMeal, getMe } from "@/Utils/utils";
 import MealFormModal from "@/Components/Forms/MealForm";
+import MealDetailModal from "./MealDetailsModal";
 
 const MealsPage = () => {
     const [meals, setMeals] = useState([]);
@@ -11,6 +12,7 @@ const MealsPage = () => {
     const [currentUser, setCurrentUser] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const [modalType, setModalType] = useState(""); // "add" or "edit"
+    const [showMealsDetailModal, setShowMealsDetailModal] = useState(false);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(0);
 
@@ -20,21 +22,22 @@ const MealsPage = () => {
             try {
                 const data = await fetchMeals();
                 setMeals(data);
-                const userID = await getMe();
-                setCurrentUser(userID);
+                const user = await getMe();
+                setCurrentUser(user);
             } catch (error) {
-                setError("Failed to fetch meals.");
+                console.error("Failed to fetch meals.");
             }
             setLoading(false);
         };
         getMeals();
-
     }, []);
 
     // Handle actions for dropdown
     const handleAction = async (action, meal) => {
         if (action === "View") {
-            console.log("View Meal:", meal);
+            console.log(meal.meal_id);
+            setSelectedMeal(meal);
+            setShowMealsDetailModal(true);
         } else if (action === "Edit") {
             setSelectedMeal(meal);
             setModalType("edit");
@@ -57,7 +60,6 @@ const MealsPage = () => {
 
     // Handle form submission for add/edit
     const handleSubmit = async (mealData) => {
-        // Ensure price and calories are numbers
         try {
             if (modalType === "add") {
                 await addMeal(mealData);
@@ -68,7 +70,6 @@ const MealsPage = () => {
             }
             setShowModal(false);
             setSelectedMeal(null);
-            // Refresh meals list
             const updatedMeals = await fetchMeals();
             setMeals(updatedMeals.data || updatedMeals);
         } catch (error) {
@@ -77,24 +78,22 @@ const MealsPage = () => {
         }
     };
 
-
     // Table headers and data mapping
     const tableHeaders = ['ID', 'Name', 'Price', 'Status', 'Dietary', 'Actions'];
     const options = ['View', 'Edit', 'Reject'];
 
     const tableData = meals.map(meal => [
         meal.meal_id,
-        meal.name ? meal.name : 'N/A',  // Assuming member data is nested under 'member'
-        meal.price ? meal.price : 0,
-        meal.dietary_type ? meal.dietary_type : 'N/A',
+        meal.name || 'N/A',
+        meal.price || 0,
         meal.status,
+        meal.dietary_type || 'N/A',
         <Dropdown
             options={options}
             disabled={false}
             onSelect={(action) => handleAction(action, meal)}
         />,
     ]);
-
 
     return (
         <div className="bg-white p-6 rounded-lg shadow">
@@ -129,6 +128,13 @@ const MealsPage = () => {
                     onClose={() => setShowModal(false)}
                     onSubmit={handleSubmit}
                     userId={currentUser.id}
+                />
+            )}
+
+            {showMealsDetailModal && (
+                <MealDetailModal
+                    meal={selectedMeal}
+                    onClose={() => setShowMealsDetailModal(false)}
                 />
             )}
         </div>

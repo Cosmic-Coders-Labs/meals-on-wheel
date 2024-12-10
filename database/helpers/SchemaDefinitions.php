@@ -172,12 +172,16 @@ class SchemaDefinitions
         $table->id('meal_id');
         //details
         $table->string('name');
+        $table->text('short_description')->nullable();
+        $table->longText('long_description')->nullable();
         $table->longText('ingredients');
         $table->longText('image');
+        $table->longText('allergens')->nullable();
         $table->longText('reason_for_rejection')->nullable();
         $table->string('status');
         $table->decimal('price');
-        $table->enum('dietary_type', ['vegetarian', 'vegan', 'gluten-free', 'none']);
+        $table->enum('delivery_type', ['hot-meal', 'frozen-meal']);
+        $table->enum('dietary_type', ['vegetarian', 'vegan', 'gluten-free', 'diary', 'nuts', 'none']);
         $table->decimal('calories');
         $table->unsignedBigInteger('user_id');
         $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -215,7 +219,7 @@ class SchemaDefinitions
 
     public static function createDonations(Blueprint $table)
     {
-        $table->id();
+        $table->id('donation_id');
         $table->unsignedBigInteger('donor_id')->nullable();
         $table->foreign('donor_id')->references('donor_id')->on('donors')->cascadeOnDelete();
         $table->string('currency');  // Currency of the donation
@@ -274,5 +278,15 @@ class SchemaDefinitions
         $table->timestamps();
     }
 
-
+    public static function createCertificates(Blueprint $table)
+    {
+        $table->id();
+        $table->string('title');
+        $table->string('subtitle');
+        $table->timestamp('expire_date');
+        $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+        $table->longText('image');
+        $table->foreignId('partner_id')->nullable()->constrained('partners', 'partner_id')->nullOnDelete();
+        $table->timestamps();
+    }
 }

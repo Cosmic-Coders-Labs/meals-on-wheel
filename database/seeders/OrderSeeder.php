@@ -35,16 +35,23 @@ class OrderSeeder extends Seeder
             $caregiver = CaregiversToMembers::where('member_id', $memberId)->first(); // Get the first caregiver for the member
             $caregiverId = $caregiver ? $caregiver->caregiver_id : null; // If caregiver exists, use the caregiver_id, else set to null
 
+            $status = $orderStatuses[array_rand($orderStatuses)];
+
+            // Set rejection reason only if status is "cancelled"
+            $rejectionReason = $status === 'cancelled'
+            ? $rejectionReasons[array_rand($rejectionReasons)]
+            : null;
+
             $orderData = [
                 'meal_id' => $meals[array_rand($meals)], // Randomly choose a meal_id
                 'member_id' => $memberId, // Use the selected member_id
                 'caregiver_id' => $caregiverId, // Use the associated caregiver_id
-                'status' => $orderStatuses[array_rand($orderStatuses)], // Randomly choose an order status
+                'status' => $status, // Randomly choose an order status
                 'total_price' => rand(15, 30) + (rand(0, 99) / 100), // Random total price
                 'order_date' => now()->subDays(rand(0, 10)), // Random order date within the last 10 days
                 'delivery_date' => now()->addDays(rand(1, 3)), // Random delivery date within the next 3 days
                 'special_instructions' => $this->getRandomSpecialInstructions(), // Random special instructions
-                'rejection_reason' => (rand(0, 1) == 1) ? $rejectionReasons[array_rand($rejectionReasons)] : null, // Random rejection reason
+                'rejection_reason' => $rejectionReason,
             ];
 
             Order::create($orderData);

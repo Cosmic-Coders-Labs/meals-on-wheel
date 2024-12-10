@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminPage from "@/Components/Admin/dashboard/dashboard";
 import Sidebar from "@/Components/Sidebar/Sidebar";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
@@ -8,18 +8,45 @@ import { Head } from "@inertiajs/react";
 import UserPage from "@/Components/Admin/user/UserPage";
 import MealsPage from "@/Components/Admin/meals/Meals";
 import VolunteerAssignmentsPage from "@/Components/Admin/volunteer/volunteer";
-
+import { fetchProfile, getMyRole } from "@/Utils/utils";
+import { pageAccess } from "@/Utils/PageAccess";
+import useActivePage from "@/Utils/useActivePage";
+import ProfilePage from "@/Components/Profile/ProfilePage";
 
 export default function AdminDashboard() {
     const [isSidebarClosed, setIsSidebarClosed] = useState(false);
-    const [activePage, setActivePage] = useState("Dashboard"); // State to track the active page
+    const [activePage, setActivePage] = useActivePage();
+    const [userRole, setUserRole] = useState(null);
+    const [userData, setUserData] = useState({});
+
+    useEffect(() => {
+        const getUserDataFunc = async () => {
+            try {
+                const data = await getMyRole();
+                const userDataResponse = await fetchProfile(data.user.id);
+                setUserData(userDataResponse);
+                setUserRole(data.role[0]);
+            } catch (error) {
+                setError("Failed to fetch user data.");
+            }
+        };
+        getUserDataFunc();
+    }, []);
 
     const handleSidebarToggle = (closed) => {
         setIsSidebarClosed(closed);
     };
 
-    // Function to render the active component based on `activePage`
+    useEffect(() => {
+        if (!activePage || !pageAccess[activePage]?.includes(userRole)) {
+            setActivePage("Dashboard");
+        }
+    }, [activePage, userRole]);
+
+
+    // Function to render the active component based on `activePage` and role
     const renderActivePage = () => {
+
         switch (activePage) {
             case "Dashboard":
                 return <AdminPage />;
@@ -27,14 +54,21 @@ export default function AdminDashboard() {
                 return <UserPage />;
             case "Meals":
                 return <MealsPage />;
-            case "Volunteer":
+            case "Tasks":
                 return <VolunteerAssignmentsPage />;
             // case "Partner":
             //     return <PartnerPage />;
             // case "Delivery":
             //     return <DeliveryPage />;
-            // default:
-            //     return <AdminDashboard />;
+            case "Profile":
+                return <ProfilePage userData={userData} />
+
+            default:
+                return (
+                    <div className="text-center text-gray-500 font-bold p-10">
+                        Page Not Found
+                    </div>
+                );
         }
     };
 
@@ -52,7 +86,9 @@ export default function AdminDashboard() {
                 {/* Sidebar */}
                 <Sidebar
                     onSidebarToggle={handleSidebarToggle}
+                    activePage={activePage}
                     setActivePage={setActivePage} // Pass the setActivePage function
+                    role={userRole} // Pass the role to Sidebar
                 />
                 {/* Main Content */}
                 <div

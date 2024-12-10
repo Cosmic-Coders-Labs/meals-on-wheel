@@ -8,8 +8,6 @@ import { fetchMembers, fetchOrders, fetchUsers, fetchProfiles, fetchMeals } from
 const AdminPage = () => {
     const [orders, setOrders] = useState([]);
     const [profiles, setProfiles] = useState([]); // Store profiles data
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
     // Utility function to get the user's name from profiles using user_id
     const get_name = (id) => {
@@ -25,7 +23,6 @@ const AdminPage = () => {
             } catch (error) {
                 setError("Failed to fetch orders.");
             }
-            setLoading(false);
         };
 
         const getProfiles = async () => {
@@ -35,7 +32,6 @@ const AdminPage = () => {
             } catch (error) {
                 setError("Failed to fetch profiles.");
             }
-            setLoading(false);
         };
 
         getOrders();

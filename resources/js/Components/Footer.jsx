@@ -33,25 +33,25 @@ const Footer = () => {
                         <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
                         <nav className="flex flex-col gap-3">
                             <Link
-                                href="/"
+                                href={route('home')}
                                 className="hover:text-gray-300 transition-colors"
                             >
                                 Home
                             </Link>
                             <Link
-                                href="/about-us"
+                                href={route('aboutus')}
                                 className="hover:text-gray-300 transition-colors"
                             >
                                 About Us
                             </Link>
                             <Link
-                                href="/donate"
+                                href={route('fundraising')}
                                 className="hover:text-gray-300 transition-colors"
                             >
                                 Donate
                             </Link>
                             <Link
-                                href="/get-meal"
+                                href={route('getmeal')}
                                 className="hover:text-gray-300 transition-colors"
                             >
                                 Get Meal
@@ -64,19 +64,19 @@ const Footer = () => {
                         <h3 className="text-lg font-semibold mb-4">Services</h3>
                         <nav className="flex flex-col gap-3">
                             <Link
-                                href="/become-volunteer"
+                                href={route('register')}
                                 className="hover:text-gray-300 transition-colors"
                             >
                                 Become Volunteer
                             </Link>
                             <Link
-                                href="/become-partner"
+                                href={route('register')}
                                 className="hover:text-gray-300 transition-colors"
                             >
                                 Become Partner
                             </Link>
                             <Link
-                                href="/donate-help"
+                                href={route('donation')}
                                 className="hover:text-gray-300 transition-colors"
                             >
                                 Donate And Help

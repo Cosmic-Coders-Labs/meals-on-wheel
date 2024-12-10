@@ -1,7 +1,7 @@
 import { useForm } from "@inertiajs/react";
 import { useState } from "react";
-import InputField from "./InputField";
-import Alert from "./Alert";
+import RegisterInputField from "../RegisterInput";
+import Alert from "../Alert";
 
 const rolesFields = {
     member: [
@@ -30,6 +30,12 @@ const rolesFields = {
         { id: "contact_number", label: "Contact Number", type: "text", placeholder: "Enter your contact number" },
         { id: "business_license", label: "Business License", type: "text", placeholder: "License Number" },
     ],
+    donor: [
+        { id: "contact_number", label: "Contact Number", type: "text", placeholder: "Enter your contact number" },
+        { id: "donor_name", label: "Donor Name", type: "text", placeholder: "Enter your name to show in donation" },
+        { id: "card_number", label: "Card Number", type: "text", placeholder: "Eg., 1222 0988 9832 2643" },
+        { id: "secret_number", label: "Secret Number", type: "text", placeholder: "Eg., 999" },
+    ]
 };
 
 const MultiStepRegistrationForm = () => {
@@ -119,7 +125,7 @@ const MultiStepRegistrationForm = () => {
                 {step === 1 && (
                     <form onSubmit={handleNext} className="space-y-6">
                         <h2 className="text-1xl font-bold">Enter User Credentials</h2>
-                        <InputField
+                        <RegisterInputField
                             id="name"
                             label="Full Name"
                             placeholder="John Doe"
@@ -127,7 +133,7 @@ const MultiStepRegistrationForm = () => {
                             onChange={(e) => setData("name", e.target.value)}
                             errorMessage={errors.name}
                         />
-                        <InputField
+                        <RegisterInputField
                             id="email"
                             label="Email Address"
                             type="email"
@@ -136,7 +142,7 @@ const MultiStepRegistrationForm = () => {
                             onChange={(e) => setData("email", e.target.value)}
                             errorMessage={errors.email}
                         />
-                        <InputField
+                        <RegisterInputField
                             id="password"
                             label="Password"
                             type={showPassword ? "text" : "password"}
@@ -182,7 +188,7 @@ const MultiStepRegistrationForm = () => {
                     <form onSubmit={handleFinish} className="space-y-6">
                         <h2 className="text-1xl font-bold">Enter Your Information</h2>
                         {rolesFields[selectedRole]?.map((field) => (
-                            <InputField
+                            <RegisterInputField
                                 key={field.id}
                                 id={field.id}
                                 label={field.label}

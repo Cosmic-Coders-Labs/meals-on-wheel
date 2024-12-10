@@ -11,7 +11,7 @@ class UserController extends BaseController
     public function index()
     {
         // Retrieve users with their profiles and roles
-        $users = User::with(['profile', 'roles'])->get();
+        $users = User::with(['profile', 'roles', 'caregiver'])->get();
 
         // Format the data as needed
         $formattedUsers = $users->map(function ($user) {
@@ -25,6 +25,11 @@ class UserController extends BaseController
                 'email_verified_at' => $user->email_verified_at,
                 'created_at' => $user->created_at,
                 'updated_at' => $user->updated_at,
+                'caregiver_id' => $user->caregiver->caregiver_id ?? null,
+                'member_id' => $user->member->member_id ?? null,
+                'partner_id' => $user->partner->partner_id ?? null,
+                'donor_id' => $user->donor->donor_id ?? null,
+                'volunteer_id' => $user->volunteer->volunteer_id ?? null,
                 'profile' => [
                     'profile_id' => $user->profile->id,
                     'first_name' => $user->profile->first_name,
@@ -61,8 +66,8 @@ class UserController extends BaseController
     // Show method for a specific user
     public function show($id)
     {
-        // Retrieve user by ID with profile and roles
-        $user = User::with(['profile', 'roles'])->findOrFail($id);
+        // Retrieve user by ID with profile, roles, and caregiver
+        $user = User::with(['profile', 'roles', 'caregiver'])->findOrFail($id);
 
         // Format the data as needed
         $formattedUser = [
@@ -75,6 +80,11 @@ class UserController extends BaseController
             'email_verified_at' => $user->email_verified_at,
             'created_at' => $user->created_at,
             'updated_at' => $user->updated_at,
+            'caregiver_id' => $user->caregiver->caregiver_id ?? null,
+            'member_id' => $user->member->member_id ?? null,
+            'partner_id' => $user->partner->partner_id ?? null,
+            'donor_id' => $user->donor->donor_id ?? null,
+            'volunteer_id' => $user->volunteer->volunteer_id ?? null,
             'profile' => [
                 'profile_id' => $user->profile->id,
                 'first_name' => $user->profile->first_name,
@@ -107,6 +117,7 @@ class UserController extends BaseController
         return response()->json($formattedUser, 200);
     }
 
+
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
@@ -127,9 +138,20 @@ class UserController extends BaseController
         }
 
         $user = $request->user();
+        return response()->json($user, 200);
+    }
+
+    public function getRole(Request $request)
+    {
+        if (!$request->user()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        $user = $request->user();
+        $roles = $user->roles->pluck('name');
+
         return response()->json([
-            'id' => $user->id,
-            'email' => $user->email,
-        ]);
+            'user' => $user,
+            'role' => $roles,
+        ], 200);
     }
 }

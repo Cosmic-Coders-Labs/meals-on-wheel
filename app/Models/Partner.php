@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Partner extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'partner_id';
 
     protected $fillable = [
         'partner_name',
@@ -22,5 +23,10 @@ class Partner extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function certificates()
+    {
+        return $this->hasMany(Certificate::class);
     }
 }

@@ -1,3 +1,4 @@
+import { router } from "@inertiajs/react";
 import React from "react";
 
 const DonationImpact = () => {
@@ -63,7 +64,7 @@ const DonationImpact = () => {
 
                     {/* Call to Action Button */}
                     <div className="mt-12">
-                        <button className="bg-gradient-to-r from-accent-500 via-primary-700 to-accent-500 text-white px-6 py-3 text-xl rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300">
+                        <button className="bg-gradient-to-r from-accent-500 via-primary-700 to-accent-500 text-white px-6 py-3 text-xl rounded-full shadow-2xl transform hover:scale-110 transition-all duration-300" onClick={() => router.visit(route('fundraising'))}>
                             Join Us in Making a Difference
                         </button>
                     </div>

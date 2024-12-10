@@ -20,6 +20,17 @@ class Donation extends Model
         'status',
     ];
 
+    public static function validationRules()
+    {
+        return [
+            'donor_id' => 'required|exists:donors,donor_id',
+            'currency' => 'required|string',
+            'amount' => 'required|numeric|min:1',
+            'message' => 'nullable|string',
+            'status' => 'required|in:pending,completed',
+        ];
+    }
+
     public function donor()
     {
         return $this->belongsTo(Donor::class, 'donor_id', 'donor_id');

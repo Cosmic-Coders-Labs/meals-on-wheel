@@ -28,4 +28,9 @@ class Caregiver extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function caregiversToMembers()
+    {
+        return $this->hasMany(CaregiversToMembers::class, 'caregiver_id', 'caregiver_id');
+    }
 }

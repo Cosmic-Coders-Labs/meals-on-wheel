@@ -14,6 +14,40 @@ class OrderController extends Controller
         return response()->json($orders);
     }
 
+    public function getByCaregiver(Request $request, $caregiver_id)
+    {
+        $orders = Order::with(['member', 'meal', 'caregiver', 'tasks'])
+        ->where('caregiver_id', $caregiver_id)
+            ->get();
+
+        if ($orders->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No orders found for the given caregiver ID.',
+            ], 404);
+        }
+
+        return response()->json($orders);
+    }
+
+    public function getByMember(Request $request, $member_id)
+    {
+
+        $orders = Order::with(['member', 'meal', 'caregiver', 'tasks'])
+        ->where('member_id', $member_id)
+            ->get();
+
+        if ($orders->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No orders found for the given member ID.',
+            ], 404);
+        }
+
+        return response()->json($orders);
+    }
+
+
     public function store(Request $request)
     {
         $validated = $request->validate([

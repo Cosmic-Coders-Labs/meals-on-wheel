@@ -6,6 +6,12 @@ const CertificateCard = ({ title, subtitle, date, status, image, onRemove }) => 
             {/* Image Section */}
             <div className="relative">
                 <img src={image} alt={title} className="w-full h-40 object-cover" />
+                <img
+                    src={image}
+                    alt={title}
+                    onLoad={() => setImageLoaded(true)}
+                    className={`w-full h-full object-cover max-h-20 transition-opacity duration-500`}
+                />
                 <button
                     className="absolute top-2 right-2 bg-white text-gray-600 rounded-full p-1 shadow hover:bg-gray-100"
                     onClick={onRemove}

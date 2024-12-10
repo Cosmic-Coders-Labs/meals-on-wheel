@@ -1,11 +1,20 @@
-const MealTypeButton = ({ mealType, onClick }) => {
+import React from "react";
+import useMealTypeStore from "./useMealTypeStore";
+
+const MealTypeButton = ({ mealType: { id, type, isActive } }) => {
+    const { activeMealType } = useMealTypeStore();
+
+    const handleClick = () => {
+        activeMealType(id);
+    };
+
     return (
         <button
-            onClick={onClick}
-            className={`border py-1 px-2 rounded-md ${mealType.isActive ? "bg-secondary-500 text-white" : ""
+            onClick={handleClick}
+            className={`border py-1 px-2 rounded-md ${isActive && "bg-secondary-500 text-white"
                 }`}
         >
-            {mealType.type}
+            {type}
         </button>
     );
 };

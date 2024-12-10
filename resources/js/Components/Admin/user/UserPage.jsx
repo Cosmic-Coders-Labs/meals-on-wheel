@@ -94,7 +94,6 @@ const UserPage = () => {
         try {
             setLoading(true);
             const data = await fetchUsers();
-            console.log(data);
             setUsers(data);
         } catch (error) {
             console.error("Failed to fetch users:", error);

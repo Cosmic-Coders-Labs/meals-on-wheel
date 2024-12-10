@@ -1,12 +1,13 @@
 import React, { useState } from "react";
+import MediaLibraryAttachment from "../MediaLibraryAttachment"; // Assuming you have a similar reusable component
 
-const CertificateFormModal = ({ isOpen, onClose, onSave }) => {
+const CertificateFormModal = ({ isOpen, onClose, onSave, myID }) => {
     const [formData, setFormData] = useState({
         title: "",
         subtitle: "",
         date: "",
-        status: "Pending",
-        image: "",
+        image: null,
+        partner_id: myID,
     });
 
     // Handle Input Change
@@ -19,28 +20,52 @@ const CertificateFormModal = ({ isOpen, onClose, onSave }) => {
     };
 
     // Handle File Input
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setFormData((prev) => ({
-                ...prev,
-                image: URL.createObjectURL(file), // Temporarily set the local file URL
-            }));
-        }
+    const handleFileChange = (file) => {
+        setFormData((prev) => ({
+            ...prev,
+            image: file,
+        }));
     };
 
     // Handle Form Submission
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onSave(formData); // Pass the new certificate data to the parent
-        setFormData({
-            title: "",
-            subtitle: "",
-            date: "",
-            status: "Pending",
-            image: "",
-        });
-        onClose(); // Close the modal
+
+        const newFormData = new FormData();
+        newFormData.append("title", formData.title);
+        newFormData.append("subtitle", formData.subtitle);
+        newFormData.append("expire_date", formData.date);
+        newFormData.append("partner_id", formData.partner_id);
+        newFormData.append("status", "pending");
+        if (formData.image) {
+            newFormData.append("image", formData.image);
+        }
+
+        try {
+            const response = await axios.post(
+                "http://127.0.0.1:8000/api/certificates",
+                newFormData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+            alert("Certificate added successfully!");
+            setFormData({
+                title: "",
+                subtitle: "",
+                date: "",
+                status: "Pending",
+                image: null,
+                partner_id: myID,
+            });
+            onClose();
+            onSave();
+        } catch (error) {
+            console.error("Error uploading certificate:", error);
+            alert("Failed to save certificate. Please try again.");
+        }
     };
 
     if (!isOpen) return null;
@@ -89,29 +114,16 @@ const CertificateFormModal = ({ isOpen, onClose, onSave }) => {
                         />
                     </div>
 
-                    {/* Status */}
-                    <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700">Status</label>
-                        <select
-                            name="status"
-                            value={formData.status}
-                            onChange={handleChange}
-                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                        >
-                            <option value="Pending">Pending</option>
-                            <option value="Approved">Approved</option>
-                        </select>
-                    </div>
-
                     {/* Image */}
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-700">Image</label>
-                        <input
-                            type="file"
-                            accept="image/*"
-                            onChange={handleFileChange}
-                            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+                        <MediaLibraryAttachment
+                            name="fileUpload"
+                            initialValue={null}
+                            validationRules={{ maxSizeInKB: 2048, acceptedTypes: ["image/jpeg", "image/png"] }}
+                            onFileChange={handleFileChange}
                         />
+                        {formData.image && <p className="mt-2 text-green-600">Image uploaded successfully.</p>}
                     </div>
 
                     {/* Buttons */}

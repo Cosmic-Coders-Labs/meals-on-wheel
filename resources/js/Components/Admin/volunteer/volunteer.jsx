@@ -120,7 +120,7 @@ const VolunteerAssignmentsPage = () => {
     return (
         <div className="bg-white p-6 rounded-lg shadow">
             <DashboardHeader
-                title="Volunteer Assignments"
+                title="Volunteer Task Assignments"
                 actions={[
                     {
                         label: "Add Assignment",
