@@ -8,41 +8,29 @@ use Illuminate\Database\Eloquent\Model;
 class Caregiver extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'caregiver_id';
+    protected $fillable = ['user_id'];
 
-    // Define the table name (optional, if it matches the plural form of the model name)
-    protected $table = 'caregivers';
-
-    // Define the primary key if it's not the default 'id'
-    protected $primaryKey = 'CaregiverID';
-
-    // Specify which attributes should be mass-assignable
-    protected $fillable = ['Name', 'Phone', 'Address', 'RelationshipToMember'];
-
-    /**
-     * Define a relationship to the 'Member' model.
-     * A caregiver is associated with a member, so this can define a 'belongsTo' relationship.
-     */
-    public function member()
+    public static function validationRules()
     {
-        return $this->belongsTo(Member::class, 'MemberID'); // Assuming caregivers belong to a member
+        return [
+            'user_id' => 'nullable|exists:users,id',
+        ];
     }
 
-    /**
-     * Custom function to format the caregiver's phone number.
-     * For example, you might want to format the phone number for display purposes.
-     */
-    public function getFormattedPhoneAttribute()
+
+    public function members()
     {
-        // Assuming the phone number is in the format 1234567890, format it as (123) 456-7890
-        return '(' . substr($this->Phone, 0, 3) . ') ' . substr($this->Phone, 3, 3) . '-' . substr($this->Phone, 6);
+        return $this->belongsToMany(Member::class, 'caregivers_to_members', 'caregiver_id', 'member_id');
     }
 
-    /**
-     * Define a scope to filter caregivers who are related to a specific member.
-     * This could be useful to find caregivers associated with a member.
-     */
-    public function scopeForMember($query, $memberId)
+    public function users()
     {
-        return $query->where('MemberID', $memberId); // Get caregivers for a specific member
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function caregiversToMembers()
+    {
+        return $this->hasMany(CaregiversToMembers::class, 'caregiver_id', 'caregiver_id');
     }
 }

@@ -1,36 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Caregiver;
 
-class CaregiverController extends Controller
+class CaregiverController extends BaseController
 {
+    protected $model = Caregiver::class;
 
-    public function index()
-    {
-
-    }
-
-
-    public function store(Request $request)
-    {
-
-    }
-
-    public function show(string $id)
-    {
-
-    }
-
-
-    public function update(Request $request, string $id)
-    {
-
-    }
-
-    public function destroy(string $id)
-    {
-        //
-    }
 }

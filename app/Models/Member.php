@@ -8,64 +8,31 @@ use Illuminate\Database\Eloquent\Model;
 class Member extends Model
 {
     use HasFactory;
-
     protected $table = 'members';
-    protected $primaryKey = 'MemberID';
-    protected $fillable = [
-        'Name',
-        'Age',
-        'Address',
-        'Phone',
-        'DietaryRequirements',
-        'RegistrationDate',
-        'CaregiverID'
-    ];
+    protected $primaryKey = 'member_id';
+    protected $fillable = ['eligebility', 'needs', 'allergies', 'user_id'];
 
-    public function caregiver()
+
+    public function users()
     {
-        return $this->belongsTo(Caregiver::class, 'CaregiverID');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function deliveries()
+    public function user()
     {
-        return $this->hasMany(Delivery::class, 'MemberID');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function feedbacks()
+    public function caregivers()
     {
-        return $this->hasMany(Feedback::class, 'MemberID');
+        return $this->belongsToMany(Caregiver::class, 'caregivers_to_members', 'caregiver_id', 'member_id');
     }
 
-    /**
-     * Get the member's full name.
-     * Example of an accessor method.
-     */
-    public function getFullNameAttribute()
+
+    public function caregiversToMembers()
     {
-        return $this->Name; // Just an example, assuming Name contains full name
+        return $this->hasMany(CaregiversToMembers::class, 'member_id', 'member_id');
     }
 
-    /**
-     * Scope to filter members by age range.
-     */
-    public function scopeAgeRange($query, $minAge, $maxAge)
-    {
-        return $query->whereBetween('Age', [$minAge, $maxAge]);
-    }
 
-    /**
-     * Scope to search for members by phone number.
-     */
-    public function scopeSearchByPhone($query, $phone)
-    {
-        return $query->where('Phone', 'like', '%' . $phone . '%');
-    }
-
-    /**
-     * Scope to filter members by registration date.
-     */
-    public function scopeRegisteredAfter($query, $date)
-    {
-        return $query->where('RegistrationDate', '>', $date);
-    }
 }

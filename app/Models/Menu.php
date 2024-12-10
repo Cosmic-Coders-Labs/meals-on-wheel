@@ -8,19 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class Menu extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'menu_id';
+    protected $table = 'menu';
 
-    // Define the table name, if it's different from the plural form of the model name
-    protected $table = 'menus';
+    protected $fillable = [
+        'menu_name',
+        'available_from',
+        'available_until',
+        'meal_id',
+        'purposed_by',
+    ];
 
-    // Define the primary key if it's not the default 'id'
-    protected $primaryKey = 'MenuID';
 
-    // Specify which attributes should be mass-assignable
-    protected $fillable = ['WeekStartDate', 'WeekEndDate', 'NewAttribute', 'MealID'];
 
-    // Define relationships
     public function meal()
     {
-        return $this->belongsTo(Meal::class, 'MealID');
+        return $this->belongsTo(Meal::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'purposed_by');
     }
 }

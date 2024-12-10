@@ -9,48 +9,55 @@ class Meal extends Model
 {
     use HasFactory;
 
-    // Define the table name (optional, if it matches the plural form of the model name)
     protected $table = 'meals';
+    protected $primaryKey = 'meal_id';
 
-    // Define the primary key if it's not the default 'id'
-    protected $primaryKey = 'MealID';
+    protected $fillable = [
+        'name',
+        'short_description',
+        'long_description',
+        'ingredients',
+        'image',
+        'allergens',
+        'reason_for_rejection',
+        'status',
+        'price',
+        'delivery_type',
+        'dietary_type',
+        'calories',
+        'user_id',
+    ];
 
-    // Specify which attributes should be mass-assignable
-    protected $fillable = ['MealName', 'Ingredients', 'Calories', 'PreparationTime', 'PartnerID'];
+    protected $casts = [
+        'ingredients' => 'array',
+        'allergens' => 'array',
+    ];
 
-    /**
-     * Get the partner that owns the meal.
-     * This defines the relationship between the 'meals' and 'partners' table.
-     */
-    public function partner()
+    public static function validationRules()
     {
-        return $this->belongsTo(Partner::class, 'PartnerID');
+        return [
+            'name' => 'required|string|max:255',
+            'ingredients' => 'required|array|min:1', // Validate as array
+            'ingredients.*' => 'string|max:255',
+            'allergens' => 'nullable|array', // Validate allergens as array
+            'allergens.*' => 'string|max:255',
+            'short_description' => 'required|string|max:500',
+            'long_description' => 'required|string',
+            'image' => 'nullable|file|image|mimes:jpeg,png,jpg,gif|max:5000',
+            'reason_for_rejection' => 'nullable|string|max:255',
+            'status' => 'required|string|in:available,unavailable',
+            'price' => 'required|numeric|min:0',
+            'delivery_type' => 'required|string|in:hot-meal,frozen-meal',
+            'dietary_type' => 'required|string|in:vegetarian,vegan,gluten-free,dairy,nuts,none',
+            'calories' => 'required|numeric|min:0|max:5000',
+            'user_id' => 'required|exists:users,id',
+        ];
     }
 
-    /**
-     * Custom function to get the preparation time in hours and minutes format.
-     * This is useful for displaying more readable prep time.
-     */
-    public function getFormattedPreparationTimeAttribute()
-    {
-        $hours = floor($this->PreparationTime / 60);
-        $minutes = $this->PreparationTime % 60;
-        return $hours . ' hours ' . $minutes . ' minutes'; // Example output: "1 hours 30 minutes"
-    }
 
-    /**
-     * Scope to filter meals by calories range.
-     */
-    public function scopeCalorieRange($query, $minCalories, $maxCalories)
-    {
-        return $query->whereBetween('Calories', [$minCalories, $maxCalories]);
-    }
 
-    /**
-     * Scope to search meals by name.
-     */
-    public function scopeSearchByName($query, $name)
+    public function menu()
     {
-        return $query->where('MealName', 'like', '%' . $name . '%');
+        return $this->hasMany(Menu::class);
     }
 }

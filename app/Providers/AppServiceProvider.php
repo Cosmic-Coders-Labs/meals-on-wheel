@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Vite::prefetch(concurrency: 3);
         // Manually load the API routes
         Route::prefix('api')
         ->middleware('api')
@@ -30,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Route::middleware('web')
         ->namespace($this->app->getNamespace())
             ->group(base_path('routes/web.php'));
+
+        Route::aliasMiddleware('role', \App\Http\Middleware\CheckRole::class);
     }
 }
