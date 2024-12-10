@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\Task;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -27,7 +26,19 @@ class OrderController extends Controller
             ], 404);
         }
 
-        return response()->json($orders);
+        return response()->json(json_decode($orders), 200);
+    }
+    public function show($order_id)
+    {
+        $order = Order::with(['member', 'meal', 'caregiver', 'tasks', 'member.user', 'member.user.profile'])
+        ->where('order_id', $order_id)
+            ->get();
+
+        if ($order->isEmpty()) {
+            return response()->json(['error' => 'No orders found for the given caregiver ID'], 404);
+        }
+
+        return response()->json(json_decode($order), 200);
     }
 
     public function getByMember(Request $request, $member_id)
@@ -44,7 +55,7 @@ class OrderController extends Controller
             ], 404);
         }
 
-        return response()->json($orders);
+        return response()->json(json_decode($orders), 200);
     }
 
 
@@ -63,7 +74,7 @@ class OrderController extends Controller
         ]);
 
         $order = Order::create($validated);
-        return response()->json($order, 201);
+        return response()->json(json_decode($order), 201);
     }
 
     public function update(Request $request, $id)
@@ -77,7 +88,7 @@ class OrderController extends Controller
         ]);
 
         $order->update($validated);
-        return response()->json($order);
+        return response()->json(json_decode($order), 200);
     }
 
     public function destroy($id)
@@ -86,4 +97,21 @@ class OrderController extends Controller
         $order->delete();
         return response()->json(['message' => 'Order deleted successfully']);
     }
+
+    public function updateLocation(Request $request, $order_id)
+    {
+        $request->validate([
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
+
+        $order = Order::findOrFail($order_id);
+        $order->update([
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+        ]);
+
+        return response()->json(['message' => 'Location updated successfully.'], 200);
+    }
+
 }

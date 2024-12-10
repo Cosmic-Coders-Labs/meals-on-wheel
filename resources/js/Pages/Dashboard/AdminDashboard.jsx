@@ -3,8 +3,6 @@ import AdminPage from "@/Components/Admin/dashboard/dashboard";
 import Sidebar from "@/Components/Sidebar/Sidebar";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-
-// Import other components for different pages
 import UserPage from "@/Components/Admin/user/UserPage";
 import MealsPage from "@/Components/Admin/meals/Meals";
 import VolunteerAssignmentsPage from "@/Components/Admin/volunteer/volunteer";
@@ -12,6 +10,7 @@ import { fetchProfile, getMyRole } from "@/Utils/utils";
 import { pageAccess } from "@/Utils/PageAccess";
 import useActivePage from "@/Utils/useActivePage";
 import ProfilePage from "@/Components/Profile/ProfilePage";
+import PartnerPage from "@/Components/Admin/partner/dashboard";
 
 export default function AdminDashboard() {
     const [isSidebarClosed, setIsSidebarClosed] = useState(false);
@@ -37,16 +36,11 @@ export default function AdminDashboard() {
         setIsSidebarClosed(closed);
     };
 
-    useEffect(() => {
-        if (!activePage || !pageAccess[activePage]?.includes(userRole)) {
-            setActivePage("Dashboard");
-        }
-    }, [activePage, userRole]);
-
-
     // Function to render the active component based on `activePage` and role
     const renderActivePage = () => {
-
+        if (!pageAccess[activePage]?.includes(userRole) && !activePage) {
+            setActivePage("Dashboard");
+        }
         switch (activePage) {
             case "Dashboard":
                 return <AdminPage />;
@@ -56,8 +50,8 @@ export default function AdminDashboard() {
                 return <MealsPage />;
             case "Tasks":
                 return <VolunteerAssignmentsPage />;
-            // case "Partner":
-            //     return <PartnerPage />;
+            case "Partner":
+                return <PartnerPage />;
             // case "Delivery":
             //     return <DeliveryPage />;
             case "Profile":

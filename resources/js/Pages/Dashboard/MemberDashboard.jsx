@@ -1,5 +1,5 @@
-import AdminDashboard from '@/Components/Admin/dashboard/dashboard';
-import DeliveryTrack from '@/Components/DeliveryTrack';
+
+import DeliveryPage from '@/Components/delivery/dashboard';
 import MyOrderPage from '@/Components/Member/dashboard';
 import ProfilePage from '@/Components/Profile/ProfilePage';
 import Sidebar from '@/Components/Sidebar/Sidebar';
@@ -34,19 +34,18 @@ export default function MemberDashboard() {
         if (!activePage || !pageAccess[activePage]?.includes(userRole)) {
             setActivePage("My Orders");
         }
-    }, [activePage, userRole]);
-
-
+    }, [activePage]);
     const handleSidebarToggle = (closed) => {
         setIsSidebarClosed(closed);
     };
 
     const renderActivePage = () => {
+
         switch (activePage) {
             case "My Orders":
                 return <MyOrderPage />;
             case "Delivery":
-                return <DeliveryTrack />;
+                return <DeliveryPage />;
             case "Profile":
                 return <ProfilePage userData={userData} />
             default:

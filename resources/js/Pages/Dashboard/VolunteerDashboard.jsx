@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "@/Components/Sidebar/Sidebar";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-import MealsPage from "@/Components/Admin/meals/Meals";
 import { fetchProfile, getMyRole } from "@/Utils/utils";
 import { pageAccess } from "@/Utils/PageAccess";
 import useActivePage from "@/Utils/useActivePage";
 import ProfilePage from "@/Components/Profile/ProfilePage";
-import Partner from "@/Components/User/Partner";
 import VolunteerAssignmentsPage from "@/Components/Volunteer/dashboard";
 import AvailableTasksPage from "@/Components/Volunteer/AvailableTasksPage";
 
@@ -35,14 +33,11 @@ export default function VolunteerDashboard() {
         setIsSidebarClosed(closed);
     };
 
-    useEffect(() => {
+    // Function to render the active component based on `activePage` and role
+    const renderActivePage = () => {
         if (!activePage || !pageAccess[activePage]?.includes(userRole)) {
             setActivePage("My Tasks");
         }
-    }, [activePage, userRole]);
-
-    // Function to render the active component based on `activePage` and role
-    const renderActivePage = () => {
         switch (activePage) {
             case "Tasks":
                 return <AvailableTasksPage />;

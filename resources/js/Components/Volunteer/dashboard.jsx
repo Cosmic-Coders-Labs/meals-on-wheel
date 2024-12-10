@@ -22,7 +22,7 @@ const VolunteerAssignmentsPage = () => {
                 const myProfile = await getMe();
                 const myUserData = await getUserById(myProfile.id);
                 const taskData = await getVolunteerAssignmentById(myUserData.volunteer_id);
-                console.log(taskData);
+
                 setCurrentUser(myUserData)
                 setAssignments(taskData);
             } catch (error) {

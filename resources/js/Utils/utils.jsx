@@ -26,12 +26,15 @@ export const fetchUsers = () => apiRequest("users");
 export const fetchRoles = () => apiRequest("roles");
 export const fetchCaregivers = () => apiRequest("caregivers");
 export const fetchMembers = () => apiRequest("members");
+
 export const fetchPartners = () => apiRequest("partners");
 export const fetchVolunteers = () => apiRequest("volunteers");
 export const fetchMeals = () => apiRequest("meals");
 export const fetchMeal = (id) => apiRequest(`meals/${id}`);
 export const fetchMenus = () => apiRequest("menus");
+
 export const fetchOrders = () => apiRequest("orders");
+export const makeOrder = (data) => apiRequest("orders", 'POST', data);
 export const fetchOrdersByCaregiver = (caregiver_id) => apiRequest(`orders/caregiver/${caregiver_id}`);
 export const fetchOrdersByMemberID = (member_id) => apiRequest(`orders/member/${member_id}`);
 
@@ -40,12 +43,16 @@ export const fetchAvailableTasks = () => apiRequest('tasks/available');
 export const updateTask = (id, data) => apiRequest(`tasks/${id}`, "PUT", data);
 
 export const fetchMealsOrders = () => apiRequest("meals-orders");
+
+
 export const fetchProfiles = () => apiRequest("profiles");
 export const fetchProfile = (id) => apiRequest(`profiles/${id}`);
 export const fetchCount = () => apiRequest('admin-dashboard');
 export const fetchVolunteerAssignments = () => apiRequest('volunteer-assignments');
 export const fetchDonation = () => apiRequest('donations')
 export const fetchDonationById = (id) => apiRequest(`donations/donor/${id}`);
+
+export const getMembersById = (id) => apiRequest(`members/${id}`);
 
 export const fetchCertificates = () => apiRequest('certificates');
 export const addCertificates = (data) => apiRequest('certificates', 'POST', data);
@@ -68,9 +75,12 @@ export const addRole = (roleData) => apiRequest("roles", "POST", roleData);
 export const editRole = (id, roleData) => apiRequest(`roles/${id}`, "PUT", roleData);
 export const deleteRole = (id) => apiRequest(`roles/${id}`, "DELETE");
 
+
 export const addMeal = (mealData) => apiRequest("meals", "POST", mealData);
 export const editMeal = (id, mealData) => apiRequest(`meals/${id}`, "PUT", mealData);
 export const rejectMeal = (id) => apiRequest(`meals/${id}`, "DELETE");
+
+export const rejectPartner = (id, data) => apiRequest(`partners/${id}/update`, 'PUT', data);
 
 export const addVolunteerAssignment = (assignmentData) => apiRequest("volunteer-assignments", "POST", assignmentData);
 export const getVolunteerAssignmentById = (id) => apiRequest(`volunteer/${id}/tasks`);

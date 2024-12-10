@@ -4,7 +4,6 @@ const useActivePage = (defaultPage) => {
     const [activePage, setActivePage] = useState(defaultPage);
 
     useEffect(() => {
-        // Load the activePage from localStorage on component mount
         const savedPage = localStorage.getItem("activePage");
         if (savedPage) {
             setActivePage(savedPage);

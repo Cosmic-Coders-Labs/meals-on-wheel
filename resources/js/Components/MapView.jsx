@@ -1,16 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 
-const MapView = () => {
+const MapView = ({ latitude, longitude }) => {
+    const { isLoaded } = useLoadScript({
+        googleMapsApiKey: "YOUR_GOOGLE_MAPS_API_KEY", // Replace with your API key
+    });
+
+    const [center, setCenter] = useState({ lat: 0, lng: 0 });
+
+    useEffect(() => {
+        if (latitude && longitude) {
+            setCenter({ lat: parseFloat(latitude), lng: parseFloat(longitude) });
+        }
+    }, [latitude, longitude]);
+
+    if (!isLoaded) return <div>Loading Map...</div>;
+
     return (
-        <div className="relative w-full h-[400px] bg-gray-200 rounded-lg shadow-lg">
-            {/* Mock Map */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-lg">📍</span>
-                </div>
-                {/* Lines or connections */}
-                <div className="absolute w-32 h-1 bg-blue-500 transform -rotate-45 -top-8 left-10"></div>
-            </div>
+        <div className="w-full h-[400px]">
+            <GoogleMap
+                zoom={14}
+                center={center}
+                mapContainerStyle={{ width: "100%", height: "100%" }}
+            >
+                <Marker position={center} />
+            </GoogleMap>
         </div>
     );
 };
