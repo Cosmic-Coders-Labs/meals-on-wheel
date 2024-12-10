@@ -1,6 +1,5 @@
 import React from "react";
-import logos from "../../../../../assets/logos.jpg"; // Updated to use the single image file
-
+import logos from "../../../../../assets/logos.jpg"; 
 const OurPartners = () => {
     return (
         <section className="bg-white py-20 px-8">
