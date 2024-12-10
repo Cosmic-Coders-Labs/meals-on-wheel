@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "@/Components/Sidebar/Sidebar";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-
 import { fetchProfile, getMyRole } from "@/Utils/utils";
 import { pageAccess } from "@/Utils/PageAccess";
 import useActivePage from "@/Utils/useActivePage";
@@ -31,11 +30,6 @@ export default function CaregiverDashboard() {
         getUserDataFunc();
     }, []);
 
-    useEffect(() => {
-        if (!activePage || !pageAccess[activePage]?.includes(userRole)) {
-            setActivePage("My Orders");
-        }
-    }, [activePage, userRole]);
 
 
     const handleSidebarToggle = (closed) => {
@@ -44,6 +38,9 @@ export default function CaregiverDashboard() {
 
     // Function to render the active component based on `activePage` and role
     const renderActivePage = () => {
+        if (!activePage && !pageAccess[activePage]?.includes(userRole)) {
+            setActivePage("Member Management");
+        }
         switch (activePage) {
             case "Member Management":
                 return <CaregiverPage />;

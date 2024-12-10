@@ -11,7 +11,7 @@ class SchemaDefinitions
         $table->id();
         $table->string('email')->unique();
         $table->string('password');
-        $table->enum('status', ['active', 'inactive'])->default('inactive');
+        $table->enum('status', ['active', 'inactive', 'approved', 'rejected'])->default('inactive');
         $table->decimal('latitude', 10, 7)->default(0);
         $table->decimal('longitude', 10, 7)->default(0);
         $table->string('reason_of_rejection')->nullable();
@@ -115,7 +115,7 @@ class SchemaDefinitions
     public static function createMember(Blueprint $table)
     {
         $table->id('member_id');
-        $table->string('eligebility')->default('Not Specified');
+        $table->string('eligebility')->default('Not Specified'); //  not used anymore used active in user entity to check status of member eligebility or not.
         $table->string('needs');
         $table->string('allergies')->nullable();
         $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
@@ -243,6 +243,9 @@ class SchemaDefinitions
         $table->timestamp('delivery_date')->nullable();
         $table->text('special_instructions')->nullable();
         $table->text('rejection_reason')->nullable();
+
+        $table->decimal('latitude', 10, 7)->nullable();
+        $table->decimal('longitude', 10, 7)->nullable();
         $table->timestamps();
     }
 

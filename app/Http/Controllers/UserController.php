@@ -121,7 +121,7 @@ class UserController extends BaseController
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:active,inactive',
+            'status' => 'required|in:approved,rejected,inactive,active',
         ]);
 
         $user = User::findOrFail($id);

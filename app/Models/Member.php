@@ -29,6 +29,7 @@ class Member extends Model
     }
 
 
+
     public function caregiversToMembers()
     {
         return $this->hasMany(CaregiversToMembers::class, 'member_id', 'member_id');

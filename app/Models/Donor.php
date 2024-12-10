@@ -22,6 +22,8 @@ class Donor extends Model
         'user_id',
     ];
 
+
+
     // Define the relationship with the Donation model
     public function donations()
     {

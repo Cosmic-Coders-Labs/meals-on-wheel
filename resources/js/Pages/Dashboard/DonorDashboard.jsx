@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
-import AdminPage from "@/Components/Admin/dashboard/dashboard";
 import Sidebar from "@/Components/Sidebar/Sidebar";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-
-// Import other components for different pages
-import UserPage from "@/Components/Admin/user/UserPage";
-import MealsPage from "@/Components/Admin/meals/Meals";
-import VolunteerAssignmentsPage from "@/Components/Admin/volunteer/volunteer";
 import { fetchProfile, getMyRole } from "@/Utils/utils";
 import { pageAccess } from "@/Utils/PageAccess";
 import useActivePage from "@/Utils/useActivePage";
@@ -38,16 +32,11 @@ export default function DonorDashboard() {
         setIsSidebarClosed(closed);
     };
 
-    useEffect(() => {
+    // Function to render the active component based on `activePage` and role
+    const renderActivePage = () => {
         if (!activePage || !pageAccess[activePage]?.includes(userRole)) {
             setActivePage("Donation");
         }
-    }, [activePage, userRole]);
-
-
-    // Function to render the active component based on `activePage` and role
-    const renderActivePage = () => {
-
         switch (activePage) {
             case "Donation":
                 return <DonationPage />;
@@ -78,8 +67,8 @@ export default function DonorDashboard() {
                 <Sidebar
                     onSidebarToggle={handleSidebarToggle}
                     activePage={activePage}
-                    setActivePage={setActivePage} // Pass the setActivePage function
-                    role={userRole} // Pass the role to Sidebar
+                    setActivePage={setActivePage}
+                    role={userRole}
                 />
                 {/* Main Content */}
                 <div

@@ -9,6 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'order_id';
     protected $table = 'orders';
 
     protected $fillable = [
@@ -21,6 +22,8 @@ class Order extends Model
         'delivery_date',
         'special_instructions',
         'rejection_reason',
+        'latitude',
+        'longitude'
     ];
 
     public function member()

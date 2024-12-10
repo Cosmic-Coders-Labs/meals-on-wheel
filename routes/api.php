@@ -25,6 +25,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\MealsOrderController;
 use App\Http\Controllers\VolunteerAssignmentController;
 
+
 Route::resource('users', UserController::class);
 Route::resource('roles', RoleController::class);
 Route::resource('user-roles', RoleController::class);
@@ -32,6 +33,7 @@ Route::resource('caregivers', CaregiverController::class);
 
 Route::resource('members', MemberController::class);
 Route::resource('caregivers-to-members', CaregiversToMembersController::class);
+
 Route::resource('partners', PartnerController::class);
 Route::resource('volunteers', VolunteerController::class);
 Route::resource('profiles', CustomProfileController::class);

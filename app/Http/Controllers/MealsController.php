@@ -97,7 +97,7 @@ class MealsController extends Controller
 
         return Inertia::render('Public/MealsDetails', [
             'meal' => [
-                'id' => $meal->id,
+                'id' => $meal->meal_id,
                 'name' => $meal->name,
                 'ingredients' => $meal->ingredients,
                 'short_description' => $meal->short_description,

@@ -1,38 +1,54 @@
 import GuestLayout from "@/Layouts/GuestLayout";
-import { fetchMeal } from "@/Utils/utils";
-import { Head, Link } from "@inertiajs/react";
+import { getMe, getMembersById, getUserById, makeOrder } from "@/Utils/utils";
+import { Head, Link, router } from "@inertiajs/react";
 import React, { useState, useEffect } from "react";
 import mealTemp from '../../../assets/mealTemp.jpg'
 const MealsDetails = ({ meal }) => {
     const [mealData, setMealData] = useState(meal);
-    const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [specialInstructions, setSpecialInstructions] = useState("");
 
-    useEffect(() => {
-        if (!mealData) {
-            const getMeal = async () => {
-                try {
-                    const response = await fetchMeal(1);
-                    setMealData(response);
-                } catch (error) {
-                    console.error("Failed to fetch meal:", error);
-                } finally {
-                    setLoading(false);
-                }
+    const confirmOrder = async () => {
+        try {
+            setMealData(meal);
+            const myProfile = await getMe();
+            const myUserData = await getUserById(myProfile.id);
+            const memberData = await getMembersById(myUserData.member_id);
+            const today = new Date().toISOString().split('T')[0];
+            const requestData = {
+                "meal_id": mealData.id,
+                "member_id": memberData.member_id,
+                "caregiver_id": memberData.caregivers[0].caregiver_id,
+                "status": "pending",
+                "total_price": parseFloat(meal.price),
+                "order_date": today,
+                "delivery_date": today,
+                "special_instructions": specialInstructions,
+                "rejection_reason": null
             };
-
-            getMeal();
-        } else {
-            setLoading(false);
+            try {
+                await makeOrder(requestData);
+                alert("Successfully made an order for meal")
+            } catch (error) {
+                alert("Meal Order failed");
+            }
+            setIsModalOpen(false);
+        } catch (error) {
+            console.error("Failed to fetch data.");
+            alert("Please log in as a member.");
+            router.visit(route('login'));
         }
-    }, [mealData]);
+    };
 
-    if (loading) {
-        return (
-            <div className="flex items-center justify-center h-screen text-gray-700">
-                Loading...
-            </div>
-        );
-    }
+
+    const handleOrderClick = () => {
+        setIsModalOpen(true); // Open the modal
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false); // Close the modal without ordering
+    };
+
 
     return (
         <GuestLayout>
@@ -48,11 +64,9 @@ const MealsDetails = ({ meal }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
                     {/* Image Section */}
                     <div className="w-full">
-
                         <img
                             src={mealData.image || mealTemp}
                             alt={mealData.mealName || "Meal Image"}
-                            onLoad={() => setImageLoaded(true)}
                             onError={(e) => {
                                 e.target.onerror = null; // Prevent infinite loop
                                 e.target.src = mealTemp;
@@ -111,7 +125,7 @@ const MealsDetails = ({ meal }) => {
 
                         {/* Order Button */}
                         <div className="text-center">
-                            <button className="w-full md:w-auto py-3 px-6 bg-secondary-700 text-white font-bold rounded-lg hover:bg-secondary-800 transition">
+                            <button className="w-full md:w-auto py-3 px-6 bg-secondary-700 text-white font-bold rounded-lg hover:bg-secondary-800 transition" onClick={handleOrderClick}>
                                 Order Meal
                             </button>
                         </div>
@@ -128,6 +142,36 @@ const MealsDetails = ({ meal }) => {
                     Back to Meals
                 </Link>
             </section>
+
+            {/* Modal */}
+            {isModalOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg shadow-lg p-6 w-[90%] md:w-[40%]">
+                        <h2 className="text-xl font-bold text-gray-800 mb-4">Special Instructions</h2>
+                        <textarea
+                            className="w-full p-4 border rounded-lg"
+                            rows="4"
+                            value={specialInstructions}
+                            onChange={(e) => setSpecialInstructions(e.target.value)}
+                            placeholder="Enter any special instructions for the meal"
+                        ></textarea>
+                        <div className="mt-6 flex justify-end space-x-4">
+                            <button
+                                className="py-2 px-4 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition"
+                                onClick={closeModal}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                className="py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+                                onClick={confirmOrder}
+                            >
+                                Confirm Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </GuestLayout>
     );
 };
