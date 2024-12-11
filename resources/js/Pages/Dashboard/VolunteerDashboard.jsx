@@ -33,11 +33,15 @@ export default function VolunteerDashboard() {
         setIsSidebarClosed(closed);
     };
 
-    // Function to render the active component based on `activePage` and role
-    const renderActivePage = () => {
+    useEffect(() => {
         if (!activePage || !pageAccess[activePage]?.includes(userRole)) {
             setActivePage("My Tasks");
         }
+    }, [activePage]);
+
+    // Function to render the active component based on `activePage` and role
+    const renderActivePage = () => {
+
         switch (activePage) {
             case "Tasks":
                 return <AvailableTasksPage />;

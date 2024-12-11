@@ -31,6 +31,11 @@ export default function CaregiverDashboard() {
     }, []);
 
 
+    useEffect(() => {
+        if (!activePage && !pageAccess[activePage]?.includes(userRole)) {
+            setActivePage("Member Management");
+        }
+    }, [activePage]);
 
     const handleSidebarToggle = (closed) => {
         setIsSidebarClosed(closed);
@@ -38,9 +43,7 @@ export default function CaregiverDashboard() {
 
     // Function to render the active component based on `activePage` and role
     const renderActivePage = () => {
-        if (!activePage && !pageAccess[activePage]?.includes(userRole)) {
-            setActivePage("Member Management");
-        }
+
         switch (activePage) {
             case "Member Management":
                 return <CaregiverPage />;

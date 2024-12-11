@@ -31,12 +31,14 @@ export default function DonorDashboard() {
     const handleSidebarToggle = (closed) => {
         setIsSidebarClosed(closed);
     };
-
-    // Function to render the active component based on `activePage` and role
-    const renderActivePage = () => {
+    useEffect(() => {
         if (!activePage || !pageAccess[activePage]?.includes(userRole)) {
             setActivePage("Donation");
         }
+    }, [activePage]);
+    // Function to render the active component based on `activePage` and role
+    const renderActivePage = () => {
+
         switch (activePage) {
             case "Donation":
                 return <DonationPage />;

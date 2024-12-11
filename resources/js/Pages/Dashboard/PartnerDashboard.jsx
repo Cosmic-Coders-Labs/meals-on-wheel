@@ -33,12 +33,15 @@ export default function PartnerDashboard() {
         setIsSidebarClosed(closed);
     };
 
-
-    // Function to render the active component based on `activePage` and role
-    const renderActivePage = () => {
+    useEffect(() => {
         if (!activePage && !pageAccess[activePage]?.includes(userRole)) {
             setActivePage("My Certificates");
         }
+    }, [activePage]);
+
+    // Function to render the active component based on `activePage` and role
+    const renderActivePage = () => {
+
         switch (activePage) {
             case "My Certificates":
                 return <Partner />;

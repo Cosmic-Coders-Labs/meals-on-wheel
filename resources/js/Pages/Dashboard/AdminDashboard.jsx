@@ -36,11 +36,15 @@ export default function AdminDashboard() {
         setIsSidebarClosed(closed);
     };
 
-    // Function to render the active component based on `activePage` and role
-    const renderActivePage = () => {
+    useEffect(() => {
         if (!pageAccess[activePage]?.includes(userRole) && !activePage) {
             setActivePage("Dashboard");
         }
+    }, [activePage])
+
+    // Function to render the active component based on `activePage` and role
+    const renderActivePage = () => {
+
         switch (activePage) {
             case "Dashboard":
                 return <AdminPage />;
