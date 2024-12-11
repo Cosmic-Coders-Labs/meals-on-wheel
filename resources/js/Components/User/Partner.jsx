@@ -32,7 +32,8 @@ const PartnerPage = () => {
     }, []);
 
     // Handle Add Certificate
-    const handleAddCertificate = () => {
+    const handleAddCertificate = async () => {
+        const response = await fetchCertificatesByID(myUserData.partner_id);
         setCertificates((prev) => [...prev, response.data]);
     };
 

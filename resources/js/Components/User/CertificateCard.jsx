@@ -9,7 +9,6 @@ const CertificateCard = ({ title, subtitle, date, status, image, onRemove }) => 
                 <img
                     src={image}
                     alt={title}
-                    onLoad={() => setImageLoaded(true)}
                     className={`w-full h-full object-cover max-h-20 transition-opacity duration-500`}
                 />
                 <button

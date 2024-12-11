@@ -82,7 +82,6 @@ class CertificatesController extends Controller
         if (!$certificate) {
             return response()->json(['error' => 'Certificate not found'], 404);
         }
-
         if ($certificate->image) {
             Storage::disk('public')->delete($certificate->image);
         }
