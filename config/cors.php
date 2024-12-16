@@ -2,7 +2,7 @@
 
 return [
 
-    'paths' => ['api/*', 'meals', 'sanctum/csrf-cookie'],
+    'paths' => ['api/*', 'meals', 'Certificates', 'sanctum/csrf-cookie'],
     'allowed_methods' => ['*'],
     'allowed_origins' => ['*'],
     'allowed_origins_patterns' => [],
