@@ -39,7 +39,6 @@ export default function VolunteerDashboard() {
         }
     }, [activePage]);
 
-    // Function to render the active component based on `activePage` and role
     const renderActivePage = () => {
 
         switch (activePage) {

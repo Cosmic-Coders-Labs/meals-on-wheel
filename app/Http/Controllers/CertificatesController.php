@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Certificate;
-use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -75,19 +74,17 @@ class CertificatesController extends Controller
         return response()->json($certificate, 200);
     }
 
-    public function destory($id)
+    public function destroy($id)
     {
         $certificate = Certificate::find($id);
-
-        if (!$certificate) {
-            return response()->json(['error' => 'Certificate not found'], 404);
-        }
         if ($certificate->image) {
             Storage::disk('public')->delete($certificate->image);
         }
-
+        if (!$certificate) {
+            return response()->json(['error' => 'Certificate not found'], 404);
+        }
         $certificate->delete();
-
         return response()->json(null, 204);
     }
+
 }
