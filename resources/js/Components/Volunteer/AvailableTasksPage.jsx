@@ -52,7 +52,7 @@ const AvailableTasksPage = () => {
 
     const handleAction = async (action, task) => {
         if (action === "Take") {
-            const isConfirmed = window.confirm("Are you sure you want to take this certificate?");
+            const isConfirmed = window.confirm("Are you sure you want to take this task?");
             if (!isConfirmed) return;
 
             const today = new Date().toISOString().split('T')[0]; // Get only yyyy-mm-dd format

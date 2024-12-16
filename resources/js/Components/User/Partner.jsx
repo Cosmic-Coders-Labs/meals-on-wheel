@@ -34,7 +34,7 @@ const PartnerPage = () => {
     // Handle Add Certificate
     const handleAddCertificate = async () => {
         const response = await fetchCertificatesByID(myUserData.partner_id);
-        setCertificates((prev) => [...prev, response.data]);
+        window.location.reload();
     };
 
     // Handle Remove Certificate
@@ -44,11 +44,12 @@ const PartnerPage = () => {
 
         try {
             await deleteCertificatesByID(id);
-            setCertificates((prev) => prev.filter((cert) => cert.id !== id));
             alert("Certificate removed successfully.");
+            window.location.reload();
         } catch (error) {
             console.error("Error removing certificate:", error);
             alert("Failed to remove certificate.");
+            window.location.reload();
         }
     };
 

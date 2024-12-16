@@ -43,7 +43,16 @@ const MemberOrderDetailModal = ({ order, onClose }) => {
                             </div>
                             <div>
                                 <strong className="text-gray-600">Ingredients:</strong>{" "}
-                                {JSON.parse(meal.ingredients).join(", ")}
+                                {
+                                    (() => {
+                                        try {
+                                            // Try parsing as JSON
+                                            return JSON.parse(meal.ingredients).join(", ");
+                                        } catch (error) {
+                                            return meal.ingredients.join(", ");
+                                        }
+                                    })()
+                                }
                             </div>
                             <div>
                                 <strong className="text-gray-600">Price:</strong> ${meal.price}
